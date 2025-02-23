@@ -60,6 +60,7 @@ in {
       sleep-display-battery = 0;
     };
     "org/cinnamon/desktop/peripherals/touchpad".send-events = "disabled-on-external-mouse";
+    "org/cinnamon/muffin".tile-maximize = true;
     "org/cinnamon/desktop/keybindings" = mkIf hasGhostty {
       custom-list = [ "custom0" ];
     };
