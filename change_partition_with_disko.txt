@@ -1,0 +1,2 @@
+simply add/modify partition and ensure the name of the partition is the same as the partition label on the gpt table.
+to modify gpt table partition names use gdisk of the gptfdisk package

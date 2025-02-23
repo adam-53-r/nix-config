@@ -1,0 +1,223 @@
+{
+  description = "My NixOS Config";
+  inputs = {
+
+    # Nix ecosystem
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+
+    # Home manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    systems.url = "github:nix-systems/default-linux";
+    impermanence.url = "github:nix-community/impermanence";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Third party programs, packaged with nix
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # nix-gaming = {
+    #   # url = "github:fufexan/nix-gaming";
+    #   url = "github:misterio77/nix-gaming";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    deploy-rs.url = "github:serokell/deploy-rs";
+
+    # nix-ld.url = "github:Mic92/nix-ld";
+    # nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+  };
+  
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    systems,
+    disko,
+    nixos-generators,
+    deploy-rs,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    lib = nixpkgs.lib // home-manager.lib;
+    pkgsFor = lib.genAttrs (import systems) (system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      }
+    );
+    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+
+    system = "x86_64-linux";
+    # Unmodified nixpkgs
+    pkgs = import nixpkgs { inherit system; };
+    # nixpkgs with deploy-rs overlay but force the nixpkgs package
+    deployPkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        deploy-rs.overlay # or deploy-rs.overlays.default
+        (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+      ];
+    };
+  in {
+    inherit lib;
+
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/home-manager;
+
+    overlays = import ./overlays {inherit inputs outputs;};
+    # hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+
+    # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+
+    nixosConfigurations = {
+      # Adam Laptop
+      msi-nixos = lib.nixosSystem {
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/msi-nixos
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      # Dani Laptop
+      # dani_laptop = lib.nixosSystem {
+      #   modules = [
+      #     disko.nixosModules.disko
+      #     ./hosts/dani_laptop
+      #   ];
+      #   specialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
+    };
+
+
+    homeConfigurations = {
+      # Adam laptop
+      "adamr@msi-nixos" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/msi-nixos.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      # # Dani laptop
+      # "dani@nixos" = lib.homeManagerConfiguration {
+      #   modules = [ ./home/dani/nixos.nix ./home/adamr/nixpkgs.nix ];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
+    };
+    
+    # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    
+    packages.x86_64-linux = {
+      install-iso = nixos-generators.nixosGenerate {
+        system = "x86_64-linux";
+        format = "install-iso";
+        modules = [
+          {
+            users.users.nixos = {
+              initialHashedPassword = lib.mkForce "$y$j9T$tRAkzHi9kpFVhiUg21FIQ0$mkHVaqB1A/Seq4NfGnZaBswCQNWQ/8FWPrVKR5Qo7zD";
+              openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ./home/adamr/ssh.pub);
+            };
+
+            programs = {
+              fish.enable = true;
+            };
+            security.pam.sshAgentAuth = {
+              enable = true;
+            };
+            services.openssh = {
+              enable = true;
+              hostKeys = [
+                {
+                  path = "/etc/ssh/ssh_host_ed25519_key";
+                  type = "ed25519";
+                }
+              ];
+            };
+          }
+        ];
+      };
+    };
+
+
+    # A single nixos config outputting multiple formats.
+    # Alternatively put this in a configuration.nix.
+    # nixosModules.myFormats = { config, ... }: {
+    #   imports = [
+    #     nixos-generators.nixosModules.all-formats
+    #   ];
+
+    #   # customize an existing format
+    #   formatConfigs.vmware = { config, ... }: {
+    #     services.openssh.enable = true;
+    #   };
+
+    #   # define a new format
+    #   formatConfigs.my-custom-format = { config, modulesPath, ... }: {
+    #     imports = [ "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix" ];
+    #     formatAttr = "isoImage";
+    #     fileExtension = ".iso";
+    #     networking.wireless.networks = {
+    #       # ...
+    #     };
+    #   };
+    # };
+
+
+    deploy = {
+      sshOpts = [ "-A" ];
+      nodes = {
+        msi-nixos = {
+          hostname = "msi-nixos";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.msi-nixos;
+            };
+            home-manager-adamr = {
+              user = "adamr";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-nixos";
+            };
+          };
+        };
+      };
+    };
+
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+  };
+}
