@@ -21,6 +21,7 @@
     ../common/optional/steam.nix
     ../common/optional/libvirtd.nix
     ../common/optional/ecryptfs.nix
+    ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix
   ];
 
