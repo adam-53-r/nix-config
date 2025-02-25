@@ -103,6 +103,17 @@
           inherit inputs outputs;
         };
       };
+      
+      # Adam Shitbox
+      shitbox = lib.nixosSystem {
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/shitbox
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
 
       # Dani Laptop
       # dani_laptop = lib.nixosSystem {
@@ -122,6 +133,18 @@
       "adamr@msi-nixos" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/msi-nixos.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      
+      # Adam shitbox
+      "adamr@shitbox" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/shitbox.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;

@@ -69,5 +69,11 @@ in {
       binding = [ "<Primary><Alt>t" ];
       command = "ghostty";
     };
+    "org/cinnamon/desktop/keybindings/wm" = {
+      move-to-workspace-left = "@as []";
+      move-to-workspace-right = "@as []";
+      move-to-workspace-up = "@as []";
+      move-to-workspace-down = "@as []";
+    };
   };
 }
