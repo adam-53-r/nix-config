@@ -105,15 +105,15 @@
       };
       
       # Adam Shitbox
-      shitbox = lib.nixosSystem {
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/shitbox
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      # shitbox = lib.nixosSystem {
+      #   modules = [
+      #     disko.nixosModules.disko
+      #     ./hosts/shitbox
+      #   ];
+      #   specialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
 
       # Dani Laptop
       # dani_laptop = lib.nixosSystem {
@@ -153,14 +153,17 @@
         };
       };
 
-      # # Dani laptop
-      # "dani@nixos" = lib.homeManagerConfiguration {
-      #   modules = [ ./home/dani/nixos.nix ./home/adamr/nixpkgs.nix ];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
+      # Dani laptop
+      "kali@kali" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/dani/kali.nix
+          ./home/dani/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
     };
     
     # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
