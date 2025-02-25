@@ -70,10 +70,10 @@ in {
       command = "ghostty";
     };
     "org/cinnamon/desktop/keybindings/wm" = {
-      move-to-workspace-left = "@as []";
-      move-to-workspace-right = "@as []";
-      move-to-workspace-up = "@as []";
-      move-to-workspace-down = "@as []";
+      move-to-workspace-left = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-right = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-up = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-down = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
     };
   };
 }
