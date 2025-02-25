@@ -5,11 +5,13 @@ keys:
   # Hosts
   - &hosts:
     - &msi-nixos age1h5f37l0l9mn24s76mj703y20s65kr7a4ym7xkh55js4gf476fy3sj3hlex
+    - &shitbox age122fyrnag3nn6rk0fgw25amlz735kng4rv3sffqd6l8pqqq834eqsv0ljfq
 
 creation_rules:
   - path_regex: hosts/common/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *msi-nixos
+      - *shitbox
       pgp:
       - *adamr

@@ -105,15 +105,15 @@
       };
       
       # Adam Shitbox
-      # shitbox = lib.nixosSystem {
-      #   modules = [
-      #     disko.nixosModules.disko
-      #     ./hosts/shitbox
-      #   ];
-      #   specialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
+      shitbox = lib.nixosSystem {
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/shitbox
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
 
       # Dani Laptop
       # dani_laptop = lib.nixosSystem {
@@ -166,9 +166,8 @@
       };
     };
     
-    # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-    
-    packages.x86_64-linux = {
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;}) //
+    ({
       install-iso = nixos-generators.nixosGenerate {
         system = "x86_64-linux";
         format = "install-iso";
@@ -197,7 +196,7 @@
           }
         ];
       };
-    };
+    });
 
 
     # A single nixos config outputting multiple formats.
@@ -238,6 +237,34 @@
             home-manager-adamr = {
               user = "adamr";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-nixos";
+            };
+          };
+        };
+        shitbox = {
+          hostname = "shitbox";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.shitbox;
+            };
+            home-manager-adamr = {
+              user = "adamr";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@shitbox";
+            };
+          };
+        };
+        kali = {
+          hostname = "kali";
+          # profilesOrder = [ "system" ];
+          profiles = {
+            # system = {
+            #   user = "root";
+            #   path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.shitbox;
+            # };
+            home-manager-dani = {
+              user = "kali";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."kali@kali";
             };
           };
         };

@@ -11,8 +11,6 @@
   # BACKUPUSBID = "3F32-27F5";
 in {
   imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-    
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-ssd
