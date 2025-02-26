@@ -93,10 +93,12 @@
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {
-      # Adam Laptop
+      #################
+      # Adam Machines #
+      #################
+      # Main Laptop
       msi-nixos = lib.nixosSystem {
         modules = [
-          disko.nixosModules.disko
           ./hosts/msi-nixos
         ];
         specialArgs = {
@@ -104,10 +106,9 @@
         };
       };
       
-      # Adam Shitbox
+      # Shitbox
       shitbox = lib.nixosSystem {
         modules = [
-          disko.nixosModules.disko
           ./hosts/shitbox
         ];
         specialArgs = {
@@ -115,16 +116,29 @@
         };
       };
       
-      # Adam tests-vm
+      # tests-vm
       tests-vm = lib.nixosSystem {
         modules = [
-          disko.nixosModules.disko
           ./hosts/tests-vm
         ];
         specialArgs = {
           inherit inputs outputs;
         };
       };
+
+      # raspberrypi
+      raspberrypi = lib.nixosSystem {
+        modules = [
+          ./hosts/raspberrypi
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      #################
+      # Dani Machines #
+      #################
 
       # Dani Laptop
       # dani_laptop = lib.nixosSystem {
@@ -140,6 +154,10 @@
 
 
     homeConfigurations = {
+      ##############
+      # Adam users #
+      ##############
+
       # Adam laptop
       "adamr@msi-nixos" = lib.homeManagerConfiguration {
         modules = [
@@ -176,6 +194,10 @@
         };
       };
 
+      ##############
+      # Dani users #
+      ##############
+
       # Dani laptop
       "kali@kali" = lib.homeManagerConfiguration {
         modules = [
@@ -188,7 +210,8 @@
         };
       };
     };
-    
+
+    # Importing custom packages and nixos-generate configs
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;}) //
     ({
       install-iso = nixos-generators.nixosGenerate {
@@ -222,34 +245,13 @@
     });
 
 
-    # A single nixos config outputting multiple formats.
-    # Alternatively put this in a configuration.nix.
-    # nixosModules.myFormats = { config, ... }: {
-    #   imports = [
-    #     nixos-generators.nixosModules.all-formats
-    #   ];
-
-    #   # customize an existing format
-    #   formatConfigs.vmware = { config, ... }: {
-    #     services.openssh.enable = true;
-    #   };
-
-    #   # define a new format
-    #   formatConfigs.my-custom-format = { config, modulesPath, ... }: {
-    #     imports = [ "${toString modulesPath}/installer/cd-dvd/installation-cd-base.nix" ];
-    #     formatAttr = "isoImage";
-    #     fileExtension = ".iso";
-    #     networking.wireless.networks = {
-    #       # ...
-    #     };
-    #   };
-    # };
-
-
+    # Deploy-rs configs
     deploy = {
       sshOpts = [ "-A" ];
       nodes = {
-        # Adam
+        #################
+        # Adam Machines #
+        #################
         msi-nixos = {
           hostname = "msi-nixos";
           profilesOrder = [ "system" ];
@@ -258,12 +260,13 @@
               user = "root";
               path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.msi-nixos;
             };
-            home-manager-adamr = {
+            hm-adamr = {
               user = "adamr";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-nixos";
             };
           };
         };
+
         shitbox = {
           hostname = "shitbox";
           profilesOrder = [ "system" ];
@@ -272,12 +275,13 @@
               user = "root";
               path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.shitbox;
             };
-            home-manager-adamr = {
+            hm-adamr = {
               user = "adamr";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@shitbox";
             };
           };
         };
+
         tests-vm = {
           hostname = "tests-vm";
           profilesOrder = [ "system" ];
@@ -286,29 +290,42 @@
               user = "root";
               path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.tests-vm;
             };
-            home-manager-adamr = {
+            hm-adamr = {
               user = "adamr";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@tests-vm";
             };
           };
         };
 
+        raspberrypi = {
+          hostname = "raspberrypi";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.raspberrypi;
+            };
+            hm-adamr = {
+              user = "adamr";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@raspberrypi";
+            };
+          };
+        };
 
-        # Dani
+
+        #################
+        # Dani Machines #
+        #################
         kali = {
           hostname = "kali";
-          # profilesOrder = [ "system" ];
           profiles = {
-            # system = {
-            #   user = "root";
-            #   path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.shitbox;
-            # };
-            home-manager-dani = {
+            hm-kali = {
               user = "kali";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."kali@kali";
             };
           };
         };
+
       };
     };
 
