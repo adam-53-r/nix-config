@@ -114,6 +114,17 @@
           inherit inputs outputs;
         };
       };
+      
+      # Adam tests-vm
+      tests-vm = lib.nixosSystem {
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/tests-vm
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
 
       # Dani Laptop
       # dani_laptop = lib.nixosSystem {
@@ -145,6 +156,18 @@
       "adamr@shitbox" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/shitbox.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      
+      # Adam tests-vm
+      "adamr@tests-vm" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/tests-vm.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -226,6 +249,7 @@
     deploy = {
       sshOpts = [ "-A" ];
       nodes = {
+        # Adam
         msi-nixos = {
           hostname = "msi-nixos";
           profilesOrder = [ "system" ];
@@ -254,6 +278,23 @@
             };
           };
         };
+        tests-vm = {
+          hostname = "tests-vm";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.tests-vm;
+            };
+            home-manager-adamr = {
+              user = "adamr";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@tests-vm";
+            };
+          };
+        };
+
+
+        # Dani
         kali = {
           hostname = "kali";
           # profilesOrder = [ "system" ];
