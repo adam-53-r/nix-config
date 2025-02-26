@@ -297,20 +297,20 @@
           };
         };
 
-        raspberrypi = {
-          hostname = "raspberrypi";
-          profilesOrder = [ "system" ];
-          profiles = {
-            system = {
-              user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.raspberrypi;
-            };
-            hm-adamr = {
-              user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@raspberrypi";
-            };
-          };
-        };
+        # raspberrypi = {
+        #   hostname = "raspberrypi";
+        #   profilesOrder = [ "system" ];
+        #   profiles = {
+        #     system = {
+        #       user = "root";
+        #       path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.raspberrypi;
+        #     };
+        #     hm-adamr = {
+        #       user = "adamr";
+        #       path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@raspberrypi";
+        #     };
+        #   };
+        # };
 
 
         #################

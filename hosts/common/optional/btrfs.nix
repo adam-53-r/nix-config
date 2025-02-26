@@ -1,10 +1,16 @@
 {
   lib,
   config,
+  inputs,
   ...
 }: let
   hostname = config.networking.hostName;
 in {
+
+  imports = [
+    inputs.disko.nixosModules.disko
+  ];
+
   disko.devices = {
     disk = {
       main = {
