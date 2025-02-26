@@ -2,6 +2,7 @@
 {
   lib,
   config,
+  inputs,
   ...
 }: let
   hostname = config.networking.hostName;
@@ -30,6 +31,11 @@
   '';
   phase1Systemd = config.boot.initrd.systemd.enable;
 in {
+
+  imports = [
+    inputs.disko.nixosModules.disko
+  ];
+
   boot.initrd = {
     supportedFilesystems = ["btrfs"];
     postDeviceCommands = lib.mkIf (!phase1Systemd) (lib.mkBefore wipeScript);
