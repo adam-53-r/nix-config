@@ -75,5 +75,10 @@ in {
       move-to-workspace-up = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
       move-to-workspace-down = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
     };
+    "org/cinnamon/desktop/media-handling" = {
+      automount = false;
+      automount-open = false;
+    };
+    "org/nemo/preferences".detect-content = false;
   };
 }
