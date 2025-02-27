@@ -116,10 +116,10 @@
         };
       };
       
-      # tests-vm
-      tests-vm = lib.nixosSystem {
+      # vm-tests
+      vm-tests = lib.nixosSystem {
         modules = [
-          ./hosts/tests-vm
+          ./hosts/vm-tests
         ];
         specialArgs = {
           inherit inputs outputs;
@@ -182,10 +182,10 @@
         };
       };
       
-      # Adam tests-vm
-      "adamr@tests-vm" = lib.homeManagerConfiguration {
+      # Adam vm-tests
+      "adamr@vm-tests" = lib.homeManagerConfiguration {
         modules = [
-          ./home/adamr/tests-vm.nix
+          ./home/adamr/vm-tests.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -282,17 +282,17 @@
           };
         };
 
-        tests-vm = {
-          hostname = "tests-vm";
+        vm-tests = {
+          hostname = "vm-tests";
           profilesOrder = [ "system" ];
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.tests-vm;
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.vm-tests;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@tests-vm";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@vm-tests";
             };
           };
         };

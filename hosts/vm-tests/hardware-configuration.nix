@@ -14,8 +14,8 @@ in {
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
 
-    # ../common/optional/btrfs.nix
-    # ../common/optional/encrypted.nix
+    ../common/optional/btrfs.nix
+    ../common/optional/encrypted.nix
     # ../common/optional/ephemeral.nix
   ];
 
@@ -45,14 +45,6 @@ in {
   disko.devices.disk.main = {
     device = lib.mkForce "/dev/vda";
   };
-
-  # swapDevices = [
-  #   {
-  #     device = "/swap/swapfile";
-  #     size = 8196;
-  #     randomEncryption.enable = true;
-  #   }
-  # ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";

@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -13,7 +14,12 @@
   ];
 
   networking = {
-    hostName = "tests-vm";
+    hostName = "vm-tests";
+  };
+
+  users.users.adamr = {
+    hashedPasswordFile = lib.mkForce null;
+    initialHashedPassword = "$y$j9T$lgLih3qHgZnQSSV.Cfk0T1$/BM.PW5.2dc/1yu4069/wF845WW95YBYRpGrSnxPba3";
   };
 
   powerManagement.powertop.enable = true;
