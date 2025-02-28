@@ -16,7 +16,10 @@ in {
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-pc-laptop
 
-    ../common/optional/ephemeral-encrypted-btrfs.nix
+    # ../common/optional/ephemeral-encrypted-btrfs.nix
+    ../common/optional/btrfs.nix
+    ../common/optional/encrypted.nix
+    ../common/optional/ephemeral.nix
   ];
 
   boot = {
