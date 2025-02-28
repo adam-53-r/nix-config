@@ -8,11 +8,11 @@
   old_partitions = import ./partitions.nix hostname;
   old_root = old_partitions."${hostname}";
   new_partitions = builtins.removeAttrs old_partitions ["${hostname}"] // {
-    "${hostname}_crypt" = {
+    "${hostname}" = {
       size = "100%";
       content = {
         type = "luks";
-        name = "crypted";
+        name = "${hostname}";
         # disable settings.keyFile if you want to use interactive password entry
         #passwordFile = "/tmp/secret.key"; # Interactive
         # settings = {

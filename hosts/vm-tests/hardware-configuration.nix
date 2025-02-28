@@ -15,8 +15,8 @@ in {
     inputs.nixos-hardware.nixosModules.common-gpu-intel
 
     ../common/optional/btrfs.nix
-    ../common/optional/encrypted.nix
-    # ../common/optional/ephemeral.nix
+    # ../common/optional/encrypted.nix
+    ../common/optional/ephemeral.nix
   ];
 
   boot = {
