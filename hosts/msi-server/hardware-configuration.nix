@@ -14,9 +14,9 @@ in {
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
 
     ../common/optional/btrfs.nix
+    ../common/optional/ephemeral.nix
   ];
 
   boot = {
@@ -43,14 +43,13 @@ in {
   };
 
   disko.devices.disk.main = {
-    device = lib.mkForce "/dev/nvme0n1";
+    device = lib.mkForce "/dev/sda";
   };
 
   swapDevices = [
     {
       device = "/swap/swapfile";
       size = 8196;
-      randomEncryption.enable = true;
     }
   ];
 

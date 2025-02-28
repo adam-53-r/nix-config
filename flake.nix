@@ -106,10 +106,10 @@
         };
       };
       
-      # Shitbox
-      shitbox = lib.nixosSystem {
+      # msi-server
+      msi-server = lib.nixosSystem {
         modules = [
-          ./hosts/shitbox
+          ./hosts/msi-server
         ];
         specialArgs = {
           inherit inputs outputs;
@@ -127,14 +127,14 @@
       };
 
       # raspberrypi
-      raspberrypi = lib.nixosSystem {
-        modules = [
-          ./hosts/raspberrypi
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      # raspberrypi = lib.nixosSystem {
+      #   modules = [
+      #     ./hosts/raspberrypi
+      #   ];
+      #   specialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
 
       #################
       # Dani Machines #
@@ -170,10 +170,10 @@
         };
       };
       
-      # Adam shitbox
-      "adamr@shitbox" = lib.homeManagerConfiguration {
+      # Adam msi-server
+      "adamr@msi-server" = lib.homeManagerConfiguration {
         modules = [
-          ./home/adamr/shitbox.nix
+          ./home/adamr/msi-server.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -193,6 +193,18 @@
           inherit inputs outputs;
         };
       };
+      
+      # Adam raspberrypi
+      # "adamr@raspberrypi" = lib.homeManagerConfiguration {
+      #   modules = [
+      #     ./home/adamr/raspberrypi.nix
+      #     ./home/adamr/nixpkgs.nix
+      #   ];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
 
       ##############
       # Dani users #
@@ -267,17 +279,17 @@
           };
         };
 
-        shitbox = {
-          hostname = "shitbox";
+        msi-server = {
+          hostname = "msi-server";
           profilesOrder = [ "system" ];
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.shitbox;
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.msi-server;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@shitbox";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-server";
             };
           };
         };

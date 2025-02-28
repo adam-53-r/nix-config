@@ -7,7 +7,7 @@
           name = "lxdbr0";
           type = "bridge";
           config = {
-            "ipv4.address" = "10.0.100.1/24";
+            "ipv4.address" = "10.0.0.1/24";
             "ipv4.nat" = "true";
           };
         }
@@ -43,4 +43,8 @@
   };
   # https://github.com/NixOS/nixpkgs/issues/263359
   networking.firewall.trustedInterfaces = ["lxdbr0"];
+
+  environment.persistence = {
+    "/persist".directories = ["/var/lib/lxd/storage-pools"];
+  };
 }
