@@ -53,7 +53,16 @@ in {
     }
   ];
 
+
+  fileSystems = {
+    "/persist/DATA" = {
+      device = "/dev/disk/by-label/DATA";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "discard=async" "autodefrag" ];
+    };
+  };
+
+
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";
-
 }
