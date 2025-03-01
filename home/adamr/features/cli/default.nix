@@ -90,7 +90,6 @@
 
     hashid
     devenv
-    wine
     esptool
     esphome
     platformio

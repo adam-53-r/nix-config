@@ -6,6 +6,7 @@ keys:
   - &hosts:
     - &msi-nixos age1h5f37l0l9mn24s76mj703y20s65kr7a4ym7xkh55js4gf476fy3sj3hlex
     - &msi-server age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
+    # - &raspberrypi age1ellha00796s9tpkgf6xeakv45290dsf8tzlfwfqchzeeyz6etv5q7wrf55
 
 creation_rules:
   - path_regex: hosts/common/secrets.(yaml|json|env|ini)$
@@ -13,5 +14,6 @@ creation_rules:
     - age:
       - *msi-nixos
       - *msi-server
+      # - *raspberrypi
       pgp:
       - *adamr

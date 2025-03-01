@@ -200,7 +200,7 @@
       #     ./home/adamr/raspberrypi.nix
       #     ./home/adamr/nixpkgs.nix
       #   ];
-      #   pkgs = pkgsFor.x86_64-linux;
+      #   pkgs = pkgsFor.aarch64-linux;
       #   extraSpecialArgs = {
       #     inherit inputs outputs;
       #   };
