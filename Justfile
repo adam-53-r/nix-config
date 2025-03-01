@@ -13,10 +13,10 @@ debug:
   nixos-rebuild switch --flake . --use-remote-sudo --show-trace --verbose
 
 deployh:
-  home-manager switch --flake .#adamr@nixos
+  home-manager switch --flake .
 
 debugh:
-  home-manager switch --flake .#adamr@nixos --show-trace --verbose
+  home-manager switch --flake . --show-trace --verbose
 
 update:
   nix flake update
