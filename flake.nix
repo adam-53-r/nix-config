@@ -126,6 +126,16 @@
         };
       };
 
+      # VM for HackTheBox
+      nixos-htb = lib.nixosSystem {
+        modules = [
+          ./hosts/nixos-htb
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
       # raspberrypi
       # raspberrypi = lib.nixosSystem {
       #   modules = [
@@ -186,6 +196,18 @@
       "adamr@vm-tests" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/vm-tests.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      
+      # Adam nixos-htb
+      "adamr@nixos-htb" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/nixos-htb.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -305,6 +327,21 @@
             hm-adamr = {
               user = "adamr";
               path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@vm-tests";
+            };
+          };
+        };
+        
+        nixos-htb = {
+          hostname = "nixos-htb";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.nixos-htb;
+            };
+            hm-adamr = {
+              user = "adamr";
+              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@nixos-htb";
             };
           };
         };

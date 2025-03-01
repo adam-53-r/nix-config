@@ -28,12 +28,10 @@ in {
       "wheel"
       "wireshark"
       "vboxusers"
-      # "i2c"
-      # "minecraft"
-      # "mysql"
+      "mysql"
     ];
 
-    hashedPasswordFile = config.sops.secrets.adamr-password.path;
+    hashedPasswordFile = lib.mkDefault config.sops.secrets.adamr-password.path;
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/adamr/ssh.pub);
     packages = [pkgs.home-manager];
