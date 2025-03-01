@@ -15,7 +15,7 @@
     ../common/optional/fail2ban.nix
     ../common/optional/gns3-server.nix
     ../common/optional/libvirtd.nix
-    ../common/optional/lxd.nix
+    # ../common/optional/lxd.nix
     ../common/optional/mysql.nix
     ../common/optional/tailscale-exit-node.nix
   ];
