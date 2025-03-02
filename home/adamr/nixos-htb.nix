@@ -1,11 +1,15 @@
  {
   pkgs,
+  lib,
+  config,
   ...
 }: {
   imports = [
     ./global
     ./features/desktop/cinnamon
   ];
+
+  home.persistence."/persist/${config.home.homeDirectory}".enable = lib.mkForce false;
 
   home.file = {
     ".config/cinnamon-monitors.xml" = {

@@ -15,12 +15,12 @@
           certificate_key_file = "/var/lib/sftpgo/privatekey.pem";
         }
       ];
-      ftpd.bindings = [
-        {
-          port = 21;
-          address = "0.0.0.0";
-        }
-      ];
+      # ftpd.bindings = [
+      #   {
+      #     port = 21;
+      #     address = "0.0.0.0";
+      #   }
+      # ];
     };
   };
   environment.persistence = {

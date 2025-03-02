@@ -1,6 +1,14 @@
 {
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  pkgs,
+  ...
+}: {
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+    plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
+  };
 
   # Ensure group exists
   users.groups.networkmanager = {};
