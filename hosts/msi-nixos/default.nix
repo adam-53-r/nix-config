@@ -37,6 +37,11 @@
     ];
   };
 
+
+  virtualisation.vmware.host.enable = true;
+
+
+
   powerManagement.powertop.enable = true;
   programs = {
     # light.enable = true;
