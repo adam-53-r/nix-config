@@ -17,6 +17,12 @@ creation_rules:
       # - *raspberrypi
       pgp:
       - *adamr
+  - path_regex: hosts/msi-server/secrets.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *msi-server
+      pgp:
+      - *adamr
   - path_regex: hosts/nixos-htb/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:

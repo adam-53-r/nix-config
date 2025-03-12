@@ -1,6 +1,7 @@
 {
-  pkgs,
+  lib,
   inputs,
+  config,
   ...
 }: {
   imports = [
@@ -19,6 +20,7 @@
     ../common/optional/mysql.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/optional/sftpgo.nix
+    ../common/optional/wireguard-server.nix
   ];
 
   networking = {
@@ -33,11 +35,14 @@
     fish.enable = true;
   };
 
-  # Lid settings
-  # services.logind = {
-  #   lidSwitch = "suspend";
-  #   lidSwitchExternalPower = "lock";
-  # };
+  networking.wireguard.interfaces.wg0 = {
+    generatePrivateKeyFile = lib.mkForce false;
+    privateKeyFile = config.sops.secrets.wg-priv-key.path;
+  };
+
+  sops.secrets.wg-priv-key = {
+    sopsFile = ./secrets.json;
+  };
 
   system.stateVersion = "25.05";
 }
