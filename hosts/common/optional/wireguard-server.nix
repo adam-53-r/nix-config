@@ -42,7 +42,7 @@
         {
           name = "adamr";
           # Public key of the peer (not a file path).
-          publicKey = "LrOUNtGCzQJxiH2vXEAGMUbEbWmsjHykWFZ4kKX+oGQ=";
+          publicKey = "JJ3rsP23WSOlcHxV9SvCIjD5GdtVU3mvgvHPzE881i4=";
           presharedKeyFile = config.sops.secrets.adamr-wg-password.path;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = [ "10.100.0.2/32" ];
@@ -51,7 +51,9 @@
     };
   };
 
-  sops.secrets.adamr-wg-password = {
-    sopsFile = ../secrets.json;
+  sops.secrets = {
+    adamr-wg-password = {
+      sopsFile = ../secrets.json;
+    };
   };
 }
