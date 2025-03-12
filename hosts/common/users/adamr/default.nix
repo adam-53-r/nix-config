@@ -29,6 +29,7 @@ in {
       "wireshark"
       "vboxusers"
       "mysql"
+      "gns3"
     ];
 
     hashedPasswordFile = lib.mkDefault config.sops.secrets.adamr-password.path;
