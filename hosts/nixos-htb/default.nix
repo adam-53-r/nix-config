@@ -41,6 +41,9 @@
     };
   };
 
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+
   powerManagement.powertop.enable = true;
   programs = {
     adb.enable = true;
