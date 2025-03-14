@@ -19,7 +19,7 @@
     # ../common/optional/lxd.nix
     ../common/optional/mysql.nix
     ../common/optional/tailscale-exit-node.nix
-    ../common/optional/sftpgo.nix
+    # ../common/optional/sftpgo.nix
     ../common/optional/wireguard-server.nix
   ];
 
