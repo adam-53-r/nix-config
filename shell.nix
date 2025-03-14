@@ -15,6 +15,7 @@
       age
       deploy-rs
       nixos-anywhere
+      disko
     ];
   };
 }
