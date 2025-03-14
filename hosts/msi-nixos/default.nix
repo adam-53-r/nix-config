@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -61,6 +62,11 @@
   networking.firewall = {
     allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
   };
+
+  networking.networkmanager.unmanaged = [
+    "msi-server"
+  ];
+
   # Enable WireGuard
   networking.wireguard.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
@@ -90,7 +96,7 @@
           allowedIPs = [ "10.100.0.1/32" ];
 
           # Set this to the server IP and port.
-          endpoint = "msi-server:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+          endpoint = "100.86.227.101:51820";
 
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
@@ -98,7 +104,7 @@
       ];
     };
   };
-
+  
   sops.secrets = {
     wg-priv-key = {
       sopsFile = ./secrets.json;
