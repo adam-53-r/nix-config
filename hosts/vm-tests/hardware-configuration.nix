@@ -43,7 +43,7 @@ in {
   };
 
   disko.devices.disk.main = {
-    device = lib.mkForce "/dev/vda";
+    device = lib.mkForce "/dev/sda";
   };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
