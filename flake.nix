@@ -248,33 +248,35 @@
     # Importing custom packages and nixos-generate configs
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;}) //
     ({
-      install-iso = nixos-generators.nixosGenerate {
-        system = "x86_64-linux";
-        format = "install-iso";
-        modules = [
-          {
-            users.users.nixos = {
-              initialHashedPassword = lib.mkForce "$y$j9T$tRAkzHi9kpFVhiUg21FIQ0$mkHVaqB1A/Seq4NfGnZaBswCQNWQ/8FWPrVKR5Qo7zD";
-              openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ./home/adamr/ssh.pub);
-            };
+      x86_64-linux = {
+        install-iso = nixos-generators.nixosGenerate {
+          system = "x86_64-linux";
+          format = "install-iso";
+          modules = [
+            {
+              users.users.nixos = {
+                initialHashedPassword = lib.mkForce "$y$j9T$tRAkzHi9kpFVhiUg21FIQ0$mkHVaqB1A/Seq4NfGnZaBswCQNWQ/8FWPrVKR5Qo7zD";
+                openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ./home/adamr/ssh.pub);
+              };
 
-            programs = {
-              fish.enable = true;
-            };
-            security.pam.sshAgentAuth = {
-              enable = true;
-            };
-            services.openssh = {
-              enable = true;
-              hostKeys = [
-                {
-                  path = "/etc/ssh/ssh_host_ed25519_key";
-                  type = "ed25519";
-                }
-              ];
-            };
-          }
-        ];
+              programs = {
+                fish.enable = true;
+              };
+              security.pam.sshAgentAuth = {
+                enable = true;
+              };
+              services.openssh = {
+                enable = true;
+                hostKeys = [
+                  {
+                    path = "/etc/ssh/ssh_host_ed25519_key";
+                    type = "ed25519";
+                  }
+                ];
+              };
+            }
+          ];
+        };
       };
     });
 
