@@ -32,15 +32,17 @@ in {
       "gns3"
     ];
 
-    hashedPasswordFile = lib.mkDefault config.sops.secrets.adamr-password.path;
+    hashedPasswordFile = lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;
 
     openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/adamr/ssh.pub);
     packages = [pkgs.home-manager];
   };
 
-  sops.secrets.adamr-password = {
-    sopsFile = ../../secrets.json;
-    neededForUsers = true;
+  sops.secrets = lib.mkIf (!config.disable-user-sops) {
+    adamr-password = {
+      sopsFile = ../../secrets.json;
+      neededForUsers = true;
+    };
   };
 
   home-manager = {
