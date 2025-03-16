@@ -25,6 +25,7 @@
     ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
     # ../common/optional/virtualbox.nix
+    ../common/optional/vmware.nix
   ];
 
   networking = {
@@ -38,8 +39,6 @@
       "i686-linux"
     ];
   };
-
-  virtualisation.vmware.host.enable = true;
 
   powerManagement.powertop.enable = true;
   programs = {
