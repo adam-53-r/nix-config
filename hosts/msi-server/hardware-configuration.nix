@@ -51,7 +51,7 @@ in {
     "/persist/DATA" = {
       device = "/dev/disk/by-label/DATA";
       fsType = "btrfs";
-      options = [ "compress=zstd" "discard=async" "autodefrag" ];
+      options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
     };
   };
 
