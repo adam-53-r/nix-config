@@ -74,6 +74,7 @@ in {
       # Clear screen and scrollback
       clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
       rm = "trash ";
+      mtr = "mtr ";
     };
     functions = {
       # Disable greeting
