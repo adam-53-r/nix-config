@@ -54,8 +54,6 @@
     lidSwitchExternalPower = "lock";
   };
 
-  hardware.graphics.enable = true;
-
   services.displayManager.defaultSession = "cinnamon";
 
   networking.firewall = {

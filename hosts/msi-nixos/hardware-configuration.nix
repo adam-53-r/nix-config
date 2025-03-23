@@ -65,6 +65,8 @@ in {
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";
 
+  hardware.graphics.enable = true;
+
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
 
