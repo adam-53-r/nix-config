@@ -18,6 +18,7 @@
     ./jira.nix
     ./wine.nix
     ./byobu.nix
+    ./nb.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix

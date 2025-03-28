@@ -48,8 +48,8 @@ in {
       nd = "nix develop -c $SHELL";
       ns = "nix shell";
       nsn = "nix shell nixpkgs#";
-      nb = "nix build";
-      nbn = "nix build nixpkgs#";
+      # nb = "nix build";
+      # nbn = "nix build nixpkgs#";
       nf = "nix flake";
 
       nr = "nixos-rebuild --flake .";
