@@ -26,7 +26,7 @@ creation_rules:
       pgp:
       - *adamr
 
-  - path_regex: hosts/msi-server/secrets.(yaml|json|env|ini)$
+  - path_regex: hosts/msi-server/(secrets.(yaml|json|env|ini)|key-file|cert-file)$
     key_groups:
     - age:
       - *msi-server
