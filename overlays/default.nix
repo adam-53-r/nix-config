@@ -1,6 +1,7 @@
 {
   outputs,
   inputs,
+  pkgs,
   ...
 }: let
   addPatches = pkg: patches:
@@ -41,13 +42,14 @@ in {
   # Modifies existing packages
   modifications = final: prev: {
 
-    # sddm-astronaut = prev.sddm-astronaut.overrideAttrs {
-    #   installPhase = ''
-    #     mkdir -p $out/share/sddm/themes/sddm-astronaut-theme
-    #     cp -r $src/* $out/share/sddm/themes/sddm-astronaut-theme
-    #     sed -i 's/astronaut.conf/pixel_sakura.conf/g' $out/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
-    #   '';
-    # };
+    sddm-astronaut = prev.sddm-astronaut.overrideAttrs (oldAttrs: {
+      installPhase = let 
+        basePath = "$out/share/sddm/themes/sddm-astronaut-theme";
+      in oldAttrs.installPhase + ''
+        ${pkgs.sd}/bin/sd 'ConfigFile=Themes/astronaut.conf' 'ConfigFile=Themes/pixel_sakura.conf' ${basePath}/metadata.desktop;
+        # ${pkgs.sd}/bin/sd 'HideLoginButton="true"' 'HideLoginButton="false"' ${basePath}/Themes/pixel_sakura.conf;
+      '';
+    });
 
 
 

@@ -85,7 +85,7 @@
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
-    overlays = import ./overlays {inherit inputs outputs;};
+    overlays = import ./overlays {inherit inputs outputs pkgs;};
     # hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
     # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
