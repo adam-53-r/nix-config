@@ -48,7 +48,7 @@ in {
 
 
   fileSystems = {
-    "/persist/DATA" = {
+    "/DATA" = {
       device = "/dev/disk/by-label/DATA";
       fsType = "btrfs";
       options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
