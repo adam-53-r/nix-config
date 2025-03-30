@@ -14,6 +14,19 @@
     # ./features/games/shadps4.nix
   ];
 
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [
+        "qemu:///system"
+        "qemu+ssh://adamr@msi-server/system"
+      ];
+      uris = [
+        "qemu:///system"
+        "qemu+ssh://adamr@msi-server/system"
+      ];
+    };
+  };
+
   home.file = {
     ".config/cinnamon-monitors.xml" = {
       text = ''
