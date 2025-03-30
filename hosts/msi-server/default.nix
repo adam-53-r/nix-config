@@ -36,7 +36,7 @@
   };
 
   networking.networkmanager.enable = lib.mkForce false;
-
+  networking.enableIPv6 = false;
   networking = {
     vlans = {
       servers-vlan = {
@@ -44,9 +44,17 @@
         interface = "enp2s0";
       };
     };
+    bridges = {
+      br-servers-vlan = {
+        interfaces = [
+          "servers-vlan"
+        ];
+      };
+    };
     interfaces = {
       enp2s0.useDHCP = false;
-      servers-vlan = {
+      servers-vlan.useDHCP = false;
+      br-servers-vlan = {
         ipv4 = {
           addresses = [
             {
@@ -59,7 +67,7 @@
     };
     defaultGateway = {
       address = "192.168.2.1";
-      interface = "servers-vlan";
+      interface = "br-servers-vlan";
     };
     nameservers = ["192.168.2.1"];
   };
