@@ -17,8 +17,8 @@
         gitCfg = config.programs.git.extraConfig;
       in {
         backend = "gpg";
-        sign-all = gitCfg.commit.gpgSign;
         key = gitCfg.user.signing.key;
+        behavior = lib.mkIf gitCfg.commit.gpgSign "own";
       };
       templates = {
         draft_commit_description = ''
