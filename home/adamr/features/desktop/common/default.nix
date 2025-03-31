@@ -68,4 +68,5 @@
 
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "*";
+  xdg.mimeApps.enable = true;
 }
