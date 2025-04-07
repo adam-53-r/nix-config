@@ -2,12 +2,14 @@ keys:
   # Users
   - &users:
     - &adamr 7813B7E2E0BE0E7DCB1669161058F611DC61E875
+    - &dani 197E0A55F7BF748AE35B69804FD8819DFE1EF761
   # Hosts
   - &hosts:
     - &msi-nixos age1h5f37l0l9mn24s76mj703y20s65kr7a4ym7xkh55js4gf476fy3sj3hlex
     - &msi-server age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
     - &nixos-htb age1jnu0f6xsh3mdvlxg6vhjd7y5fmx76rghju0l7a3fnjdqd47ju4vqm7vg0x
     - &vm-tests age1mcsvvv2eacr8e9l4umus5hty63waxuhu6kz2j3wwjpracrrx9q7sxnft9w
+    # - &danix 
 
 creation_rules:
   - path_regex: hosts/common/secrets.(yaml|json|env|ini)$
@@ -46,3 +48,10 @@ creation_rules:
       - *vm-tests
       pgp:
       - *adamr
+
+  - path_regex: hosts/common/users/dani/secrets.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      # - *vm-tests
+      pgp:
+      - *dani

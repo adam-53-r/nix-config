@@ -149,17 +149,16 @@
       #################
       # Dani Machines #
       #################
-
       # Dani Laptop
-      # dani_laptop = lib.nixosSystem {
-      #   modules = [
-      #     disko.nixosModules.disko
-      #     ./hosts/dani_laptop
-      #   ];
-      #   specialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
+      danix = lib.nixosSystem {
+        modules = [
+          disko.nixosModules.disko
+          ./hosts/danix
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
     };
 
 
@@ -167,7 +166,6 @@
       ##############
       # Adam users #
       ##############
-
       # Adam laptop
       "adamr@msi-nixos" = lib.homeManagerConfiguration {
         modules = [
@@ -231,11 +229,22 @@
       ##############
       # Dani users #
       ##############
-
       # Dani laptop
       "kali@kali" = lib.homeManagerConfiguration {
         modules = [
           ./home/dani/kali.nix
+          ./home/dani/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      
+      # Dani laptop
+      "dani@danix" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/dani/danix.nix
           ./home/dani/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
@@ -274,6 +283,13 @@
                   }
                 ];
               };
+              boot = {
+                initrd = {
+                  availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" ];
+                  kernelModules = [ "kvm-intel" ];
+                };
+                kernelModules = [ "kvm-intel" ];
+              };
             }
           ];
         };
@@ -282,7 +298,10 @@
 
 
     # Deploy-rs configs
-    deploy = {
+    deploy = let 
+      activate-nixos = deployPkgs.deploy-rs.lib.activate.nixos;
+      activate-hm = deployPkgs.deploy-rs.lib.activate.home-manager;
+    in {
       sshOpts = [ "-A" ];
       nodes = {
         #################
@@ -294,11 +313,11 @@
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.msi-nixos;
+              path = activate-nixos self.nixosConfigurations.msi-nixos;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-nixos";
+              path = activate-hm self.homeConfigurations."adamr@msi-nixos";
             };
           };
         };
@@ -309,11 +328,11 @@
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.msi-server;
+              path = activate-nixos self.nixosConfigurations.msi-server;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@msi-server";
+              path = activate-hm self.homeConfigurations."adamr@msi-server";
             };
           };
         };
@@ -324,11 +343,11 @@
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.vm-tests;
+              path = activate-nixos self.nixosConfigurations.vm-tests;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@vm-tests";
+              path = activate-hm self.homeConfigurations."adamr@vm-tests";
             };
           };
         };
@@ -339,11 +358,11 @@
           profiles = {
             system = {
               user = "root";
-              path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.nixos-htb;
+              path = activate-nixos self.nixosConfigurations.nixos-htb;
             };
             hm-adamr = {
               user = "adamr";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@nixos-htb";
+              path = activate-hm self.homeConfigurations."adamr@nixos-htb";
             };
           };
         };
@@ -354,11 +373,11 @@
         #   profiles = {
         #     system = {
         #       user = "root";
-        #       path = deployPkgs.deploy-rs.lib.activate.nixos self.nixosConfigurations.raspberrypi;
+        #       path = activate-nixos self.nixosConfigurations.raspberrypi;
         #     };
         #     hm-adamr = {
         #       user = "adamr";
-        #       path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."adamr@raspberrypi";
+        #       path = activate-hm self.homeConfigurations."adamr@raspberrypi";
         #     };
         #   };
         # };
@@ -372,11 +391,25 @@
           profiles = {
             hm-kali = {
               user = "kali";
-              path = deployPkgs.deploy-rs.lib.activate.home-manager self.homeConfigurations."kali@kali";
+              path = activate-hm self.homeConfigurations."kali@kali";
             };
           };
         };
 
+        danix = {
+          hostname = "danix";
+          profilesOrder = [ "system" ];
+          profiles = {
+            system = {
+              user = "root";
+              path = activate-nixos self.nixosConfigurations.danix;
+            };
+            hm-adamr = {
+              user = "dani";
+              path = activate-hm self.homeConfigurations."dani@danix";
+            };
+          };
+        };
       };
     };
 

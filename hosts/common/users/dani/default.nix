@@ -40,7 +40,7 @@ in {
   };
 
   sops.secrets.dani-password = {
-    sopsFile = ../../secrets.json;
+    sopsFile = ./secrets.json;
     neededForUsers = true;
   };
 
