@@ -18,7 +18,7 @@ in {
 
   dconf.settings = {
     "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    "org/cinnamon/desktop/applications/terminal" = {
+    "org/cinnamon/desktop/applications/terminal" = mkIf hasGhostty {
       exec = "ghostty";
       exec-arg = "--";
     };
@@ -80,5 +80,9 @@ in {
       automount-open = false;
     };
     "org/nemo/preferences".detect-content = false;
+  };
+
+  xdg.mimeApps.defaultApplications = {
+    "application/pdf" = ["xreader.desktop"];
   };
 }
