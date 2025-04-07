@@ -29,7 +29,7 @@
   ];
 
   networking = {
-    hostName = "msi-nixos";
+    hostName = "danix";
   };
 
   boot = {
