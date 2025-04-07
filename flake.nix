@@ -152,7 +152,6 @@
       # Dani Laptop
       danix = lib.nixosSystem {
         modules = [
-          disko.nixosModules.disko
           ./hosts/danix
         ];
         specialArgs = {

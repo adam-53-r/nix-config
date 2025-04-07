@@ -16,7 +16,7 @@ in {
 
     ../common/optional/btrfs.nix
     # ../common/optional/encrypted.nix
-    # ../common/optional/ephemeral.nix
+    ../common/optional/ephemeral.nix
   ];
 
   boot = {
