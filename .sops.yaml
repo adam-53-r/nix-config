@@ -9,7 +9,7 @@ keys:
     - &msi-server age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
     - &nixos-htb age1jnu0f6xsh3mdvlxg6vhjd7y5fmx76rghju0l7a3fnjdqd47ju4vqm7vg0x
     - &vm-tests age1mcsvvv2eacr8e9l4umus5hty63waxuhu6kz2j3wwjpracrrx9q7sxnft9w
-    # - &danix 
+    - &danix age1u66jzualh64g538gsu0q0l65fhhee70p47tqsh28m3v8szeatezsj0a9ny
 
 creation_rules:
   - path_regex: hosts/common/secrets.(yaml|json|env|ini)$
@@ -52,6 +52,6 @@ creation_rules:
   - path_regex: hosts/common/users/dani/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
-      # - *vm-tests
+      - *danix
       pgp:
       - *dani

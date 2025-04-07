@@ -39,7 +39,7 @@
     ./postman.nix
     ./qbittorrent.nix
     ./remmina.nix
-    ./rustdesk.nix
+    # ./rustdesk.nix
     ./teamviewer.nix
     ./vlc.nix
     ./vscodium.nix
