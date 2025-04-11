@@ -57,7 +57,7 @@ in {
   swapDevices = [
     {
       device = "/swap/swapfile";
-      size = 8196;
+      size = 32768;
       randomEncryption.enable = true;
     }
   ];
