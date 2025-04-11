@@ -255,7 +255,7 @@
 
     # Importing custom packages and nixos-generate configs
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;}) //
-    ({
+    {
       x86_64-linux = {
         install-iso = nixos-generators.nixosGenerate {
           system = "x86_64-linux";
@@ -293,7 +293,7 @@
           ];
         };
       };
-    });
+    };
 
 
     # Deploy-rs configs

@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "adamr",
+        "nixos",
+        "pkgs"
+    ],
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd"
+}
