@@ -26,8 +26,8 @@ in {
       pushall = "!git remote | xargs -L1 git push --all";
       add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -";
     };
-    userName = "Dani Floria Lopez";
-    userEmail = lib.mkDefault "danielflorialopez@protonmail.com";
+    userName = "Daniel Floria Lopez";
+    userEmail = lib.mkDefault "dani-f53@protonmail.com";
     extraConfig = {
       init.defaultBranch = "main";
       user.signing = {
