@@ -35,7 +35,7 @@
   };
 
   home = {
-    username = lib.mkDefault "kali";
+    username = lib.mkDefault "dani";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
     stateVersion = lib.mkDefault "25.05";
     sessionPath = ["$HOME/.local/bin"];
