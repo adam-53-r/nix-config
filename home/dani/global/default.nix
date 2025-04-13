@@ -9,6 +9,8 @@
   imports = [
       inputs.impermanence.homeManagerModules.impermanence
       ../features/cli
+      # ../features/neovim
+      # ../features/helix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
@@ -43,5 +45,21 @@
       FLAKE = "$HOME/mynix";
     };
 
+    persistence = {
+      "/persist/${config.home.homeDirectory}" = {
+        defaultDirectoryMethod = "symlink";
+        directories = [
+          "mynix"
+          "Documents"
+          "Downloads"
+          "Pictures"
+          "Videos"
+          ".local/bin"
+          ".local/share/nix" # trusted settings and repl history
+          ".local/share/containers"
+        ];
+        allowOther = true;
+      };
+    };
   };
 }

@@ -18,7 +18,7 @@ in {
 
   dconf.settings = {
     "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    "org/cinnamon/desktop/applications/terminal" = {
+    "org/cinnamon/desktop/applications/terminal" = mkIf hasGhostty {
       exec = "ghostty";
       exec-arg = "--";
     };
@@ -70,10 +70,19 @@ in {
       command = "ghostty";
     };
     "org/cinnamon/desktop/keybindings/wm" = {
-      move-to-workspace-left = "@as []";
-      move-to-workspace-right = "@as []";
-      move-to-workspace-up = "@as []";
-      move-to-workspace-down = "@as []";
+      move-to-workspace-left = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-right = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-up = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+      move-to-workspace-down = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
     };
+    "org/cinnamon/desktop/media-handling" = {
+      automount = false;
+      automount-open = false;
+    };
+    "org/nemo/preferences".detect-content = false;
+  };
+
+  xdg.mimeApps.defaultApplications = {
+    "application/pdf" = ["xreader.desktop"];
   };
 }

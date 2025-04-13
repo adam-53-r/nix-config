@@ -23,6 +23,12 @@ in {
     fishPlugins.grc
   ];
 
+  home.persistence = {
+    "/persist/${config.home.homeDirectory}".files = [
+      ".local/share/fish/fish_history"
+    ];
+  };
+
   programs.fish = {
     enable = true;
     plugins = [
@@ -42,8 +48,8 @@ in {
       nd = "nix develop -c $SHELL";
       ns = "nix shell";
       nsn = "nix shell nixpkgs#";
-      nb = "nix build";
-      nbn = "nix build nixpkgs#";
+      # nb = "nix build";
+      # nbn = "nix build nixpkgs#";
       nf = "nix flake";
 
       nr = "nixos-rebuild --flake .";
@@ -68,6 +74,7 @@ in {
       # Clear screen and scrollback
       clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
       rm = "trash ";
+      mtr = "mtr ";
     };
     functions = {
       # Disable greeting
