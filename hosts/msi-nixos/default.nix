@@ -14,6 +14,7 @@
     ../common/optional/quietboot.nix
     ../common/optional/sddm.nix
     ../common/optional/cinnamon.nix
+    ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
     ../common/optional/tlp.nix
     ../common/optional/cups.nix
