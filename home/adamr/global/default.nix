@@ -9,6 +9,8 @@
   imports = [
       inputs.impermanence.homeManagerModules.impermanence
       ../features/cli
+      # ../features/neovim
+      ../features/helix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
