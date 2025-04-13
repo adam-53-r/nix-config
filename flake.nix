@@ -53,7 +53,6 @@
     nixpkgs,
     home-manager,
     systems,
-    disko,
     nixos-generators,
     deploy-rs,
     ...
