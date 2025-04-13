@@ -46,13 +46,13 @@ in {
     device = lib.mkForce "/dev/sda";
   };
 
-  fileSystems = {
-    "/persist/DATA" = {
-      device = "/dev/disk/by-partlabel/DATA";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
-    };
-  };
+  # fileSystems = {
+  #   "/persist/DATA" = {
+  #     device = "/dev/disk/by-partlabel/DATA";
+  #     fsType = "btrfs";
+  #     options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
+  #   };
+  # };
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";

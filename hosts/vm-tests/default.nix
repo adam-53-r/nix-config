@@ -13,6 +13,8 @@
     ../common/users/adamr
 
     ../common/optional/quietboot.nix
+    ../common/optional/mysql.nix
+    # ../common/optional/redis.nix
   ];
 
   networking = {
