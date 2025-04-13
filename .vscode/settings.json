@@ -3,6 +3,7 @@
         "adamr",
         "Misterio",
         "nixos",
+        "nixpkgs",
         "pkgs"
     ],
     "nix.enableLanguageServer": true,
