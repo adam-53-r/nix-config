@@ -18,8 +18,8 @@ in {
 
   dconf.settings = {
     "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    "org/cinnamon/desktop/applications/terminal" = mkIf hasGhostty {
-      exec = "ghostty";
+    "org/cinnamon/desktop/applications/terminal" = {
+      exec = "handlr launch x-scheme-handler/terminal";
       exec-arg = "--";
     };
     "org/cinnamon/desktop/interface" = {
@@ -61,13 +61,13 @@ in {
     };
     "org/cinnamon/desktop/peripherals/touchpad".send-events = "disabled-on-external-mouse";
     "org/cinnamon/muffin".tile-maximize = true;
-    "org/cinnamon/desktop/keybindings" = mkIf hasGhostty {
+    "org/cinnamon/desktop/keybindings" = {
       custom-list = [ "custom0" ];
     };
-    "org/cinnamon/desktop/keybindings/custom-keybindings/custom0" = mkIf hasGhostty {
+    "org/cinnamon/desktop/keybindings/custom-keybindings/custom0" = {
       name = "Launch Terminal";
       binding = [ "<Primary><Alt>t" ];
-      command = "ghostty";
+      command = "handlr launch x-scheme-handler/terminal";
     };
     "org/cinnamon/desktop/keybindings/wm" = {
       move-to-workspace-left = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
