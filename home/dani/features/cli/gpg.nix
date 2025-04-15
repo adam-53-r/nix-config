@@ -16,6 +16,17 @@
 
   home.packages = lib.optional config.gtk.enable pkgs.gcr;
 
+  home = {
+    persistence = {
+      "/persist/${config.home.homeDirectory}".directories = [
+        {
+          directory = ".gnupg";
+          method = "bindfs";
+        }
+      ];
+    };
+  };
+
   programs = let
     fixGpg =
       /*

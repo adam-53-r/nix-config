@@ -30,6 +30,7 @@
     ./ghidra.nix
     ./gimp.nix
     ./gns3.nix
+    ./vmware.nix
     ./godot.nix
     ./gparted.nix
     ./jetbrains.nix
@@ -67,4 +68,5 @@
 
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "*";
+  xdg.mimeApps.enable = true;
 }

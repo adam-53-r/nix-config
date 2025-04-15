@@ -18,8 +18,11 @@
     ./jira.nix
     ./wine.nix
     ./byobu.nix
+    ./nb.nix
   ];
   home.packages = with pkgs; [
+    uutils-coreutils-noprefix
+    iputils
     comma # Install and run programs by sticking a , before them
     distrobox # Nice escape hatch, integrates docker images with my environment
 
@@ -90,7 +93,6 @@
 
     hashid
     devenv
-    wine
     esptool
     esphome
     platformio
@@ -107,4 +109,8 @@
     deploy-rs
     nixos-anywhere
   ];
+
+  home.file = {
+    ".config/lazygit/config.yml".text = "";
+  };
 }
