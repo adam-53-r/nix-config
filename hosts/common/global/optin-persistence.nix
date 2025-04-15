@@ -7,6 +7,7 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }: {
   imports = [inputs.impermanence.nixosModules.impermanence];
@@ -26,6 +27,10 @@
   };
 
   programs.fuse.userAllowOther = true;
+
+  environment.systemPackages = [
+    pkgs.fuse
+  ];
 
   system.activationScripts.persistent-dirs.text = let
     mkHomePersist = user:
