@@ -5,6 +5,7 @@
   imports = [
     ./global
     ./features/desktop/cinnamon
+    ./features/desktop/hyprland
     ./features/games
     # ./features/desktop/wireless
     # ./features/rgb

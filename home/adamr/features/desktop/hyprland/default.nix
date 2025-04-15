@@ -18,7 +18,6 @@ in {
   imports = [
     ../common
     # ../common/wayland-wm
-
     # ./basic-binds.nix
     # ./hyprbars.nix
   ];
@@ -37,9 +36,10 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland.override {wrapRuntimeDeps = false;};
+    # package = pkgs.hyprland.override {wrapRuntimeDeps = false;};
+    package = pkgs.hyprland;
     systemd = {
-      enable = true;
+      enable = false;
       # Same as default, but stop graphical-session too
       extraCommands = lib.mkBefore [
         "systemctl --user stop graphical-session.target"
@@ -47,7 +47,20 @@ in {
       ];
     };
 
-    # settings = {
+    settings = {
+
+      monitor = [
+        "eDP-1,1920x1080@144,0x0,1"
+        "DP-2,1920x1080@144,1920x0,1"
+      ];
+
+      env = [
+        "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "NVD_BACKEND,direct"
+      ];
+      
     #   general = {
     #     gaps_in = 15;
     #     gaps_out = 20;
@@ -363,14 +376,15 @@ in {
     #   workspace = map (m: "name:${m.workspace},monitor:${m.name}") (
     #     lib.filter (m: m.enabled && m.workspace != null) config.monitors
     #   );
-    # };
+    };
+
     # This is order sensitive, so it has to come here.
-    extraConfig = ''
-      # Passthrough mode (e.g. for VNC)
-      bind=SUPER,P,submap,passthrough
-      submap=passthrough
-      bind=SUPER,P,submap,reset
-      submap=reset
-    '';
+    # extraConfig = ''
+    #   # Passthrough mode (e.g. for VNC)
+    #   bind=SUPER,P,submap,passthrough
+    #   submap=passthrough
+    #   bind=SUPER,P,submap,reset
+    #   submap=reset
+    # '';
   };
 }
