@@ -21,6 +21,7 @@
     ../common/optional/tailscale-exit-node.nix
     ../common/optional/wireguard-server.nix
     ../common/optional/nextcloud.nix
+    ../common/optional/plex.nix
   ];
 
   networking = {
