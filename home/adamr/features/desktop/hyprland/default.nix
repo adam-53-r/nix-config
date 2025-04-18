@@ -37,6 +37,8 @@ in {
     hyprpicker
   ];
 
+  services.hyprpolkitagent.enable = true;
+  
   wayland.windowManager.hyprland = {
     enable = true;
     # package = pkgs.hyprland.override {wrapRuntimeDeps = false;};
