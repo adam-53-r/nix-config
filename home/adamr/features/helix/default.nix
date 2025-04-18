@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }: let
@@ -10,6 +9,7 @@ in {
     enable = true;
     settings = {
       # theme = "nix-${hash}";
+      theme = "catppuccin_frappe";
       editor = {
         soft-wrap.enable = true;
         color-modes = true;
