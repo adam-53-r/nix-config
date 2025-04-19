@@ -11,6 +11,7 @@ in {
   imports = [
     ./global
     ./features/desktop/cinnamon
+    ./features/desktop/hyprland
     ./features/games
   ];
 

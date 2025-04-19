@@ -24,6 +24,7 @@
     ../common/optional/libvirtd.nix
     ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
+    ../common/optional/hyprland.nix
     # ../common/optional/virtualbox.nix
     # ../common/optional/vmware.nix
   ];

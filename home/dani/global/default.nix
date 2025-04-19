@@ -10,7 +10,7 @@
       inputs.impermanence.homeManagerModules.impermanence
       ../features/cli
       # ../features/neovim
-      # ../features/helix
+      ../features/helix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
