@@ -1,4 +1,6 @@
+.direnv
+result*
+.nixie
 bak.zip
-result
 *.qcow2
 temp

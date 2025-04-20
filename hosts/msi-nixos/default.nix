@@ -12,7 +12,8 @@
     ../common/users/adamr
 
     ../common/optional/quietboot.nix
-    ../common/optional/sddm.nix
+    # ../common/optional/sddm.nix
+    ../common/optional/greetd.nix
     ../common/optional/cinnamon.nix
     ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
@@ -55,7 +56,7 @@
     lidSwitchExternalPower = "lock";
   };
 
-  services.displayManager.defaultSession = "cinnamon";
+  services.displayManager.defaultSession = "hyprland-uwsm";
 
   networking.firewall = {
     allowedUDPPorts = [ 51820 ]; # Clients and peers can use the same port, see listenport
