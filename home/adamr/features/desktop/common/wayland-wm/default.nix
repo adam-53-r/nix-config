@@ -6,8 +6,8 @@
     # ./qutebrowser.nix
     # ./swayidle.nix
     # ./swaylock.nix
-    # ./waybar.nix
-    # ./wofi.nix
+    ./waybar.nix
+    ./wofi.nix
     # ./zathura.nix
     # ./imv.nix
     # ./waypipe.nix
