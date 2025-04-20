@@ -1,15 +1,15 @@
-{
-  pkgs,
-  ...
-}: let
-  # inherit (config) colorscheme;
-  # hash = builtins.hashString "md5" (builtins.toJSON colorscheme.colors);
+{config, pkgs, ...}: let
+  inherit (config) colorscheme;
+  hash = builtins.hashString "md5" (builtins.toJSON colorscheme.colors);
 in {
+  home.sessionVariables.EDITOR = "hx";
+  home.sessionVariables.COLORTERM = "truecolor";
+
   programs.helix = {
     enable = true;
     settings = {
-      # theme = "nix-${hash}";
-      theme = "catppuccin_frappe";
+      theme = "nix-${hash}";
+      # theme = "catppuccin_frappe";
       editor = {
         soft-wrap.enable = true;
         color-modes = true;
@@ -27,10 +27,7 @@ in {
       language = [
         {
           name = "nix";
-          language-servers = [
-            "nixd"
-            "nil"
-          ];
+          language-servers = ["nixd" "nil"];
           formatter.command = "alejandra";
         }
       ];
@@ -38,7 +35,7 @@ in {
         command = "nixd";
       };
     };
-    # themes."nix-${hash}" = import ./theme.nix { inherit colorscheme; };
+    themes."nix-${hash}" = import ./theme.nix {inherit colorscheme;};
   };
   xdg.configFile."helix/config.toml".onChange = ''
     ${pkgs.procps}/bin/pkill -u $USER -USR1 hx || true

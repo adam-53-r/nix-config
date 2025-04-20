@@ -11,43 +11,74 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
+
+    # My own programs, packaged with nix
+    themes = {
+      url = "github:misterio77/themes";
+      inputs.systems.follows = "systems";
     };
-    
-    systems.url = "github:nix-systems/default-linux";
-    impermanence.url = "github:nix-community/impermanence";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    
-    sops-nix = {
-      url = "github:mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-colors.url = "github:misterio77/nix-colors";
+    # disconic = {
+    #   url = "github:misterio77/disconic";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.systems.follows = "systems";
+    # };
+    # website = {
+    #   url = "github:misterio77/website";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.systems.follows = "systems";
+    # };
+    # paste-misterio-me = {
+    #   url = "github:misterio77/paste.misterio.me";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.systems.follows = "systems";
+    # };
 
     # Third party programs, packaged with nix
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nix-gaming = {
-    #   # url = "github:fufexan/nix-gaming";
-    #   url = "github:misterio77/nix-gaming";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-24_11.follows = "nixpkgs-stable";
+    };
+    nix-gl = {
+      url = "github:nix-community/nixgl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-minecraft = {
+      url = "github:misterio77/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     deploy-rs.url = "github:serokell/deploy-rs";
+    systems.url = "github:nix-systems/default-linux";
+    impermanence.url = "github:nix-community/impermanence";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    hardware.url = "github:nixos/nixos-hardware";
 
-    # nix-ld.url = "github:Mic92/nix-ld";
-    # nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
   };
-  
+
   outputs = {
     self,
     nixpkgs,
@@ -60,10 +91,10 @@
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
     pkgsFor = lib.genAttrs (import systems) (system:
-      import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      }
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
     );
     forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
 
@@ -85,7 +116,7 @@
     homeManagerModules = import ./modules/home-manager;
 
     overlays = import ./overlays {inherit inputs outputs pkgs;};
-    # hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
     # packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
@@ -175,7 +206,7 @@
           inherit inputs outputs;
         };
       };
-      
+
       # Adam msi-server
       "adamr@msi-server" = lib.homeManagerConfiguration {
         modules = [
@@ -410,7 +441,5 @@
         };
       };
     };
-
-    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }

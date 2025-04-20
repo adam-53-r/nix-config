@@ -1,18 +1,20 @@
 {pkgs, ...}: {
   imports = [
-    # ./cliphist.nix
-    # ./gammastep.nix
-    # ./mako.nix
-    # ./qutebrowser.nix
-    # ./swayidle.nix
-    # ./swaylock.nix
+    ./alacritty.nix
+    ./cliphist.nix
+    ./gammastep.nix
+    ./mako.nix
+    ./qutebrowser.nix
+    ./swayidle.nix
+    ./swaylock.nix
     ./waybar.nix
     ./wofi.nix
-    # ./zathura.nix
-    # ./imv.nix
-    # ./waypipe.nix
+    ./zathura.nix
+    ./imv.nix
+    ./waypipe.nix
   ];
 
+  xdg.mimeApps.enable = true;
   home.packages = with pkgs; [
     wf-recorder
     wl-clipboard

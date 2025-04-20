@@ -7,14 +7,43 @@
     ./features/desktop/cinnamon
     ./features/desktop/hyprland
     ./features/games
+    ./features/productivity
+    ./features/pass
     # ./features/desktop/wireless
     # ./features/rgb
-    # ./features/productivity
-    # ./features/pass
     # ./features/games/star-citizen.nix
     # ./features/games/shadps4.nix
   ];
 
+    # Red
+  wallpaper = pkgs.inputs.themes.wallpapers.aenami-dawn;
+
+  monitors = [
+    {
+      name = "DP-2";
+      width = 1920;
+      height = 1080;
+      workspace = "2";
+      primary = true;
+      refreshRate = 144;
+    }
+    {
+      name = "eDP-1";
+      width = 1920;
+      height = 1080;
+      workspace = "1";
+      position = "auto-left";
+      refreshRate = 144;
+    }
+  ];
+
+  wayland.windowManager.hyprland.settings.env = [
+    "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
+    "LIBVA_DRIVER_NAME,nvidia"
+    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+    "NVD_BACKEND,direct"
+  ];
+  
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [
@@ -75,27 +104,4 @@
       '';
     };
   };
-
-  # Red
-  # wallpaper = pkgs.wallpapers.aenami-dawn;
-
-  #  ------   -----   ------
-  # | DP-3 | | DP-1| | DP-2 |
-  #  ------   -----   ------
-  # monitors = [
-  #   {
-  #     name = "DP-1";
-  #     width = 2560;
-  #     height = 1080;
-  #     workspace = "1";
-  #     primary = true;
-  #   }
-  #   {
-  #     name = "DP-2";
-  #     width = 1920;
-  #     height = 1080;
-  #     position = "auto-right";
-  #     workspace = "2";
-  #   }
-  # ];
 }

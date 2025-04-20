@@ -17,7 +17,7 @@ in {
   ];
 
   dconf.settings = {
-    "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    # "org/gnome/desktop/interface".color-scheme = "prefer-dark";
     "org/cinnamon/desktop/applications/terminal" = {
       exec = "handlr launch x-scheme-handler/terminal";
       exec-arg = "--";

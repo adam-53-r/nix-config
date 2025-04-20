@@ -12,6 +12,6 @@
     gnome.games.enable = true;
   };
   # Fix broken stuff
-  services.avahi.enable = false;
+  # services.avahi.enable = false;
   # networking.networkmanager.enable = false;
 }
