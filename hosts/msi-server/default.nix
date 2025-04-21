@@ -2,6 +2,7 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }: {
   imports = [
@@ -22,7 +23,10 @@
     ../common/optional/wireguard-server.nix
     ../common/optional/nextcloud.nix
     ../common/optional/plex.nix
+
+    inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
+
 
   networking = {
     hostName = "msi-server";
@@ -109,6 +113,19 @@
       owner = "nginx";
     };
   };
+
+   services.minecraft-servers = {
+    enable = true;
+    eula = true;
+    openFirewall = true;
+    servers.vanilla = {
+      enable = true;
+      jvmOpts = "-Xmx4G -Xms2G";
+
+      # Specify the custom minecraft server package
+      package = pkgs.inputs.nix-minecraft.vanillaServers.vanilla-1_21_5;
+    };
+  }; 
 
   system.stateVersion = "25.05";
 }

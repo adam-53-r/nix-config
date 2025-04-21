@@ -30,6 +30,7 @@ in {
       "vboxusers"
       "mysql"
       "gns3"
+      "minecraft"
     ];
 
     hashedPasswordFile = lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;
