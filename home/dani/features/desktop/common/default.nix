@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./alacritty.nix
+    # ./alacritty.nix
     ./ghostty.nix
     ./deluge.nix
     ./discord.nix
@@ -59,12 +59,12 @@
   ];
 
   # Also sets org.freedesktop.appearance color-scheme
-  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    # if config.colorscheme.mode == "dark"
-    # then "prefer-dark"
-    # else if config.colorscheme.mode == "light"
-    # then "prefer-light"
-    # else "default";
+  dconf.settings."org/gnome/desktop/interface".color-scheme =
+    if config.colorscheme.mode == "dark"
+    then "prefer-dark"
+    else if config.colorscheme.mode == "light"
+    then "prefer-light"
+    else "default";
 
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "*";

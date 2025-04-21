@@ -109,8 +109,4 @@
     deploy-rs
     nixos-anywhere
   ];
-
-  home.file = {
-    ".config/lazygit/config.yml".text = "";
-  };
 }

@@ -21,14 +21,14 @@
       ];
   };
 
-  # monitor = lib.head (lib.filter (m: m.primary) config.monitors);
+  monitor = lib.head (lib.filter (m: m.primary) config.monitors);
   steam-session = let
     gamescope = lib.concatStringsSep " " [
       (lib.getExe pkgs.gamescope)
-      # "--output-width ${toString monitor.width}"
-      # "--output-height ${toString monitor.height}"
-      # "--framerate-limit ${toString monitor.refreshRate}"
-      # "--prefer-output ${monitor.name}"
+      "--output-width ${toString monitor.width}"
+      "--output-height ${toString monitor.height}"
+      "--framerate-limit ${toString monitor.refreshRate}"
+      "--prefer-output ${monitor.name}"
       "--adaptive-sync"
       "--expose-wayland"
       "--hdr-enabled"
@@ -58,6 +58,16 @@ in {
     "/persist/${config.home.homeDirectory}" = {
       allowOther = true;
       directories = [
+        {
+          directory = ".factorio";
+          method = "bindfs";
+        }
+        # ".config/Hero_Siege"
+        # ".config/unity3d/Berserk Games/Tabletop Simulator"
+        # ".config/unity3d/IronGate/Valheim"
+        # ".local/share/Tabletop Simulator"
+        # ".local/share/Paradox Interactive"
+        # ".paradoxlauncher"
         ".local/share/Steam"
       ];
     };

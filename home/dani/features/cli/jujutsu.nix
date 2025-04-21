@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{config, lib, ...}: {
   programs.jujutsu = {
     enable = true;
     settings = {
@@ -12,19 +8,30 @@
       };
       ui = {
         pager = "less -FRX";
+        show-cryptographic-signatures = true;
       };
       signing = let
         gitCfg = config.programs.git.extraConfig;
       in {
         backend = "gpg";
+        behaviour = if gitCfg.commit.gpgSign then "own" else "never";
         key = gitCfg.user.signing.key;
-        behavior = lib.mkIf gitCfg.commit.gpgSign "own";
+      };
+      template-aliases = {
+        "gerrit_change_id(change_id)" = ''
+          "Id0000000" ++ change_id.normal_hex()
+        '';
       };
       templates = {
         draft_commit_description = ''
           concat(
             description,
             indent("JJ: ", concat(
+              if(
+                !description.contains("Change-Id: "),
+                "Change-Id: " ++ gerrit_change_id(change_id) ++ "\n",
+                "",
+              ),
               "Change summary:\n",
               indent("     ", diff.summary()),
               "Full change:\n",
