@@ -12,8 +12,8 @@
     ../common/users/adamr
 
     ../common/optional/quietboot.nix
-    # ../common/optional/sddm.nix
-    ../common/optional/greetd.nix
+    ../common/optional/sddm.nix
+    # ../common/optional/greetd.nix
     ../common/optional/cinnamon.nix
     ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
