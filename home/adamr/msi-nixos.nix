@@ -1,7 +1,4 @@
- {
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./global
     ./features/desktop/cinnamon
@@ -15,8 +12,8 @@
     # ./features/games/shadps4.nix
   ];
 
-    # Red
-  wallpaper = pkgs.inputs.themes.wallpapers.aenami-dawn;
+  # Red
+  wallpaper = pkgs.inputs.themes.wallpapers.scifi-reactor-blue-orange;
 
   monitors = [
     {
@@ -43,7 +40,7 @@
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     "NVD_BACKEND,direct"
   ];
-  
+
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = [

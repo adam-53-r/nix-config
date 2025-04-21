@@ -36,6 +36,7 @@ in {
   home.packages = [
     git-m7
     git-fixup
+    pkgs.lazygit
   ];
   programs.git = {
     enable = true;
