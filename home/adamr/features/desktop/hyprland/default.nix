@@ -41,7 +41,9 @@ in {
       wrapRuntimeDeps = false;
     });
     systemd = {
-      enable = true;
+      # Hyprland systemd integration disabled because we already have
+      # Hyprland with UWSM installed, and that manages systemd for us.
+      enable = false;
       # Same as default, but stop graphical-session too
       extraCommands = lib.mkBefore [
         "systemctl --user stop graphical-session.target"
