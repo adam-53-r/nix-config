@@ -15,6 +15,35 @@ in {
     ./features/games
   ];
 
+  # Red
+  wallpaper = pkgs.inputs.themes.wallpapers.scifi-reactor-blue-orange;
+
+  monitors = [
+    {
+      name = "HDMI-A-1";
+      width = 2560;
+      height = 1440;
+      workspace = "1";
+      primary = true;
+      refreshRate = 75;
+    }
+    {
+      name = "eDP-1";
+      width = 2560;
+      height = 1440;
+      workspace = "1";
+      position = "auto-right";
+      refreshRate = 165;
+    }
+  ];
+
+  wayland.windowManager.hyprland.settings.env = [
+    "AQ_DRM_DEVICES,/dev/dri/card1"
+    "LIBVA_DRIVER_NAME,nvidia"
+    "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+    "NVD_BACKEND,direct"
+  ];
+
 
   dconf.settings = {
     "org/cinnamon/desktop/background".picture-uri = "file://${artwork-pkg}/wallpapers/nix-wallpaper-binary-white.png";
