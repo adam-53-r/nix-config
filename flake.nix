@@ -433,7 +433,7 @@
               user = "root";
               path = activate-nixos self.nixosConfigurations.danix;
             };
-            hm-adamr = {
+            hm-dani = {
               user = "dani";
               path = activate-hm self.homeConfigurations."dani@danix";
             };
