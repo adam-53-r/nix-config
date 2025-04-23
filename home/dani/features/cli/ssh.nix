@@ -16,8 +16,8 @@ in {
           directory = ".ssh";
           method = "bindfs";
         }
-      ];
-    };
+    ];
+  };
   };
 
   home.packages = with pkgs; [ sshfs ];
@@ -30,7 +30,7 @@ in {
       net = {
         host = lib.concatStringsSep " " (lib.flatten (map (host: [
             host
-            # "${host}.m7.rs"
+            "${host}.arm53.xyz"
             # "${host}.ts.m7.rs"
           ]) hostnames)
         );

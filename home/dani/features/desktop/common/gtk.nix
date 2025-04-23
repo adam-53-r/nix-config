@@ -75,23 +75,23 @@ in rec {
     font = {
       inherit (config.fontProfiles.regular) name size;
     };
-    # theme = let
-    #   inherit (config.colorscheme) mode colors;
-    #   name = "generated-${hashString "md5" (toJSON colors)}-${mode}";
-    # in {
-    #   inherit name;
-    #   package = materiaTheme name (
-    #     lib.mapAttrs (_: v: lib.removePrefix "#" v) colors
-    #   );
-    # };
-    # iconTheme = {
-    #   name = "Papirus-${
-    #     if config.colorscheme.mode == "dark"
-    #     then "Dark"
-    #     else "Light"
-    #   }";
-    #   package = pkgs.papirus-icon-theme;
-    # };
+    theme = let
+      inherit (config.colorscheme) mode colors;
+      name = "generated-${hashString "md5" (toJSON colors)}-${mode}";
+    in {
+      inherit name;
+      package = materiaTheme name (
+        lib.mapAttrs (_: v: lib.removePrefix "#" v) colors
+      );
+    };
+    iconTheme = {
+      name = "Papirus-${
+        if config.colorscheme.mode == "dark"
+        then "Dark"
+        else "Light"
+      }";
+      package = pkgs.papirus-icon-theme;
+    };
     cursorTheme = {
       package = pkgs.apple-cursor;
       name = "macOS-BigSur";
@@ -101,10 +101,10 @@ in rec {
 
   services.xsettingsd = {
     enable = true;
-    # settings = {
-    #   "Net/ThemeName" = "${gtk.theme.name}";
-    #   "Net/IconThemeName" = "${gtk.iconTheme.name}";
-    # };
+    settings = {
+      "Net/ThemeName" = "${gtk.theme.name}";
+      "Net/IconThemeName" = "${gtk.iconTheme.name}";
+    };
   };
 
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
