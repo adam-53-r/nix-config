@@ -76,7 +76,8 @@ in {
         movefocus_cycles_fullscreen = false;
       };
       input = {
-        kb_layout = "us";
+        kb_layout = "us,es";
+        kb_options = "grp:win_space_toggle";
         touchpad.disable_while_typing = true;
       };
       device = [
