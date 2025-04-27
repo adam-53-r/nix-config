@@ -76,6 +76,8 @@ in {
       clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
       rm = "trash ";
       mtr = "mtr ";
+      cc = "fish_clipboard_copy ";
+      # pp = "fish_clipboard_paste ";
     };
     functions = {
       # Disable greeting
