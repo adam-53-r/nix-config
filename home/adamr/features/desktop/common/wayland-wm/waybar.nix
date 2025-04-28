@@ -87,10 +87,10 @@ in {
 
         modules-center = [
           "cpu"
-          "custom/gpu"
+          # "custom/gpu"
           "memory"
           "clock"
-          "custom/unread-mail"
+          # "custom/unread-mail"
         ];
 
         modules-right = [
