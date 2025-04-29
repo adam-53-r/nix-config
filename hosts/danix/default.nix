@@ -57,5 +57,9 @@
 
   services.displayManager.defaultSession = "cinnamon";
 
+  # SDDM theme
+  environment.systemPackages = [ pkgs.catppuccin-sddm ];
+  services.displayManager.sddm.theme = lib.mkForce "catppuccin-mocha";
+
   system.stateVersion = "25.05";
 }
