@@ -16,7 +16,7 @@ in {
   ];
 
   # Red
-  wallpaper = pkgs.inputs.themes.wallpapers.scifi-reactor-blue-orange;
+  wallpaper = pkgs.inputs.themes.wallpapers.cyberpunk-city-red;
 
   monitors = [
     {
@@ -48,5 +48,4 @@ in {
   dconf.settings = {
     "org/cinnamon/desktop/background".picture-uri = "file://${artwork-pkg}/wallpapers/nix-wallpaper-binary-white.png";
   };
-
 }
