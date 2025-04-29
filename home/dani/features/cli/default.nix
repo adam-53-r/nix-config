@@ -108,5 +108,8 @@
     age
     deploy-rs
     nixos-anywhere
+    
+    lunarvim
+    mouseless
   ];
 }
