@@ -38,6 +38,18 @@ in {
     #     Whether to open ports in the firewall for the server
     #   '';
     # };
+    config = let
+      configs = map (c: builtins.baseNameOf c) (lib.filesystem.listFilesRecursive "${pkgs.sddm-astronaut}/share/sddm/themes/sddm-astronaut-theme/Themes");
+    in mkOption {
+      default = builtins.head configs;
+    };
+    config = let
+      # Getting the possible configs for the theme by just listing the files in the Themes folder
+      configs = map (c: builtins.baseNameOf c) (lib.filesystem.listFilesRecursive "${pkgs.sddm-astronaut}/share/sddm/themes/sddm-astronaut-theme/Themes");
+    in mkOption {
+      default = "astronaut.conf";
+      type = lib.types.enum configs;
+    };
   };
 
   config = mkIf cfg.enable {

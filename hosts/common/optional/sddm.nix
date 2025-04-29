@@ -22,7 +22,10 @@
       kdePackages.qtvirtualkeyboard
       xorg.libxcb
     ];
-    theme = "sddm-astronaut-theme";
+    astronaut-theme = {
+      enable = true;
+      config = "pixel_sakura.conf";
+    };
   };
 
   environment.systemPackages = with pkgs; [
