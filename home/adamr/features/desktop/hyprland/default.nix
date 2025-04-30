@@ -21,6 +21,7 @@ in {
 
     ./basic-binds.nix
     ./hyprbars.nix
+    ./hypridle.nix
   ];
 
   xdg.portal = {
