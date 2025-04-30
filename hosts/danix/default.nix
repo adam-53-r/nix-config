@@ -10,6 +10,7 @@
 
     ../common/global
     ../common/users/dani
+    ../common/users/adamr
 
     ../common/optional/quietboot.nix
     ../common/optional/sddm.nix
