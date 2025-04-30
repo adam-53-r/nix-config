@@ -49,6 +49,13 @@ creation_rules:
       pgp:
       - *adamr
 
+  - path_regex: hosts/danix/secrets.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *danix
+      pgp:
+      - *adamr
+
   - path_regex: hosts/common/users/dani/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:

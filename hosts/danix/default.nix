@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   lib,
   ...
@@ -29,6 +28,19 @@
     # ../common/optional/virtualbox.nix
     # ../common/optional/vmware.nix
   ];
+
+  disable-user-sops = true;
+
+  users.users.adamr = {
+    hashedPasswordFile = config.sops.secrets.adamr-password.path;
+  };
+
+  sops.secrets = {
+    adamr-password = {
+      sopsFile = ./secrets.json;
+      neededForUsers = true;
+    };
+  };
 
   networking = {
     hostName = "danix";
@@ -59,7 +71,7 @@
   services.displayManager.defaultSession = "cinnamon";
 
   # SDDM theme
-  environment.systemPackages = [ pkgs.catppuccin-sddm ];
+  environment.systemPackages = [pkgs.catppuccin-sddm];
   services.displayManager.sddm.theme = lib.mkForce "catppuccin-mocha";
 
   system.stateVersion = "25.05";
