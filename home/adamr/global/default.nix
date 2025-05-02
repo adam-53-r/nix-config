@@ -43,6 +43,7 @@
     sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
       FLAKE = "$HOME/mynix";
+      NH_FLAKE = "$HOME/mynix";
       EDITOR = "hx";
       COLORTERM = "truecolor";
     };
