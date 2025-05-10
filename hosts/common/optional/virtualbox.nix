@@ -4,10 +4,10 @@
 }: {
   virtualisation.virtualbox.host = {
     enable = true;
-    # enableKvm = true;
+    enableKvm = false;
     enableExtensionPack = true;
     addNetworkInterface = true;
-    package = pkgs.stable.virtualbox;
-
+    package = pkgs.virtualbox;
   };
+  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
 }
