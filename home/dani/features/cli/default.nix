@@ -111,5 +111,7 @@
     
     lunarvim
     mouseless
+
+    flameshot
   ];
 }

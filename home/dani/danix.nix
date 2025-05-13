@@ -16,7 +16,7 @@ in {
   ];
 
   # Red
-  wallpaper = pkgs.inputs.themes.wallpapers.cyberpunk-city-red;
+  wallpaper = pkgs.inputs.themes.wallpapers.forest-deer-landscape;
 
   monitors = [
     {
