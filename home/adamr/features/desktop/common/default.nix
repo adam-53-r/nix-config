@@ -45,6 +45,7 @@
     ./vlc.nix
     ./vscodium.nix
     ./winbox.nix
+    ./virtualbox.nix
   ];
 
   home.packages = [
