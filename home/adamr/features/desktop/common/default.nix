@@ -70,4 +70,10 @@
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "*";
   xdg.mimeApps.enable = true;
+
+  # Persisting wirepluber state so I dont have to change the default audio devices
+  # on each boot.
+  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+    ".local/state/wireplumber"
+  ];
 }

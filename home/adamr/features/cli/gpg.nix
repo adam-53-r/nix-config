@@ -9,7 +9,7 @@
     enableSshSupport = true;
     # sshKeys = ["1B4287D220A41AC9AA1215E5A6F2A42B296CCEEC"];
     enableExtraSocket = true;
-    pinentryPackage =
+    pinentry.package =
       if config.gtk.enable
       then pkgs.pinentry-gnome3
       else pkgs.pinentry-tty;
