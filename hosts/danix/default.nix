@@ -9,7 +9,7 @@
 
     ../common/global
     ../common/users/dani
-    ../common/users/adamr
+    # ../common/users/adamr
 
     ../common/optional/quietboot.nix
     ../common/optional/sddm.nix
@@ -29,18 +29,18 @@
     # ../common/optional/vmware.nix
   ];
 
-  disable-user-sops = true;
+  # disable-user-sops = true;
 
-  users.users.adamr = {
-    hashedPasswordFile = config.sops.secrets.adamr-password.path;
-  };
+  # users.users.adamr = {
+  #   hashedPasswordFile = config.sops.secrets.adamr-password.path;
+  # };
 
-  sops.secrets = {
-    adamr-password = {
-      sopsFile = ./secrets.json;
-      neededForUsers = true;
-    };
-  };
+  # sops.secrets = {
+  #   adamr-password = {
+  #     sopsFile = ./secrets.json;
+  #     neededForUsers = true;
+  #   };
+  # };
 
   networking = {
     hostName = "danix";
