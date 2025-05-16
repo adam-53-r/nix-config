@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [rustdesk];
+  home.packages = with pkgs.stable; [rustdesk];
 }

@@ -40,11 +40,12 @@
     ./postman.nix
     ./qbittorrent.nix
     ./remmina.nix
-    # ./rustdesk.nix
+    ./rustdesk.nix
     ./teamviewer.nix
     ./vlc.nix
     ./vscodium.nix
     ./winbox.nix
+    ./virtualbox.nix
   ];
 
   home.packages = [
@@ -69,4 +70,10 @@
   xdg.portal.enable = true;
   xdg.portal.config.common.default = "*";
   xdg.mimeApps.enable = true;
+
+  # Persisting wirepluber state so I dont have to change the default audio devices
+  # on each boot.
+  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+    ".local/state/wireplumber"
+  ];
 }
