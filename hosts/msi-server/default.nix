@@ -12,17 +12,18 @@
     ../common/users/adamr
 
     ../common/optional/quietboot.nix
-    ../common/optional/docker.nix
     ../common/optional/ecryptfs.nix
     ../common/optional/fail2ban.nix
     ../common/optional/gns3-server.nix
-    ../common/optional/libvirtd.nix
-    # ../common/optional/lxd.nix
     ../common/optional/mysql.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/optional/wireguard-server.nix
     ../common/optional/nextcloud.nix
     ../common/optional/plex.nix
+    ../common/optional/docker.nix
+    ../common/optional/libvirtd.nix
+    # ../common/optional/virtualbox.nix
+    # ../common/optional/vmware.nix
 
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
@@ -104,13 +105,21 @@
     nextcloud-admin-passwd.sopsFile = ./secrets.json;
     cert-file = {
       format = "binary";
-      sopsFile = ./cert-file;
+      sopsFile = ./cert-file.sops;
       owner = "nginx";
     };
     key-file = {
       format = "binary";
-      sopsFile = ./key-file;
+      sopsFile = ./key-file.sops;
       owner = "nginx";
+    };
+    openvpn-windscribe = {
+      format = "binary";
+      sopsFile = ./windscribe.ovpn.sops;
+    };
+    windscribe-credentials = {
+      format = "binary";
+      sopsFile = ./windscribe-credentials.sops;
     };
   };
 
@@ -126,6 +135,51 @@
       package = pkgs.inputs.nix-minecraft.vanillaServers.vanilla-1_21_5;
     };
   }; 
+
+  networking.nat = {
+    enable = true;
+    # Use "ve-*" when using nftables instead of iptables
+    internalInterfaces = ["ve-+"];
+    externalInterface = "br-servers-vlan";
+    # Lazy IPv6 connectivity for the container
+    # enableIPv6 = true;
+  };
+
+
+  containers.windscribe-vpn = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "192.168.100.10";
+    localAddress = "192.168.100.11";
+    enableTun = true;
+    ephemeral = true;
+    bindMounts = {
+      "/root/windscribe.ovpn" = {
+        hostPath = config.sops.secrets.openvpn-windscribe.path;
+        isReadOnly = true;
+      };
+      "/root/windscribe-credentials.txt" = {
+        hostPath = config.sops.secrets.windscribe-credentials.path;
+        isReadOnly = true;
+      };
+    };
+    config = { config, pkgs, lib, ... }: {
+      system.stateVersion = "25.05";
+
+      networking.useHostResolvConf = false;
+      services.resolved.enable = true;
+
+      services.openvpn.servers = {
+        windscribe = {
+          config = ''
+            config /root/windscribe.ovpn
+            auth-user-pass /root/windscribe-credentials.txt
+          '';
+          autoStart = true;
+        };
+      };      
+    };
+  };
 
   system.stateVersion = "25.05";
 }
