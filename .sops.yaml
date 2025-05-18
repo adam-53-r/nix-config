@@ -29,8 +29,8 @@ creation_rules:
       - *adamr
 
     # All files named secrets.<extension> or files with the .sops
-    # extension
-  - path_regex: hosts/msi-server/(secrets.(yaml|json|env|ini)|.*.sops)$
+    # extension inside msi-server or subfolders
+  - path_regex: hosts/msi-server/.*(secrets.(yaml|json|env|ini)|.*.sops)$
     key_groups:
     - age:
       - *msi-server
