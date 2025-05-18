@@ -34,6 +34,9 @@
     hostName = "msi-nixos";
   };
 
+  environment.systemPackages = [pkgs.hostctl];
+  environment.etc.hosts.mode = "0644";
+
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
     binfmt.emulatedSystems = [
