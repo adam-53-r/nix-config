@@ -87,10 +87,10 @@ in {
 
         modules-center = [
           "cpu"
-          "custom/gpu"
+          # "custom/gpu"
           "memory"
           "clock"
-          "custom/unread-mail"
+          # "custom/unread-mail"
         ];
 
         modules-right = [
@@ -147,7 +147,7 @@ in {
           };
         };
         battery = {
-          bat = "BAT0";
+          bat = "BAT1";
           interval = 10;
           format-icons = [
             "󰁺"
