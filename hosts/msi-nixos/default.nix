@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   pkgs,
   lib,
   ...
@@ -116,5 +115,31 @@
     };
   };
 
+  # SDDM theme
+  # Adding the sddm theme package
+  environment.systemPackages = [(
+    pkgs.catppuccin-sddm.override {
+      # flavor = "mocha";
+      # font  = "Noto Sans";
+      # fontSize = "9";
+      # background = "${./wallpaper.png}";
+      # loginBackground = true;
+    }
+  )];
+  # Setting up the theme with the required dependencies
+  services.displayManager.sddm = lib.mkForce {
+    enable = true;
+    wayland.enable = true;
+    package = pkgs.kdePackages.sddm;
+    theme = "catppuccin-mocha";
+    extraPackages = with pkgs.kdePackages; [
+      breeze-icons
+      kirigami
+      plasma5support
+      qtsvg
+      qtvirtualkeyboard
+    ];
+  };
+  
   system.stateVersion = "25.05";
 }

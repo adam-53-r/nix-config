@@ -19,6 +19,7 @@
     ./wine.nix
     ./byobu.nix
     ./nb.nix
+    ./aws.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix
@@ -38,7 +39,6 @@
     # trekscii # Cute startrek cli printer
     timer # To help with my ADHD paralysis
     tldr # Get command common usages
-    awscli2 # AWS cli
 
     nixd # Nix LSP
     alejandra # Nix formatter
