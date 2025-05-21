@@ -14,13 +14,13 @@ in {
     ];
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = ["org.qutebrowser.qutebrowser.desktop"];
-    "text/xml" = ["org.qutebrowser.qutebrowser.desktop"];
-    "x-scheme-handler/http" = ["org.qutebrowser.qutebrowser.desktop"];
-    "x-scheme-handler/https" = ["org.qutebrowser.qutebrowser.desktop"];
-    "x-scheme-handler/qute" = ["org.qutebrowser.qutebrowser.desktop"];
-  };
+  # xdg.mimeApps.defaultApplications = {
+  #   "text/html" = ["org.qutebrowser.qutebrowser.desktop"];
+  #   "text/xml" = ["org.qutebrowser.qutebrowser.desktop"];
+  #   "x-scheme-handler/http" = ["org.qutebrowser.qutebrowser.desktop"];
+  #   "x-scheme-handler/https" = ["org.qutebrowser.qutebrowser.desktop"];
+  #   "x-scheme-handler/qute" = ["org.qutebrowser.qutebrowser.desktop"];
+  # };
 
   programs.qutebrowser = {
     enable = true;
