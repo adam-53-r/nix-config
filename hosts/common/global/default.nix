@@ -51,7 +51,7 @@
   };
 
   hardware.enableRedistributableFirmware = true;
-  networking.domain = "arm53.xyz";
+  networking.domain = "tail6743b5.ts.net";
 
   # Increase open file limit for sudoers
   security.pam.loginLimits = [

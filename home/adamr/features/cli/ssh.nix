@@ -30,7 +30,7 @@ in {
       net = {
         host = lib.concatStringsSep " " (lib.flatten (map (host: [
             host
-            "${host}.arm53.xyz"
+            "${host}.tail6743b5.ts.net"
             # "${host}.ts.m7.rs"
           ]) hostnames)
         );
