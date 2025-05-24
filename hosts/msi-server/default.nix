@@ -1,8 +1,6 @@
 {
   lib,
-  inputs,
   config,
-  pkgs,
   ...
 }: {
   imports = [
@@ -18,7 +16,6 @@
     ../common/optional/mysql.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/optional/wireguard-server.nix
-    ../common/optional/nextcloud.nix
     ../common/optional/plex.nix
     ../common/optional/docker.nix
     ../common/optional/libvirtd.nix

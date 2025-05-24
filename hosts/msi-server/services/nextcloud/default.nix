@@ -4,32 +4,28 @@
 }: {
   sops.secrets = {
     nextcloud-admin-passwd.sopsFile = ./secrets.json;
-    cert-file = {
-      format = "binary";
-      sopsFile = ./cert-file.sops;
-      owner = "nginx";
-    };
-    key-file = {
-      format = "binary";
-      sopsFile = ./key-file.sops;
-      owner = "nginx";
-    };
   };
   
   services.nextcloud = {
-    config.adminpassFile = config.sops.secrets.nextcloud-admin-passwd.path;
+    enable = true;
     https = true;
+    hostName = "nextcloud.arm53.xyz";
     home = "/DATA/msi-server/nextcloud";
+    config = {
+      dbtype = "sqlite";
+      adminpassFile = config.sops.secrets.nextcloud-admin-passwd.path;
+    };
   };
 
   services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-    # forceSSL = true;
-    addSSL = true;
-    sslCertificate = config.sops.secrets.cert-file.path;
-    sslCertificateKey = config.sops.secrets.key-file.path;
+    forceSSL = true;
+    sslCertificate = "/var/lib/acme/nextcloud.arm53.xyz/cert.pem";
+    sslCertificateKey = "/var/lib/acme/nextcloud.arm53.xyz/key.pem";
   };
 
   systemd.services.nginx.requires = [
     "DATA.mount"
   ];
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }
