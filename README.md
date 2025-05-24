@@ -14,6 +14,7 @@ Here's my NixOS/home-manager config files. Requires [Nix flakes](https://nixos.w
 - **Opt-in persistence** through impermanence + blank snapshotting
 - **Encrypted** single **BTRFS** partition
 - **Declarative** disk partitioning and formatting with [disko]
+- Fully **declarative self-hosted** apps like [Nextcloud](https://nextcloud.com)
 - Deployment **secrets** using [**sops-nix**][sops]
 - **Mesh networked** hosts with **tailscale**
 - Flexible **Home Manager** Configs through **feature flags**
@@ -27,12 +28,11 @@ Here's my NixOS/home-manager config files. Requires [Nix flakes](https://nixos.w
   - `common`: Shared configurations consumed by the machine-specific ones.
     - `global`: Configurations that are globally applied to all my machines.
     - `optional`: Opt-in configurations my machines can use.
-  - `msi-nixos`: Msi Laptop GS65 Stealth 8SF - 32GB RAM, i7-8750H, RTX 2070 Mobile | Cinnamon
-  - `danix`: Legion ... - 32GB RAM, i7-8750H, RTX 3070 Mobile | Cinnamon
+  - `msi-nixos`: Msi Laptop GS65 Stealth 8SF - 32GB RAM, i7-8750H, RTX 2070 Mobile | Hyprland
+  - `danix`: Legion ... - 32GB RAM, i7-8750H, RTX 3070 Mobile | Hyprland
   - `msi-server`: Repurposed MSI Nightblade MI2 Server - 16GB RAM, i5-6400 | GTX 960 | Server
-  - `nixos-htb`: Qemu VM for [HTB](https://www.hackthebox.com/) | VM | Cinnamon
+  - `nixos-htb`: Qemu VM for [HTB](https://www.hackthebox.com/) | VM
   - `vm-tests`: Qemu VM for testing | VM
-  - `raspberrypi`: *WIP*
 - `home`: My Home-manager configuration, acessible via `home-manager --flake`
     - Each directory here is a "feature" each hm configuration can toggle, thus
       customizing my setup for each machine (be it a server, desktop, laptop,
@@ -42,7 +42,6 @@ Here's my NixOS/home-manager config files. Requires [Nix flakes](https://nixos.w
   `nix build`.
 - `pkgs`: My custom packages. Also accessible via `nix build`. You can compose
   these into your own configuration by using my flake's overlay, or consume them through NUR.
-<!-- - `templates`: A couple project templates for different languages. Accessible via `nix init`. -->
 
 ## About the installation
 
@@ -96,36 +95,36 @@ signing, as well as for SSH'ing around. -->
 
 Most relevant user apps daily drivers:
 
-<!-- - hyprland + swayidle + swaylock
+- hyprland + swayidle + swaylock
 - waybar
-- helix -->
+- helix
 - fish
 - alacritty
-<!-- - qutebrowser -->
-<!-- - neomutt + mbsync -->
-<!-- - khal + khard + todoman + vdirsyncer -->
-<!-- - gpg + pass -->
+- gpg + pass
 - tailscale
 - podman
-<!-- - zathura -->
-<!-- - wofi -->
+- zathura
+- wofi
 - bat + fd + rg
 - kdeconnect
-<!-- - sublime-music -->
+- sublime-music
 
-<!-- Some of the services I host:
+Some of the services I host:
 
-- hydra
-- navidrome
-- deluge
-- prometheus
-- websites (such as https://m7.rs)
-- minecraft
-- headscale -->
+- nextcloud
+- plex server
+- nix binary cache
+<!-- - hydra -->
+<!-- - navidrome -->
+<!-- - deluge -->
+<!-- - prometheus -->
+<!-- - websites (such as https://m7.rs) -->
+<!-- - minecraft -->
+<!-- - headscale -->
 
 Nixy stuff:
 
-<!-- - nix-colors -->
+- nix-colors
 - sops-nix
 - impermanence
 - home-manager
@@ -133,14 +132,6 @@ Nixy stuff:
 - and NixOS and nix itself, of course :)
 
 Let me know if you have any questions about them :)
-
-
-<!-- ## Unixpornish stuff
-![fakebusy](https://i.imgur.com/PZ4L7TR.png)
-![clean](https://i.imgur.com/T5FjqbZ.jpg)
-
-That's how my hyprland desktop setup look like (as of 2022 July). -->
-
 
 [sops]: https://github.com/Mic92/sops-nix
 [disko]: https://github.com/nix-community/disko
