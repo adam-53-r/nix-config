@@ -7,5 +7,6 @@
     ./windscribe-container
     ./nextcloud
     ./binary-cache.nix
+    ./hydra
   ];
 }

@@ -15,6 +15,7 @@
     certs = {
       "nextcloud.arm53.xyz" = {};
       "cache.arm53.xyz" = {};
+      "hydra.arm53.xyz" = {};
     };
   };
 }
