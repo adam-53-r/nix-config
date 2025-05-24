@@ -6,11 +6,15 @@
     cloudflare-token.sopsFile = ../secrets.json;
   };
   
-  security.acme.certs = {
-    "nextcloud.arm53.xyz" = {
+  security.acme = {
+    defaults = {
       dnsProvider = "cloudflare";
       environmentFile = config.sops.secrets.cloudflare-token.path;
-      group = "nextcloud";
+      group = config.services.nginx.group;
+    };
+    certs = {
+      "nextcloud.arm53.xyz" = {};
+      "cache.arm53.xyz" = {};
     };
   };
 }
