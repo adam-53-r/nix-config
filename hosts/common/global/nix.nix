@@ -7,8 +7,14 @@
 in {
   nix = {
     settings = {
-      extra-substituters = lib.mkAfter ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+      extra-substituters = lib.mkAfter [
+        "https://cache.arm53.xyz"
+        "https://hyprland.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.arm53.xyz:GEscuhzZqqKd7b3xFFk3AjKAJoYCGVcTimTYq56mcH8="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
       trusted-users = [
         "root"
         "@wheel"

@@ -1,5 +1,13 @@
 {
   description = "My NixOS Config";
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.arm53.xyz"
+    ];
+    extra-trusted-public-keys = [
+      "cache.arm53.xyz:GEscuhzZqqKd7b3xFFk3AjKAJoYCGVcTimTYq56mcH8="
+    ];
+  };
   inputs = {
 
     # Nix ecosystem
