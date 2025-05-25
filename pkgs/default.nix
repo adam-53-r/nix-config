@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}, ...}: rec {
+{pkgs ? import <nixpkgs> {}, ...}: {
   # Packages with an actual source
   trekscii = pkgs.callPackage ./trekscii {};
   lyrics = pkgs.python3Packages.callPackage ./lyrics {};
