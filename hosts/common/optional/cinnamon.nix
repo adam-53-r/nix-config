@@ -13,18 +13,6 @@
     };
   };
   services.cinnamon.apps.enable = true;
-
-  # programs.dconf.profiles.user = {
-  #   databases = [{
-  #     lockAll = true;
-  #     settings = {
-  #       "org/nemo/preferences" = {
-  #         show-hidden-files = true;
-  #       };
-  #     };
-  #   }];
-  # };
-
-  services.tlp.enable = lib.mkForce false;
   services.speechd.enable = lib.mkForce true;
+  services.power-profiles-daemon.enable = false;
 }
