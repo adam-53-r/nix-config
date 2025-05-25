@@ -30,6 +30,13 @@
     hostName = "msi-server";
   };
 
+  boot = {
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+      "i686-linux"
+    ];
+  };
+
   powerManagement.powertop.enable = true;
 
   programs = {
