@@ -2,6 +2,7 @@
   ...
 }: {
   imports = [
+    ../../common/optional/nginx.nix
     ../../common/optional/mysql.nix
     ../../common/optional/fail2ban.nix
     ../../common/optional/gns3-server.nix
@@ -14,5 +15,6 @@
     ./nextcloud
     ./binary-cache.nix
     ./hydra
+    ./prometheus.nix
   ];
 }

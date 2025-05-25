@@ -41,8 +41,7 @@ in {
     nginx.virtualHosts = {
       "hydra.arm53.xyz" = {
         forceSSL = true;
-        sslCertificate = "/var/lib/acme/hydra.arm53.xyz/cert.pem";
-        sslCertificateKey = "/var/lib/acme/hydra.arm53.xyz/key.pem";
+        useACMEHost = "hydra.arm53.xyz";
         locations = {
           "~* ^/shield/([^\\s]*)".return = "302 https://img.shields.io/endpoint?url=https://hydra.arm53.xyz/$1/shield";
           "/" = {

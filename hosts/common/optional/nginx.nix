@@ -14,10 +14,10 @@ in {
       recommendedOptimisation = true;
       clientMaxBodySize = "300m";
 
-      virtualHosts."${hostName}.${config.networking.domain}" = {
+      virtualHosts."${hostName}.arm53.xyz" = {
         default = true;
         forceSSL = true;
-        enableACME = true;
+        useACMEHost = "${hostName}.arm53.xyz";
         locations."/metrics" = {
           proxyPass = "http://localhost:${toString config.services.prometheus.exporters.nginxlog.port}";
         };

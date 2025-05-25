@@ -19,8 +19,7 @@
 
   services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
     forceSSL = true;
-    sslCertificate = "/var/lib/acme/nextcloud.arm53.xyz/cert.pem";
-    sslCertificateKey = "/var/lib/acme/nextcloud.arm53.xyz/key.pem";
+    useACMEHost = "${config.services.nextcloud.hostName}";
   };
 
   systemd.services.nginx.requires = [
