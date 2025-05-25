@@ -6,7 +6,9 @@
   hydraUser = config.users.users.hydra.name;
   hydraGroup = config.users.users.hydra.group;
 in {
-  imports = [./machines.nix];
+  imports = [
+    ./machines.nix
+  ];
 
   # https://github.com/NixOS/nix/issues/4178#issuecomment-738886808
   systemd.services.hydra-evaluator.environment.GC_DONT_GC = "true";
@@ -73,6 +75,9 @@ in {
   };
 
   environment.persistence = {
-    "/persist".directories = ["/var/lib/hydra"];
+    "/persist".directories = [
+      "/var/lib/hydra"
+      "/var/lib/postgresql"
+    ];
   };
 }
