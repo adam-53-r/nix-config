@@ -2,8 +2,8 @@
   system.hydraAutoUpgrade = {
     # Only enable if not dirty
     enable = inputs.self ? rev;
-    dates = "*:0/10"; # Every 10 minutes
-    # instance = "https://hydra.m7.rs";
+    dates = "weekly";
+    instance = "https://hydra.arm53.xyz";
     project = "nix-config";
     jobset = "main";
     job = "hosts.${config.networking.hostName}";
