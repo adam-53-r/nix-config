@@ -48,6 +48,7 @@ in {
       pushall = "!git remote | xargs -L1 git push --all";
       add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -";
     };
+    delta.enable = true;
     userName = "Adam Rkouni";
     userEmail = lib.mkDefault "adam-53-r@protonmail.com";
     extraConfig = {
