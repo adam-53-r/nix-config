@@ -78,7 +78,10 @@ in {
       };
       input = {
         kb_layout = "us,es";
-        kb_options = "grp:win_space_toggle";
+        kb_options = [
+          "grp:win_space_toggle"
+          "caps:swapescape"
+        ];
         touchpad.disable_while_typing = true;
       };
       device = [
