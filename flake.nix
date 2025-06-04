@@ -231,6 +231,18 @@
           inherit inputs outputs;
         };
       };
+
+      # Adam msi-server
+      "adamr@work" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/work.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
       
       # Adam vm-tests
       # "adamr@vm-tests" = lib.homeManagerConfiguration {
