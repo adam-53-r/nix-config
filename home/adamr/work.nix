@@ -13,3 +13,11 @@
     };
   };
 }
+
+/*
+Add these lines to '/etc/nix/nix.conf':
+
+extra-experimental-features = nix-command flakes ca-derivations
+build-users-group = nixbld
+trusted-users = root adamr
+*/
