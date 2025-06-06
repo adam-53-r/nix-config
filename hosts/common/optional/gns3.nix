@@ -6,14 +6,19 @@
   # Make sure ubridge exists
   users.groups.ubridge = {};
 
-  security.wrappers.ubridge = {
-    source = "${pkgs.ubridge}/bin/ubridge";
-    capabilities = "cap_net_admin,cap_net_raw+ep";
-    owner = "root";
+  security.wrappers.ubridge = lib.mkDefault {
+    capabilities = "cap_net_raw,cap_net_admin=eip";
     group = "ubridge";
-    permissions = lib.mkForce "u+rx,g+rx,o+r";
+    owner = "root";
+    permissions = "u=rwx,g=rx,o=r";
+    source = lib.getExe pkgs.ubridge;
   };
 
+  environment.systemPackages = with pkgs; [
+    gns3-server
+    vpcs
+    dynamips
+  ];
   environment.persistence = {
     "/persist" = {
       directories = [
@@ -25,5 +30,4 @@
       ];
     };
   };
-
 }
