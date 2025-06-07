@@ -16,5 +16,6 @@
     ./binary-cache.nix
     ./hydra
     ./prometheus.nix
+    ./grafana
   ];
 }

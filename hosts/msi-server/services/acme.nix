@@ -20,6 +20,7 @@ in {
       "cache.arm53.xyz" = {};
       "hydra.arm53.xyz" = {};
       "metrics.arm53.xyz" = {};
+      "dash.arm53.xyz" = {};
     };
   };
 }
