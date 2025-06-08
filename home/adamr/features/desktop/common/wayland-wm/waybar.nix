@@ -83,16 +83,16 @@ in {
           ++ [
             "custom/currentplayer"
             "custom/player"
-            # "custom/minicava"
-            #   ];
-
-            # modules-center = [
-            #   "cpu"
-            #   # "custom/gpu"
-            #   "memory"
-            #   "clock"
-            #   # "custom/unread-mail"
+            "custom/minicava"
           ];
+
+        modules-center = [
+          "cpu"
+          # "custom/gpu"
+          "memory"
+          "clock"
+          # "custom/unread-mail"
+        ];
 
         modules-right = [
           "tray"
