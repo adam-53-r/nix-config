@@ -16,7 +16,7 @@ in {
       border-size = 2;
       default-timeout = 12000;
       background-color = "${colors.surface}dd";
-      border-color = "${colors.secondary}dd";
+      border-color = "${colors.surface_container}ff";
       text-color = "${colors.on_surface}dd";
       layer = "overlay";
       max-history = 50;

@@ -22,6 +22,7 @@ in {
       "networkmanager"
       "plugdev"
       "podman"
+      "tss"
       "render"
       "ubridge"
       "video"

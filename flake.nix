@@ -9,7 +9,6 @@
     ];
   };
   inputs = {
-
     # Nix ecosystem
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
@@ -26,21 +25,6 @@
       inputs.systems.follows = "systems";
     };
     nix-colors.url = "github:misterio77/nix-colors";
-    # disconic = {
-    #   url = "github:misterio77/disconic";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.systems.follows = "systems";
-    # };
-    # website = {
-    #   url = "github:misterio77/website";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.systems.follows = "systems";
-    # };
-    # paste-misterio-me = {
-    #   url = "github:misterio77/paste.misterio.me";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.systems.follows = "systems";
-    # };
 
     # Third party programs, packaged with nix
     firefox-addons = {
@@ -81,7 +65,10 @@
     impermanence.url = "github:nix-community/impermanence";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     hardware.url = "github:nixos/nixos-hardware";
-
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -97,7 +84,8 @@
   } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
-    pkgsFor = lib.genAttrs (import systems) (system:
+    pkgsFor = lib.genAttrs (import systems) (
+      system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
@@ -107,14 +95,19 @@
 
     system = "x86_64-linux";
     # Unmodified nixpkgs
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {inherit system;};
     # nixpkgs with deploy-rs overlay but force the nixpkgs package
     deployPkgs = import nixpkgs {
       inherit system;
       overlays = [
         # deploy-rs.overlay # or deploy-rs.overlays.default
         deploy-rs.overlays.default
-        (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+        (self: super: {
+          deploy-rs = {
+            inherit (pkgs) deploy-rs;
+            lib = super.deploy-rs.lib;
+          };
+        })
       ];
     };
   in {
@@ -127,11 +120,15 @@
     hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
     # Importing custom packages and nixos-generate configs
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;}) // {
-      x86_64-linux = (import ./pkgs {inherit pkgs;}) // {
-        install-iso = import ./install-iso.nix {inherit lib nixos-generators;};
+    packages =
+      forEachSystem (pkgs: import ./pkgs {inherit pkgs;})
+      // {
+        x86_64-linux =
+          (import ./pkgs {inherit pkgs;})
+          // {
+            install-iso = import ./install-iso.nix {inherit lib nixos-generators;};
+          };
       };
-    };
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
@@ -148,7 +145,7 @@
           inherit inputs outputs;
         };
       };
-      
+
       # msi-server
       msi-server = lib.nixosSystem {
         modules = [
@@ -158,7 +155,7 @@
           inherit inputs outputs;
         };
       };
-      
+
       # # vm-tests
       # vm-tests = lib.nixosSystem {
       #   modules = [
@@ -203,7 +200,6 @@
       };
     };
 
-
     homeConfigurations = {
       ##############
       # Adam users #
@@ -243,7 +239,7 @@
           inherit inputs outputs;
         };
       };
-      
+
       # Adam vm-tests
       # "adamr@vm-tests" = lib.homeManagerConfiguration {
       #   modules = [
@@ -255,7 +251,7 @@
       #     inherit inputs outputs;
       #   };
       # };
-      
+
       # Adam nixos-htb
       # "adamr@nixos-htb" = lib.homeManagerConfiguration {
       #   modules = [
@@ -267,7 +263,7 @@
       #     inherit inputs outputs;
       #   };
       # };
-      
+
       # Adam raspberrypi
       # "adamr@raspberrypi" = lib.homeManagerConfiguration {
       #   modules = [
@@ -294,7 +290,7 @@
           inherit inputs outputs;
         };
       };
-      
+
       # Dani laptop
       "dani@danix" = lib.homeManagerConfiguration {
         modules = [
@@ -309,18 +305,18 @@
     };
 
     # Deploy-rs configs
-    deploy = let 
+    deploy = let
       activate-nixos = deployPkgs.deploy-rs.lib.activate.nixos;
       activate-hm = deployPkgs.deploy-rs.lib.activate.home-manager;
     in {
-      sshOpts = [ "-A" ];
+      sshOpts = ["-A"];
       nodes = {
         #################
         # Adam Machines #
         #################
         msi-nixos = {
           hostname = "msi-nixos";
-          profilesOrder = [ "system" ];
+          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
@@ -335,7 +331,7 @@
 
         msi-server = {
           hostname = "msi-server";
-          profilesOrder = [ "system" ];
+          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
@@ -350,7 +346,7 @@
 
         vm-tests = {
           hostname = "vm-tests";
-          profilesOrder = [ "system" ];
+          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
@@ -362,10 +358,10 @@
             };
           };
         };
-        
+
         nixos-htb = {
           hostname = "nixos-htb";
-          profilesOrder = [ "system" ];
+          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
@@ -393,7 +389,6 @@
         #   };
         # };
 
-
         #################
         # Dani Machines #
         #################
@@ -409,7 +404,7 @@
 
         danix = {
           hostname = "danix";
-          profilesOrder = [ "system" ];
+          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";

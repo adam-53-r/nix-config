@@ -1,4 +1,8 @@
-{config, pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (config) colorscheme;
   hash = builtins.hashString "md5" (builtins.toJSON colorscheme.colors);
 in {
@@ -31,8 +35,17 @@ in {
           formatter.command = "alejandra";
         }
       ];
-      language-server.nixd = {
-        command = "nixd";
+      language-server = {
+        nixd = {
+          command = "nixd";
+        };
+        tinymist = {
+          config = {
+            typstExtraArgs = ["main.typ"];
+            exportPdf = "onType";
+            outputPath = "$root/$name";
+          };
+        };
       };
     };
     themes."nix-${hash}" = import ./theme.nix {inherit colorscheme;};

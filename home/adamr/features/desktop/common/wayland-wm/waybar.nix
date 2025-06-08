@@ -6,6 +6,7 @@
   inputs,
   ...
 }: let
+  gpgCmds = import ../../../cli/gpg-commands.nix {inherit pkgs config lib;};
   commonDeps = with pkgs; [coreutils gnugrep systemd];
   # Function to simplify making waybar outputs
   mkScript = {
@@ -82,21 +83,25 @@ in {
           ++ [
             "custom/currentplayer"
             "custom/player"
-            "custom/minicava"
-          ];
+            # "custom/minicava"
+            #   ];
 
-        modules-center = [
-          "cpu"
-          # "custom/gpu"
-          "memory"
-          "clock"
-          # "custom/unread-mail"
-        ];
+            # modules-center = [
+            #   "cpu"
+            #   # "custom/gpu"
+            #   "memory"
+            #   "clock"
+            #   # "custom/unread-mail"
+          ];
 
         modules-right = [
           "tray"
-          "custom/rfkill"
+          "custom/gpg-status"
+          "custom/sync-status"
+          "custom/unread-mail"
+          "custom/next-event"
           "network"
+          "custom/rfkill"
           "pulseaudio"
           "battery"
           "custom/hostname"
@@ -125,17 +130,23 @@ in {
           interval = 5;
         };
 
-        pulseaudio = {
-          format-source = "󰍬 {volume}%";
-          format-source-muted = "󰍭 0%";
-          format = "{icon} {volume}% {format_source}";
-          format-muted = "󰸈 0% {format_source}";
+        "pulseaudio" = {
+          format = "{icon}{format_source}";
+          format-bluetooth = "{icon} 󰂯{format_source}";
+          format-source = "";
+          format-source-muted = " 󰍭";
           format-icons = {
+            default-muted = "󰸈";
             default = [
               "󰕿"
               "󰖀"
+              "󰖀"
               "󰕾"
             ];
+            headphone-muted = "󰟎";
+            headphone = "󰋋";
+            headset-muted = "󰋐";
+            headset = "󰋎";
           };
           on-click = lib.getExe pkgs.pavucontrol;
         };
@@ -195,12 +206,16 @@ in {
           };
         };
         "custom/hostname" = {
-          exec = mkScript {script = ''
-            echo "$USER@$HOSTNAME"
-          '';};
-          on-click = mkScript {script = ''
-            systemctl --user restart waybar
-          '';};
+          exec = mkScript {
+            script = ''
+              echo "$USER@$HOSTNAME"
+            '';
+          };
+          on-click = mkScript {
+            script = ''
+              systemctl --user restart waybar
+            '';
+          };
         };
         "custom/unread-mail" = {
           interval = 5;
@@ -227,6 +242,62 @@ in {
             "read" = "󰇯";
             "unread" = "󰇮";
             "syncing" = "󰁪";
+          };
+        };
+        "custom/next-event" = {
+          interval = 10;
+          return-type = "json";
+          exec = mkScriptJson {
+            deps = [config.programs.khal.package pkgs.gnugrep];
+            script = ''
+              events="$(khal list now tomorrow --notstarted --json title --json start-time | jq 'map("\(."start-time") \(.title)")[]' -r)"
+              count="$(printf "%s" "$events" | grep -c "^" || true)"
+              if [ "$count" == 0 ]; then
+                status="no-event"
+                events="No events!"
+              else
+                if test -n "$(khal list now 10m --notstarted)"; then
+                  status="has-close-event"
+                else
+                  status="has-event"
+                fi
+              fi
+            '';
+            alt = "$status";
+            tooltip = "$events";
+          };
+          format = "{icon}";
+          format-icons = {
+            has-event = "󰃭";
+            has-close-event = "󰨱";
+            no-event = "󰃮";
+          };
+          on-click = mkScript {
+            deps = [pkgs.handlr-regex];
+            script = "handlr launch text/calendar";
+          };
+        };
+        "custom/gpg-status" = {
+          interval = 3;
+          return-type = "json";
+          exec = mkScriptJson {
+            script = ''
+              if ${gpgCmds.isUnlocked}; then
+                status="unlocked"
+                tooltip="GPG is unlocked"
+              else
+                status="locked"
+                tooltip="GPG is locked"
+              fi
+            '';
+            alt = "$status";
+            tooltip = "$tooltip";
+          };
+          on-click = mkScript {script = ''if ${gpgCmds.isUnlocked}; then ${gpgCmds.lock}; else ${gpgCmds.unlock}; fi'';};
+          format = "{icon}";
+          format-icons = {
+            locked = "󰌾";
+            unlocked = "󰿆";
           };
         };
         "custom/currentplayer" = {
