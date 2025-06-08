@@ -15,6 +15,7 @@
       enable = true;
       settings = {
         server.http_port = 3001;
+        server.root_url = "https://dash.arm53.xyz/";
         users.default_theme = "system";
         dashboards.default_home_dashboard_path = "${./dashboards}/hosts.json";
         security = {
@@ -62,5 +63,8 @@
         locations."/".proxyPass = "http://localhost:${toString port}";
       };
     };
+  };
+  environment.persistence = {
+    "/persist".directories = ["/var/lib/grafana"];
   };
 }
