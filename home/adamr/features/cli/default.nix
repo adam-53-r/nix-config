@@ -89,6 +89,9 @@
     ethtool
     pciutils
     usbutils
+    gptfdisk
+    parted
+    tparted
 
     hashid
     devenv
