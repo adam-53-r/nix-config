@@ -228,7 +228,19 @@
         };
       };
 
-      # Adam msi-server
+      # Adam msi-windows
+      "adamr@msi-windows" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/msi-windows.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      # Adam work pc
       "adamr@work" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/work.nix
