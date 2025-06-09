@@ -54,7 +54,7 @@
     nix-tree
     keyutils
     efibootmgr
-    
+
     zip
     xz
     unzip
@@ -73,7 +73,7 @@
 
     file
     tree
-    
+
     hugo
     glow
 

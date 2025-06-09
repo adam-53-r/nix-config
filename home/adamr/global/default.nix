@@ -6,7 +6,8 @@
   outputs,
   ...
 }: {
-  imports = [
+  imports =
+    [
       inputs.impermanence.homeManagerModules.impermanence
       ../features/cli
       # ../features/neovim

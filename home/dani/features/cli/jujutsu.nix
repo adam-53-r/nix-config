@@ -1,4 +1,8 @@
-{config, lib, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   programs.jujutsu = {
     enable = true;
     settings = {
@@ -14,7 +18,10 @@
         gitCfg = config.programs.git.extraConfig;
       in {
         backend = "gpg";
-        behaviour = if gitCfg.commit.gpgSign then "own" else "never";
+        behaviour =
+          if gitCfg.commit.gpgSign
+          then "own"
+          else "never";
         key = gitCfg.user.signing.key;
       };
       template-aliases = {

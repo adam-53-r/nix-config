@@ -19,12 +19,12 @@ in {
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-      kernelModules = [ ];
+      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
+      kernelModules = [];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
     kernelParams = [];
-    extraModulePackages = [ ];
+    extraModulePackages = [];
     loader = {
       efi = {
         canTouchEfiVariables = true;

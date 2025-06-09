@@ -116,11 +116,12 @@ in {
   # Run 'createMaildir' after 'linkGeneration'
   home.activation = let
     mbsyncAccounts = lib.filter (a: a.mbsync.enable) (lib.attrValues config.accounts.email.accounts);
-  in lib.mkIf (mbsyncAccounts != [ ]) {
-    createMaildir = lib.mkForce (lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      run mkdir -m700 -p $VERBOSE_ARG ${
-        lib.concatMapStringsSep " " (a: a.maildir.absPath) mbsyncAccounts
-      }
-    '');
-  };
+  in
+    lib.mkIf (mbsyncAccounts != []) {
+      createMaildir = lib.mkForce (lib.hm.dag.entryAfter ["linkGeneration"] ''
+        run mkdir -m700 -p $VERBOSE_ARG ${
+          lib.concatMapStringsSep " " (a: a.maildir.absPath) mbsyncAccounts
+        }
+      '');
+    };
 }

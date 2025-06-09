@@ -1,3 +1,3 @@
 {
-  boot.kernel.sysctl = {"vm.swappiness" = 60; };
+  boot.kernel.sysctl = {"vm.swappiness" = 60;};
 }

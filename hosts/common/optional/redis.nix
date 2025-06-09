@@ -1,12 +1,8 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   services.redis.servers = {
-    
   };
 
   environment.persistence = {
-    "/persist".directories = [ "/var/lib/mysql" ];
+    "/persist".directories = ["/var/lib/mysql"];
   };
 }

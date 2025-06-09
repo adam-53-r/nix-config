@@ -20,7 +20,7 @@ in {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = ["umask=0077"];
               };
             };
 
@@ -38,25 +38,25 @@ in {
                 # additionalKeyFiles = [ "/tmp/disk2.key" ];
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-f" ]; # Override existing partition
+                  extraArgs = ["-f"]; # Override existing partition
                   # Subvolumes must set a mountpoint in order to be mounted,
                   # unless their parent is mounted
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [ "compress=zstd" "discard=async" "autodefrag" ];
+                      mountOptions = ["compress=zstd" "discard=async" "autodefrag"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd" "noatime" "discard=async" "autodefrag" ];
+                      mountOptions = ["compress=zstd" "noatime" "discard=async" "autodefrag"];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [ "compress=zstd" "discard=async" "autodefrag" ];
+                      mountOptions = ["compress=zstd" "discard=async" "autodefrag"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";
-                      mountOptions = [ "noatime" ];
+                      mountOptions = ["noatime"];
                     };
                   };
                 };

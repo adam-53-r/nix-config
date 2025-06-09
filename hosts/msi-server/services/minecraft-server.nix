@@ -6,7 +6,7 @@
   imports = [
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
-   services.minecraft-servers = {
+  services.minecraft-servers = {
     enable = true;
     eula = true;
     openFirewall = true;
@@ -18,5 +18,5 @@
       # Specify the custom minecraft server package
       package = pkgs.inputs.nix-minecraft.vanillaServers.vanilla-1_21_5;
     };
-  }; 
+  };
 }

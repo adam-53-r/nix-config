@@ -3,11 +3,9 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   useHelix = config.programs.helix.enable;
-in
-{
+in {
   programs.fish = {
     interactiveShellInit = ''
       fish_vi_key_bindings

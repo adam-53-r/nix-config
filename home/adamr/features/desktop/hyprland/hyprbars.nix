@@ -6,10 +6,12 @@
   ...
 }: let
   getHostname = x: lib.last (lib.splitString "@" x);
-  remoteColorschemes = lib.mapAttrs' (n: v: {
-    name = getHostname n;
-    value = v.config.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
-  }) outputs.homeConfigurations;
+  remoteColorschemes =
+    lib.mapAttrs' (n: v: {
+      name = getHostname n;
+      value = v.config.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
+    })
+    outputs.homeConfigurations;
   rgb = color: "rgb(${lib.removePrefix "#" color})";
   rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
 
@@ -58,16 +60,19 @@ in {
         ];
       };
 
-      windowrulev2 = [
-        "plugin:hyprbars:bar_color ${rgba config.colorscheme.colors.primary "ee"}, focus:1"
-        "plugin:hyprbars:title_color ${rgb config.colorscheme.colors.on_primary}, focus:1"
-      ] ++ (lib.flatten (lib.mapAttrsToList (name: colors: [
-        "plugin:hyprbars:bar_color ${rgba colors.primary_container "dd"}, title:\\[${name}\\].*"
-        "plugin:hyprbars:title_color ${rgb colors.on_primary_container}, title:\\[${name}\\].*"
+      windowrulev2 =
+        [
+          "plugin:hyprbars:bar_color ${rgba config.colorscheme.colors.primary "ee"}, focus:1"
+          "plugin:hyprbars:title_color ${rgb config.colorscheme.colors.on_primary}, focus:1"
+        ]
+        ++ (lib.flatten (lib.mapAttrsToList (name: colors: [
+            "plugin:hyprbars:bar_color ${rgba colors.primary_container "dd"}, title:\\[${name}\\].*"
+            "plugin:hyprbars:title_color ${rgb colors.on_primary_container}, title:\\[${name}\\].*"
 
-        "plugin:hyprbars:bar_color ${rgba colors.primary "ee"}, title:\\[${name}\\].*, focus:1"
-        "plugin:hyprbars:title_color ${rgb colors.on_primary}, title:\\[${name}\\].*, focus:1"
-      ]) remoteColorschemes));
+            "plugin:hyprbars:bar_color ${rgba colors.primary "ee"}, title:\\[${name}\\].*, focus:1"
+            "plugin:hyprbars:title_color ${rgb colors.on_primary}, title:\\[${name}\\].*, focus:1"
+          ])
+          remoteColorschemes));
     };
   };
 }

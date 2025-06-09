@@ -37,9 +37,11 @@
       };
       provision = {
         enable = true;
-        dashboards.settings.providers = [{
-          options.path = ./dashboards;
-        }];
+        dashboards.settings.providers = [
+          {
+            options.path = ./dashboards;
+          }
+        ];
         datasources.settings = {
           apiVersion = 1;
           datasources = [

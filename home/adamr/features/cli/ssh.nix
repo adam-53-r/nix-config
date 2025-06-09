@@ -16,11 +16,11 @@ in {
           directory = ".ssh";
           method = "bindfs";
         }
-    ];
-  };
+      ];
+    };
   };
 
-  home.packages = with pkgs; [ sshfs ];
+  home.packages = with pkgs; [sshfs];
 
   programs.ssh = {
     enable = true;
@@ -28,11 +28,13 @@ in {
     # userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts.d/hosts";
     matchBlocks = {
       net = {
-        host = lib.concatStringsSep " " (lib.flatten (map (host: [
-            host
-            "${host}.tail6743b5.ts.net"
-            # "${host}.ts.m7.rs"
-          ]) hostnames)
+        host = lib.concatStringsSep " " (
+          lib.flatten (map (host: [
+              host
+              "${host}.tail6743b5.ts.net"
+              # "${host}.ts.m7.rs"
+            ])
+            hostnames)
         );
         forwardAgent = true;
         remoteForwards = [

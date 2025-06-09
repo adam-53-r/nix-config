@@ -2,7 +2,7 @@
   lib,
   pkgs,
   ...
-}: let 
+}: let
   # First port of the range allocated to devices telnet console
   console_start_port_range = 2000;
   # Last port of the range allocated to devices telnet console
@@ -12,7 +12,6 @@
   # Last port of the range allocated to communication between devices. You need two port by link
   udp_end_port_range = 10100;
 in {
-
   imports = [
     ./gns3.nix
   ];
@@ -49,5 +48,4 @@ in {
       }
     ];
   };
-
 }

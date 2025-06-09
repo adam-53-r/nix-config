@@ -36,10 +36,10 @@ in {
       autorun-never = true;
     };
     "org/cinnamon/desktop/peripherals/mouse" = {
-      accel-profile="flat";
-      double-click=400;
-      drag-threshold=8;
-      speed=0.39;
+      accel-profile = "flat";
+      double-click = 400;
+      drag-threshold = 8;
+      speed = 0.39;
     };
     "org/cinnamon/desktop/peripherals/touchpad".speed = 0.4159;
     "org/cinnamon/desktop/wm/preferences" = {
@@ -48,13 +48,13 @@ in {
     "org/cinnamon/desktop/session".idle-delay = lib.hm.gvariant.mkUint32 0;
     "org/cinnamon/theme".name = "Mint-Y-Dark-Aqua";
     "org/gnome/desktop/a11y/applications" = {
-      screen-keyboard-enabled=false;
-      screen-reader-enabled=false;
+      screen-keyboard-enabled = false;
+      screen-reader-enabled = false;
     };
     "org/nemo/preferences".show-hidden-files = true;
     "org/x/apps/portal".color-scheme = "prefer-dark";
-    "org/gnome/libgnomekbd/keyboard".layouts = [ "us" "es" ];
-    "org/gnome/libgnomekbd/keyboard".options = [ "grp\tgrp:win_space_toggle" ];
+    "org/gnome/libgnomekbd/keyboard".layouts = ["us" "es"];
+    "org/gnome/libgnomekbd/keyboard".options = ["grp\tgrp:win_space_toggle"];
     "org/cinnamon/settings-daemon/plugins/power" = {
       sleep-display-ac = 0;
       sleep-display-battery = 0;
@@ -62,11 +62,11 @@ in {
     "org/cinnamon/desktop/peripherals/touchpad".send-events = "disabled-on-external-mouse";
     "org/cinnamon/muffin".tile-maximize = true;
     "org/cinnamon/desktop/keybindings" = {
-      custom-list = [ "custom0" ];
+      custom-list = ["custom0"];
     };
     "org/cinnamon/desktop/keybindings/custom-keybindings/custom0" = {
       name = "Launch Terminal";
-      binding = [ "<Primary><Alt>t" ];
+      binding = ["<Primary><Alt>t"];
       command = "handlr launch x-scheme-handler/terminal";
     };
     "org/cinnamon/desktop/keybindings/wm" = {

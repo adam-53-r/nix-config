@@ -1,11 +1,10 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.alacritty = {
     enable = true;
     # theme = "catppuccin_frappe";
     settings = {
       general.live_config_reload = true;
-      colors.primary= {
+      colors.primary = {
         foreground = "#d8d8d8";
         background = "#282c34";
       };

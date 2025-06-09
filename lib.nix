@@ -1,10 +1,11 @@
 {
   removeByPath = pathList: set:
-    lib.updateManyAttrsByPath [ 
-      { 
+    lib.updateManyAttrsByPath [
+      {
         path = lib.init pathList;
-        update = old: 
+        update = old:
           lib.filterAttrs (n: v: n != (lib.last pathList)) old;
       }
-    ] set;
+    ]
+    set;
 }

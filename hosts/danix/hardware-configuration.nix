@@ -21,12 +21,12 @@ in {
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" ];
-      kernelModules = [ "kvm-intel" ];
+      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage"];
+      kernelModules = ["kvm-intel"];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
     # kernelParams = [""];
-    extraModulePackages = [ ];
+    extraModulePackages = [];
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -127,5 +127,4 @@ in {
   #     };
   #   };
   # };
-
 }

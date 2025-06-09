@@ -8,10 +8,12 @@
     persistence = {
       "/persist/${config.home.homeDirectory}" = {
         allowOther = true;
-        directories = [{
-          directory = ".factorio";
-          method = "bindfs";
-        }];
+        directories = [
+          {
+            directory = ".factorio";
+            method = "bindfs";
+          }
+        ];
       };
     };
   };

@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   sops.secrets = {
     openvpn-windscribe = {
       format = "binary";
@@ -30,7 +27,7 @@
         isReadOnly = true;
       };
     };
-    config = { ... }: {
+    config = {...}: {
       system.stateVersion = "25.05";
 
       networking.useHostResolvConf = false;
@@ -44,7 +41,7 @@
           '';
           autoStart = true;
         };
-      };      
+      };
     };
   };
 }

@@ -48,7 +48,6 @@
     fish.enable = true;
   };
 
-
   services.displayManager.defaultSession = "hyprland-uwsm";
 
   system.stateVersion = "25.05";

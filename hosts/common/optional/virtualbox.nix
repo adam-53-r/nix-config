@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   virtualisation.virtualbox.host = {
     enable = true;
     enableKvm = false;
@@ -9,5 +6,5 @@
     addNetworkInterface = true;
     package = pkgs.virtualbox;
   };
-  boot.kernelParams = [ "kvm.enable_virt_at_load=0" ];
+  boot.kernelParams = ["kvm.enable_virt_at_load=0"];
 }

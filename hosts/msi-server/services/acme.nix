@@ -1,13 +1,10 @@
-{
-  config,
-  ...  
-}: let
+{config, ...}: let
   inherit (config.networking) hostName;
 in {
   sops.secrets = {
     cloudflare-token.sopsFile = ../secrets.json;
   };
-  
+
   security.acme = {
     defaults = {
       dnsProvider = "cloudflare";

@@ -10,7 +10,7 @@
 in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    
+
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -21,12 +21,12 @@ in {
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" ];
-      kernelModules = [ "kvm-intel" ];
+      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage"];
+      kernelModules = ["kvm-intel"];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
     kernelParams = [];
-    extraModulePackages = [ ];
+    extraModulePackages = [];
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -46,12 +46,11 @@ in {
     }
   ];
 
-
   fileSystems = {
     "/DATA" = {
       device = "/dev/disk/by-label/DATA";
       fsType = "btrfs";
-      options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
+      options = ["compress=zstd" "discard=async" "autodefrag" "nofail"];
     };
     "/DATA2" = {
       device = "/dev/disk/by-label/DATA2";

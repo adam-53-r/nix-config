@@ -1,11 +1,8 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   sops.secrets = {
     nextcloud-admin-passwd.sopsFile = ./secrets.json;
   };
-  
+
   services.nextcloud = {
     enable = true;
     https = true;
@@ -25,5 +22,4 @@
   systemd.services.nginx.requires = [
     "DATA.mount"
   ];
-
 }

@@ -1,8 +1,8 @@
 {
   config,
   pkgs,
-  ...  
-}: let 
+  ...
+}: let
   certificate_file = "${config.services.sftpgo.dataDir}/certificate.pem";
   certificate_key_file = "${config.services.sftpgo.dataDir}/privatekey.pem";
 in {

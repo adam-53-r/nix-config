@@ -20,7 +20,6 @@
     ./services
   ];
 
-
   networking = {
     hostName = "msi-server";
   };
@@ -85,7 +84,7 @@
       # enableIPv6 = true;
     };
   };
-  
+
   sops.secrets = {
     wg-priv-key.sopsFile = ./secrets.json;
   };
@@ -95,7 +94,7 @@
     privateKeyFile = config.sops.secrets.wg-priv-key.path;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [80 443];
 
   system.stateVersion = "25.05";
 }

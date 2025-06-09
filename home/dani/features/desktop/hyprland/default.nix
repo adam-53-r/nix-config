@@ -109,8 +109,8 @@ in {
         sweethome3d-tooltips = "title:win[0-9],class:com-eteks-sweethome3d-SweetHome3DBootstrap";
         steamGame = "class:steam_app_[0-9]*";
         kdeconnect-pointer = "class:org.kdeconnect.daemon";
-        wineTray ="class:explorer.exe";
-        rsiLauncher ="class:rsi launcher.exe";
+        wineTray = "class:explorer.exe";
+        rsiLauncher = "class:rsi launcher.exe";
         steamBigPicture = "title:Steam Big Picture Mode";
       in
         [
@@ -138,7 +138,7 @@ in {
             name: colors: "bordercolor ${rgba colors.primary "aa"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
           )
           remoteColorschemes);
-          
+
       layerrule = [
         "animation fade,hyprpicker"
         "animation fade,selection"

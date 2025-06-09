@@ -3,16 +3,15 @@
   config,
   ...
 }: {
-
   networking.firewall = {
-    allowedUDPPorts = [ 51820 ];
+    allowedUDPPorts = [51820];
   };
 
   networking.wireguard.interfaces = {
     # "wg0" is the network interface name. You can name the interface arbitrarily.
     wg0 = {
       # Determines the IP address and subnet of the server's end of the tunnel interface.
-      ips = [ "10.100.0.1/24" ];
+      ips = ["10.100.0.1/24"];
 
       # The port that WireGuard listens to. Must be accessible by the client.
       listenPort = 51820;
@@ -45,7 +44,7 @@
           publicKey = "JJ3rsP23WSOlcHxV9SvCIjD5GdtVU3mvgvHPzE881i4=";
           presharedKeyFile = config.sops.secrets.adamr-wg-password.path;
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-          allowedIPs = [ "10.100.0.2/32" ];
+          allowedIPs = ["10.100.0.2/32"];
         }
       ];
     };

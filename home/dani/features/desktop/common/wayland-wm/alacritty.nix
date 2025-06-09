@@ -13,7 +13,11 @@
     enable = true;
     settings = {
       keyboard.bindings = [
-        { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
+        {
+          key = "N";
+          mods = "Control|Shift";
+          action = "SpawnNewInstance";
+        }
       ];
       font = {
         size = config.fontProfiles.monospace.size;
@@ -44,9 +48,11 @@
           cyan = config.colorscheme.colors.cyan;
         };
         # TODO make actual bright variants
-        bright = normal // {
-          black = config.colorscheme.colors.on_surface_variant;
-        };
+        bright =
+          normal
+          // {
+            black = config.colorscheme.colors.on_surface_variant;
+          };
       };
     };
   };

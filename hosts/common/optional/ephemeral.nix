@@ -14,7 +14,11 @@
     mkdir /tmp -p
     MNTPOINT=$(mktemp -d)
     (
-      mount -t btrfs -o subvol=/ ${if encrypted then "/dev/mapper/${hostname}" else "/dev/disk/by-partlabel/${partName}"} "$MNTPOINT"
+      mount -t btrfs -o subvol=/ ${
+      if encrypted
+      then "/dev/mapper/${hostname}"
+      else "/dev/disk/by-partlabel/${partName}"
+    } "$MNTPOINT"
       trap 'umount "$MNTPOINT"' EXIT
 
       echo "Creating needed directories"
@@ -38,14 +42,17 @@ in {
       description = "Rollback btrfs rootfs";
       wantedBy = ["initrd.target"];
       # requires = ["dev-disk-by\\x2dpartlabel-${lib.strings.escapeC ["-"] partName}.device"];
-      requires = if encrypted
+      requires =
+        if encrypted
         then ["dev-mapper-${lib.strings.escapeC ["-"] hostname}.device"]
         else ["dev-disk-by\\x2dpartlabel-${lib.strings.escapeC ["-"] partName}.device"];
       after = [
         # "dev-disk-by\\x2dpartlabel-${lib.strings.escapeC ["-"] partName}.device"
-        (if encrypted
-        then "dev-mapper-${lib.strings.escapeC ["-"] hostname}.device"
-        else "dev-disk-by\\x2dpartlabel-${lib.strings.escapeC ["-"] partName}.device")
+        (
+          if encrypted
+          then "dev-mapper-${lib.strings.escapeC ["-"] hostname}.device"
+          else "dev-disk-by\\x2dpartlabel-${lib.strings.escapeC ["-"] partName}.device"
+        )
         "systemd-cryptsetup@${lib.strings.escapeC ["-"] partName}.service"
       ];
       before = ["sysroot.mount"];

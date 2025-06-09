@@ -10,7 +10,7 @@
 in {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    
+
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-intel
 
@@ -21,12 +21,12 @@ in {
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
-      kernelModules = [ "kvm-intel" ];
+      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
+      kernelModules = ["kvm-intel"];
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
     kernelParams = [];
-    extraModulePackages = [ ];
+    extraModulePackages = [];
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -56,5 +56,4 @@ in {
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";
-
 }

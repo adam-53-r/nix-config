@@ -1,4 +1,8 @@
-{config, pkgs, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (config) colorscheme;
   hash = builtins.hashString "md5" (builtins.toJSON colorscheme.colors);
 in {

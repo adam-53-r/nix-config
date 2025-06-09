@@ -1,4 +1,9 @@
-{pkgs, lib, config, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   home.packages = [pkgs.waypipe];
   systemd.user.services = {
     waypipe-client = {

@@ -1,4 +1,10 @@
-{pkgs, lib, config, inputs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     ./global
     ./features/desktop/hyprland
@@ -24,7 +30,7 @@
   # Local configuration file overrides for git and SSH
   # The guys over at $WORK don't like me mentioning my work email or hostnames
   # in github :(
-  programs.git.includes = [{ path = "local.conf"; }];
+  programs.git.includes = [{path = "local.conf";}];
   programs.ssh.includes = ["local.conf"];
 
   monitors = [

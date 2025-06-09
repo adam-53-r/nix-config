@@ -1,6 +1,11 @@
-{config, lib, pkgs, ...}: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (config.colorscheme) colors;
-  setColor = color: "${lib.getExe pkgs.openrgb} --client -c ${lib.removePrefix "#"color} -m static";
+  setColor = color: "${lib.getExe pkgs.openrgb} --client -c ${lib.removePrefix "#" color} -m static";
 in {
   systemd.user.services.rgb = {
     Unit = {

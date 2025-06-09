@@ -24,17 +24,17 @@ in {
 
   boot = {
     initrd = {
-      availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" ];
-      kernelModules = [ "kvm-intel" ];
+      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage"];
+      kernelModules = ["kvm-intel"];
       # postDeviceCommands = pkgs.lib.mkBefore ''
       #   mkdir -m 0755 -p /key
       #   sleep 2 # To make sure the usb key has been loaded
       #   mount -n -t vfat -o ro `findfs UUID=${PRIMARYUSBID}` /key || mount -n -t vfat -o ro `findfs UUID=${BACKUPUSBID}` /key
       # '';
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = ["kvm-intel"];
     kernelParams = ["acpi_osi=!" "acpi_osi=\"Windows 2009\""];
-    extraModulePackages = [ ];
+    extraModulePackages = [];
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -135,5 +135,4 @@ in {
       };
     };
   };
-
 }

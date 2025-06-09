@@ -54,7 +54,7 @@
     nix-tree
     keyutils
     efibootmgr
-    
+
     zip
     xz
     unzip
@@ -73,7 +73,7 @@
 
     file
     tree
-    
+
     hugo
     glow
 
@@ -107,7 +107,7 @@
     age
     deploy-rs
     nixos-anywhere
-    
+
     lunarvim
     mouseless
 
