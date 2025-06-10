@@ -50,7 +50,7 @@ in {
     "/DATA" = {
       device = "/dev/disk/by-label/DATA";
       fsType = "btrfs";
-      options = ["compress=zstd" "discard=async" "autodefrag" "nofail"];
+      options = ["compress=zstd" "discard=async" "autodefrag"];
     };
     "/DATA2" = {
       device = "/dev/disk/by-label/DATA2";
