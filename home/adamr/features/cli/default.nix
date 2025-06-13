@@ -103,6 +103,8 @@
     perf-tools
     flamegraph
     cargo-flamegraph
+    localstack
+    dysk
 
     sops
     ssh-to-age
