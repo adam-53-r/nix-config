@@ -15,5 +15,6 @@
     ./hydra
     ./prometheus.nix
     ./grafana
+    ./cloudflared
   ];
 }
