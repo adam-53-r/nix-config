@@ -10,11 +10,11 @@
     };
   };
 
-  containers.windscribe-vpn = {
+  containers.windscribe-static-ip-vpn = {
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.100.10";
-    localAddress = "192.168.100.11";
+    hostAddress = "192.168.100.2";
+    localAddress = "192.168.100.1";
     enableTun = true;
     ephemeral = true;
     bindMounts = {
