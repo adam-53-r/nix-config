@@ -7,6 +7,7 @@
     ../../common/optional/tailscale-exit-node.nix
     ../../common/optional/plex.nix
 
+    ./dns-server.nix
     ./acme.nix
     ./minecraft-server.nix
     ./windscribe-container
