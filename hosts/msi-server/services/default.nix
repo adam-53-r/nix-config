@@ -5,7 +5,6 @@
     ../../common/optional/fail2ban.nix
     ../../common/optional/gns3-server.nix
     ../../common/optional/tailscale-exit-node.nix
-    ../../common/optional/plex.nix
 
     ./dns-server.nix
     ./acme.nix
@@ -17,5 +16,6 @@
     ./prometheus.nix
     ./grafana
     ./cloudflared
+    ./plex.nix
   ];
 }
