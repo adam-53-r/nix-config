@@ -82,6 +82,9 @@ in {
       "exec-once"
     ];
     settings = {
+      ecosystem = {
+        no_update_news = true;
+      };
       general = {
         gaps_in = 15;
         gaps_out = 20;
