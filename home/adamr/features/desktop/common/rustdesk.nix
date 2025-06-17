@@ -1,3 +1,11 @@
-{pkgs, ...}: {
-  home.packages = with pkgs.stable; [rustdesk];
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs; [rustdesk];
+
+  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+    ".config/rustdesk"
+  ];
 }
