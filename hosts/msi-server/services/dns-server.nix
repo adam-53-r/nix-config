@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   services.bind = {
-    enable = true;
+    enable = false;
     listenOn = ["100.86.227.101"];
     ipv4Only = true;
     extraOptions = ''
