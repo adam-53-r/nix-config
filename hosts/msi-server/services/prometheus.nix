@@ -4,7 +4,9 @@
   lib,
   ...
 }: let
-  hosts = lib.attrNames outputs.nixosConfigurations;
+  hosts =
+    lib.remove "danix" (lib.attrNames outputs.nixosConfigurations)
+    ++ ["danix.tail4bc4b5.ts.net"];
 in {
   services = {
     prometheus = {

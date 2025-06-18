@@ -44,6 +44,7 @@
 
   networking = {
     hostName = "danix";
+    domain = lib.mkForce "tail4bc4b5.ts.net";
   };
 
   boot = {
