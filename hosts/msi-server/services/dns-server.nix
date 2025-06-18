@@ -1,33 +1,31 @@
-{pkgs, ...}: {
-  services.bind = {
-    enable = false;
-    listenOn = ["100.86.227.101"];
-    ipv4Only = true;
-    extraOptions = ''
-      allow-recursion { any; };
-      allow-query { any; };
-      dnssec-validation no;
-    '';
-    cacheNetworks = [ "any" ];
-    zones = {
-      "arm53.xyz" = {
-        master = true;
-        file = pkgs.writeText "arm53.xyz.db" ''
-          $ORIGIN arm53.xyz.
-          $TTL 2h
-
-          @               SOA     ns1 hostmaster (
-                                          2018111111 ; Serial
-                                          8h         ; Refresh
-                                          30m        ; Retry
-                                          1w         ; Expire
-                                          1h )       ; Negative Cache TTL
-                          NS      ns1
-
-          dash            A       100.86.227.101
-          ns1             A       100.86.227.101
-        '';
+{lib, ...}: let
+  local-hosts = [
+    "nextcloud.arm53.xyz"
+    "cache.arm53.xyz"
+    "hydra.arm53.xyz"
+    "metrics.arm53.xyz"
+    "dash.arm53.xyz"
+  ];
+in {
+  services.unbound = {
+    enable = true;
+    resolveLocalQueries = false;
+    enableRootTrustAnchor = false;
+    settings = {
+      server = {
+        interface = ["100.86.227.101"];
+        # verbosity = 1;
+        access-control = ["100.64.0.0/10 allow"];
+        local-data = lib.map (host: "\"${host}. A 100.86.227.101\"") local-hosts;
       };
+      forward-zone = [
+        {
+          name = ".";
+          # Router already implements DoH
+          forward-addr = "192.168.2.1";
+        }
+      ];
+      # remote-control.control-enable = true;
     };
   };
 }
