@@ -62,7 +62,10 @@
       in {
         forceSSL = true;
         useACMEHost = "dash.arm53.xyz";
-        locations."/".proxyPass = "http://localhost:${toString port}";
+        locations."/" = {
+          proxyPass = "http://localhost:${toString port}";
+          proxyWebsockets = true;
+        };
       };
     };
   };

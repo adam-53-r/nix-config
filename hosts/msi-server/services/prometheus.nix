@@ -30,13 +30,12 @@ in {
         {
           job_name = "nginx";
           scheme = "https";
-          static_configs = [
-            {
-              targets = [
-                "msi-server.arm53.xyz"
-              ];
-            }
-          ];
+          static_configs = [{targets = ["msi-server.arm53.xyz"];}];
+        }
+        {
+          job_name = "unbound";
+          scheme = "http";
+          static_configs = [{targets = ["127.0.0.1:9167"];}];
         }
         {
           job_name = "hosts";
