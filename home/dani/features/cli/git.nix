@@ -50,6 +50,7 @@ in {
     };
     userName = "Daniel Floria Lopez";
     userEmail = lib.mkDefault "dani-f53@protonmail.com";
+    delta.enable = true;
     extraConfig = {
       init.defaultBranch = "main";
       user.signing = {

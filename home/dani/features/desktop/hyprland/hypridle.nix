@@ -6,7 +6,10 @@
   services.swayidle.enable = lib.mkForce false;
   services.hypridle = {
     enable = true;
-    settings = {
+    settings = let
+      isLocked = "pgrep hyprlock";
+      isDischarging = "grep Discharging /sys/class/power_supply/BAT{0,1}/status -q";
+    in {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
         before_sleep_cmd = "loginctl lock-session"; # lock before suspend.

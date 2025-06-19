@@ -24,6 +24,13 @@
           else "never";
         key = gitCfg.user.signing.key;
       };
+      revset-aliases = {
+        "closest_bookmark(to)" = "heads(::to & bookmarks())";
+      };
+      aliases = {
+        # Advances closest bookmark to parent commit
+        tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+      };
       template-aliases = {
         "gerrit_change_id(change_id)" = ''
           "Id0000000" ++ change_id.normal_hex()

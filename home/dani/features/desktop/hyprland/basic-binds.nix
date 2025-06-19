@@ -44,7 +44,7 @@
     in
       [
         "SUPERSHIFT,q,killactive"
-        "SUPERSHIFT,e,exit"
+        "SUPERSHIFT,e,exec, uwsm stop"
 
         "SUPER,s,togglesplit"
         "SUPER,f,fullscreen,1"
@@ -70,6 +70,7 @@
         "SUPER,u,togglespecialworkspace"
         "SUPERSHIFT,u,movetoworkspacesilent,special"
         "SUPER,i,pseudo"
+        "SUPER,y,toggleswallow"
       ]
       ++
       # Change workspace

@@ -1,11 +1,10 @@
 {
-  config,
   pkgs,
+  config,
   ...
 }: {
-  home.packages = with pkgs; [rustdesk];
-
+  home.packages = with pkgs; [spotify];
   home.persistence."/persist/${config.home.homeDirectory}".directories = [
-    ".config/rustdesk"
+    ".config/spotify"
   ];
 }

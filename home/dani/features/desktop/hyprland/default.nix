@@ -14,6 +14,20 @@
     outputs.homeConfigurations;
   rgb = color: "rgb(${lib.removePrefix "#" color})";
   rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
+  swayosd = {
+    brightness = "swayosd-client --brightness +0";
+    output-volume = "swayosd-client --output-volume +0";
+    input-volume = "swayosd-client --input-volume +0";
+    caps-lock = "sleep 0.2 && swayosd-client --caps-lock";
+  };
+  grimblast = lib.getExe pkgs.grimblast;
+  pactl = lib.getExe' pkgs.pulseaudio "pactl";
+  defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
+  remote = lib.getExe (pkgs.writeShellScriptBin "remote" ''
+    socket="$(basename "$(find ~/.ssh -name 'master-adamr@*' | head -1 | cut -d ':' -f1)")"
+    host="''${socket#master-}"
+    ssh "$host" "$@"
+  '');
 in {
   imports = [
     ../common
@@ -22,7 +36,10 @@ in {
     ./basic-binds.nix
     ./hyprbars.nix
     ./hypridle.nix
+    ./hyprpaper.nix
   ];
+
+  home.pointerCursor.hyprcursor.enable = true;
 
   xdg.portal = {
     extraPortals = [pkgs.xdg-desktop-portal-wlr];
@@ -31,9 +48,9 @@ in {
     };
   };
 
-  home.packages = with pkgs; [
-    grimblast
-    hyprpicker
+  home.packages = [
+    pkgs.grimblast
+    pkgs.hyprpicker
   ];
 
   wayland.windowManager.hyprland = {
@@ -57,19 +74,28 @@ in {
         "XDG_CURRENT_DESKTOP"
       ];
     };
-
+    importantPrefixes = [
+      "$"
+      "bezier"
+      "name"
+      "source"
+      "exec-once"
+    ];
     settings = {
+      ecosystem = {
+        no_update_news = true;
+      };
       general = {
         gaps_in = 15;
         gaps_out = 20;
         border_size = 2;
-        "col.active_border" = rgba config.colorscheme.colors.primary "aa";
+        "col.active_border" = rgba config.colorscheme.colors.primary "ee";
         "col.inactive_border" = rgba config.colorscheme.colors.surface "aa";
         # allow_tearing = true;
       };
       cursor.inactive_timeout = 4;
       group = {
-        "col.border_active" = rgba config.colorscheme.colors.primary "aa";
+        "col.border_active" = rgba config.colorscheme.colors.primary "ee";
         "col.border_inactive" = rgba config.colorscheme.colors.surface "aa";
         groupbar.font_size = 11;
       };
@@ -78,8 +104,14 @@ in {
       };
       input = {
         kb_layout = "us,es";
-        kb_options = "grp:win_space_toggle";
-        touchpad.disable_while_typing = true;
+        kb_options = [
+          "grp:win_space_toggle"
+          "caps:swapescape"
+        ];
+        touchpad = {
+          disable_while_typing = true;
+          natural_scroll = true;
+        };
       };
       device = [
         # {
@@ -95,6 +127,11 @@ in {
         split_width_multiplier = 1.35;
         pseudotile = true;
       };
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_min_speed_to_force = 10;
+        workspace_swipe_forever = true;
+      };
       misc = {
         vfr = true;
         close_special_on_empty = true;
@@ -104,6 +141,8 @@ in {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_hyprland_qtutils_check = true;
+        enable_swallow = true;
+        swallow_regex = "(?i)(${lib.concatMapStringsSep "|" (lib.removeSuffix ".desktop") config.xdg.mimeApps.defaultApplications."x-scheme-handler/terminal"})";
       };
       windowrulev2 = let
         sweethome3d-tooltips = "title:win[0-9],class:com-eteks-sweethome3d-SweetHome3DBootstrap";
@@ -115,9 +154,7 @@ in {
       in
         [
           "nofocus, ${sweethome3d-tooltips}"
-
           "immediate, ${steamGame}"
-
           "size 100% 100%, ${kdeconnect-pointer}"
           "float, ${kdeconnect-pointer}"
           "nofocus, ${kdeconnect-pointer}"
@@ -127,33 +164,27 @@ in {
           "noborder, ${kdeconnect-pointer}"
           "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
           "suppressevent fullscreen, ${kdeconnect-pointer}"
-
           "workspace special silent, ${wineTray}"
-
           "tile, ${rsiLauncher}"
-
           "fullscreen, ${steamBigPicture}"
         ]
         ++ (lib.mapAttrsToList (
-            name: colors: "bordercolor ${rgba colors.primary "aa"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
+            name: colors: "bordercolor ${rgba colors.primary "ee"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
           )
           remoteColorschemes);
 
       layerrule = [
         "animation fade,hyprpicker"
         "animation fade,selection"
-
-        "animation fade,waybar"
+        "animation slide,waybar"
         "blur,waybar"
         "ignorezero,waybar"
-
         "blur,notifications"
         "ignorezero,notifications"
-
         "blur,wofi"
         "ignorezero,wofi"
-
         "noanim,wallpaper"
+        "abovelock,swayosd"
       ];
 
       decoration = {
@@ -162,7 +193,7 @@ in {
         fullscreen_opacity = 1.0;
         rounding = 7;
         blur = {
-          enabled = true;
+          enabled = false;
           size = 4;
           passes = 3;
           new_optimizations = true;
@@ -170,7 +201,7 @@ in {
           popups = true;
         };
         shadow = {
-          enabled = true;
+          enabled = false;
           offset = "3 3";
           range = 12;
           color = "0x44000000";
@@ -180,72 +211,60 @@ in {
       animations = {
         enabled = true;
         bezier = [
-          "easein,0.1, 0, 0.5, 0"
-          "easeinback,0.35, 0, 0.95, -0.3"
+          # "easein,0.1, 0, 0.5, 0"
+          # "easeinback,0.35, 0, 0.95, -0.3"
 
           "easeout,0.5, 1, 0.9, 1"
-          "easeoutback,0.35, 1.35, 0.65, 1"
+          "easeoutback,0.34, 1.22, 0.65, 1"
 
-          "easeinout,0.45, 0, 0.55, 1"
+          # "easeinout,0.45, 0, 0.55, 1"
         ];
 
         animation = [
           "fadeIn,1,3,easeout"
-          "fadeLayersIn,1,3,easeoutback"
+          "fadeLayersIn,1,3,easeout"
+          "fadeLayersIn,1,3,easeout"
+          "fadeOut,1,3,easeout"
+          "fadeLayersOut,1,3,easeout"
+          "fadeSwitch,1,2,easeout"
+          "fadeDim,1,3,easeout"
+          "fadeShadow,1,2,easeout"
+          "border,1,2,easeout"
           "layersIn,1,3,easeoutback,slide"
+          "layersOut,1,3,easeoutback,slide"
+
+          "windowsOut,1,3,easeout,slide"
+          "windowsMove,1,3,easeoutback"
           "windowsIn,1,3,easeoutback,slide"
 
-          "fadeLayersOut,1,3,easeinback"
-          "fadeOut,1,3,easein"
-          "layersOut,1,3,easeinback,slide"
-          "windowsOut,1,3,easeinback,slide"
-
-          "border,1,3,easeout"
-          "fadeDim,1,3,easeinout"
-          "fadeShadow,1,3,easeinout"
-          "fadeSwitch,1,3,easeinout"
-          "windowsMove,1,3,easeoutback"
-          "workspaces,1,2.6,easeoutback,slide"
+          "workspaces,1,2.5,easeoutback,slidefade"
         ];
       };
 
       exec = [
-        "${pkgs.swaybg}/bin/swaybg -i ${config.wallpaper} --mode fill"
-        "hyprctl setcursor ${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}"
+        "hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}"
       ];
 
-      bind = let
-        grimblast = lib.getExe pkgs.grimblast;
-        pactl = lib.getExe' pkgs.pulseaudio "pactl";
-        defaultApp = type: "${lib.getExe pkgs.handlr-regex} launch ${type}";
-        remote = lib.getExe (pkgs.writeShellScriptBin "remote" ''
-          socket="$(basename "$(find ~/.ssh -name 'master-adamr@*' | head -1 | cut -d ':' -f1)")"
-          host="''${socket#master-}"
-          ssh "$host" "$@"
-        '');
-      in
+      # Will repeat when h[e]ld, also works when [l]ocked
+      bindel = [
+        # Brightness control
+        ",XF86MonBrightnessUp,exec,${lib.getExe pkgs.brightnessctl} s +5%; ${swayosd.brightness}"
+        ",XF86MonBrightnessDown,exec,${lib.getExe pkgs.brightnessctl} s 5%-; ${swayosd.brightness}"
+        # Volume
+        ",XF86AudioRaiseVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ +5%; ${swayosd.output-volume}"
+        ",XF86AudioLowerVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ -5%; ${swayosd.output-volume}"
+        "SHIFT,XF86AudioRaiseVolume,exec,${pactl} set-source-volume @DEFAULT_SOURCE@ +5%; ${swayosd.input-volume}"
+        "SHIFT,XF86AudioLowerVolume,exec,${pactl} set-source-volume @DEFAULT_SOURCE@ -5%; ${swayosd.input-volume}"
+      ];
+      # Also works when [l]ocked
+      bindl =
         [
-          # Program bindings
-          "SUPER,Return,exec,${defaultApp "x-scheme-handler/terminal"}"
-          "SUPER,e,exec,${defaultApp "text/plain"}"
-          "SUPER,b,exec,${defaultApp "x-scheme-handler/https"}"
-          "SUPERALT,Return,exec,${remote} ${defaultApp "x-scheme-handler/terminal"}"
-          "SUPERALT,e,exec,${remote} ${defaultApp "text/plain"}"
-          "SUPERALT,b,exec,${remote} ${defaultApp "x-scheme-handler/https"}"
-          # Brightness control (only works if the system has lightd)
-          ",XF86MonBrightnessUp,exec,${lib.getExe pkgs.brightnessctl} s +5%"
-          ",XF86MonBrightnessDown,exec,${lib.getExe pkgs.brightnessctl} s 5%-"
-          # Volume
-          ",XF86AudioRaiseVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
-          ",XF86AudioLowerVolume,exec,${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
-          ",XF86AudioMute,exec,${pactl} set-sink-mute @DEFAULT_SINK@ toggle"
-          "SHIFT,XF86AudioRaiseVolume,exec,${pactl} set-source-volume @DEFAULT_SOURCE@ +5%"
-          "SHIFT,XF86AudioLowerVolume,exec,${pactl} set-source-volume @DEFAULT_SOURCE@ -5%"
-          "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
-          ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
-          # Screenshotting
-          ",Print,exec,${grimblast} --notify --freeze copy area"
-          "SHIFT,Print,exec,${grimblast} --notify --freeze copy output"
+          # Mute volume
+          ",XF86AudioMute,exec,${pactl} set-sink-mute @DEFAULT_SINK@ toggle; ${swayosd.output-volume}"
+          "SHIFT,XF86AudioMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle; ${swayosd.input-volume}"
+          ",XF86AudioMicMute,exec,${pactl} set-source-mute @DEFAULT_SOURCE@ toggle; ${swayosd.input-volume}"
+          # Show caps lock
+          ",Caps_Lock,exec,${swayosd.caps-lock}"
         ]
         ++ (
           let
@@ -262,18 +281,37 @@ in {
               "SHIFT,XF86AudioPrev,exec,${playerctld} unshift"
               "SHIFT,XF86AudioPlay,exec,systemctl --user restart playerctld"
             ]
-        )
-        ++
-        # Screen lock
-        (
-          let
-            swaylock = lib.getExe config.programs.swaylock.package;
-          in
-            lib.optionals config.programs.swaylock.enable [
-              "SUPER,backspace,exec,${swaylock} -S --grace 2 --grace-no-mouse"
-              "SUPER,XF86Calculator,exec,${swaylock} -S --grace 2 --grace-no-mouse"
-            ]
-        )
+          # )
+        );
+      # Normal bindings
+      bind =
+        [
+          # Rename workspace
+          "SUPER,r,exec,${pkgs.writeShellScript "rename" ''
+            workspace="$(hyprctl activeworkspace -j)"
+            id="$(jq -r .id <<< "$workspace")"
+            prefix="$id - "
+            name="$(jq -r .name <<< "$workspace")"
+            name="''${name#"$prefix"}" # Remove prefix
+            entry="$(GSK_RENDERER=cairo ${lib.getExe pkgs.zenity} --entry --title "Rename Workspace" --entry-text="$name")"
+            if [ -z "$entry" ] || [ "$entry" == "$id" ]; then
+              new_name="$id"
+            else
+              new_name="$prefix$entry"
+            fi
+            hyprctl dispatch renameworkspace "$id" "$new_name"
+          ''}"
+          # Program bindings
+          "SUPER,Return,exec,${defaultApp "x-scheme-handler/terminal"}"
+          "SUPER,e,exec,${defaultApp "text/plain"}"
+          "SUPER,b,exec,${defaultApp "x-scheme-handler/https"}"
+          "SUPERALT,Return,exec,${remote} ${defaultApp "x-scheme-handler/terminal"}"
+          "SUPERALT,e,exec,${remote} ${defaultApp "text/plain"}"
+          "SUPERALT,b,exec,${remote} ${defaultApp "x-scheme-handler/https"}"
+          # Screenshotting
+          ",Print,exec,${grimblast} --notify --freeze copy area"
+          "SHIFT,Print,exec,${grimblast} --notify --freeze copy output"
+        ]
         ++
         # Notification manager
         (
@@ -339,6 +377,17 @@ in {
                   "SUPER,v,exec,${share-kdeconnect}"
                 ]
             )
+        )
+        ++
+        # Screen lock
+        (
+          let
+            swaylock = lib.getExe config.programs.swaylock.package;
+          in
+            lib.optionals config.programs.swaylock.enable [
+              "SUPER,backspace,exec,${swaylock} -S --grace 2 --grace-no-mouse"
+              "SUPER,XF86Calculator,exec,${swaylock} -S --grace 2 --grace-no-mouse"
+            ]
         );
 
       monitor = let
@@ -376,7 +425,7 @@ in {
           }"
         ) (config.monitors));
 
-      workspace = map (m: "name:${m.workspace},monitor:${m.name}") (
+      workspace = map (m: "${m.workspace},monitor:${m.name}") (
         lib.filter (m: m.enabled && m.workspace != null) config.monitors
       );
     };

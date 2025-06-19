@@ -9,6 +9,8 @@
 in {
   nix = {
     settings = {
+      extra-substituters = lib.mkAfter ["https://cache.arm53.xyz"];
+      extra-trusted-public-keys = ["cache.arm53.xyz:GEscuhzZqqKd7b3xFFk3AjKAJoYCGVcTimTYq56mcH8="];
       experimental-features = [
         "nix-command"
         "flakes"

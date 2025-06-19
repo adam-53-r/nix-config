@@ -92,11 +92,12 @@ in rec {
       }";
       package = pkgs.papirus-icon-theme;
     };
-    cursorTheme = {
-      package = pkgs.apple-cursor;
-      name = "macOS-BigSur";
-      size = 24;
-    };
+  };
+
+  home.pointerCursor = {
+    package = pkgs.apple-cursor;
+    name = "macOS";
+    size = 24;
   };
 
   services.xsettingsd = {

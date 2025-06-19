@@ -46,6 +46,7 @@
     ./vscodium.nix
     ./winbox.nix
     ./virtualbox.nix
+    ./spotify.nix
   ];
 
   home.packages = [
