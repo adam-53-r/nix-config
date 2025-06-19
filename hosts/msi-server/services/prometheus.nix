@@ -35,7 +35,12 @@ in {
         {
           job_name = "unbound";
           scheme = "http";
-          static_configs = [{targets = ["127.0.0.1:9167"];}];
+          static_configs = [{targets = ["dns.arm53.xyz:9167"];}];
+        }
+        {
+          job_name = "nextcloud";
+          scheme = "https";
+          static_configs = [{targets = ["nextcloud.arm53.xyz"];}];
         }
         {
           job_name = "hosts";

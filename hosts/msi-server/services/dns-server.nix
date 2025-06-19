@@ -5,7 +5,9 @@
 }: let
   local-hosts =
     builtins.attrNames config.services.nginx.virtualHosts
-    ++ [];
+    ++ [
+      "dns.arm53.xyz"
+    ];
 in {
   services.unbound = {
     enable = true;
@@ -31,6 +33,6 @@ in {
 
   services.prometheus.exporters.unbound = {
     enable = true;
-    listenAddress = "127.0.0.1";
+    listenAddress = "100.86.227.101";
   };
 }

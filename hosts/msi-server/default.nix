@@ -23,7 +23,7 @@
   networking = {
     hostName = "msi-server";
     hosts = {
-      "127.0.0.3" = lib.attrNames config.services.nginx.virtualHosts;
+      "127.0.0.1" = lib.attrNames config.services.nginx.virtualHosts;
     };
   };
 
