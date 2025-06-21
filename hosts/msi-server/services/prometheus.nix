@@ -6,7 +6,7 @@
 }: let
   hosts =
     lib.remove "danix" (lib.attrNames outputs.nixosConfigurations)
-    ++ ["danix.tail4bc4b5.ts.net"];
+    ++ ["danix.tail4bc4b5.ts.net" "fedorix.tail4bc4b5.ts.net"];
 in {
   services = {
     prometheus = {
@@ -35,7 +35,7 @@ in {
         {
           job_name = "unbound";
           scheme = "http";
-          static_configs = [{targets = ["dns.arm53.xyz:9167"];}];
+          static_configs = [{targets = ["dns.arm53.xyz:9167"]; labels.instance = "unbound";}];
         }
         {
           job_name = "nextcloud";
