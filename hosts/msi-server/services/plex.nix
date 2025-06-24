@@ -1,6 +1,6 @@
 {config, ...}: {
   services.plex = {
-    enable = true;
+    enable = false;
     openFirewall = true;
     accelerationDevices = ["/dev/dri/renderD128"];
   };
