@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (config.networking) hostName;
 in {
   sops.secrets = {
@@ -11,13 +15,18 @@ in {
       environmentFile = config.sops.secrets.cloudflare-token.path;
       group = config.services.nginx.group;
     };
-    certs = {
-      "${hostName}.arm53.xyz" = {};
-      "nextcloud.arm53.xyz" = {};
-      "cache.arm53.xyz" = {};
-      "hydra.arm53.xyz" = {};
-      "metrics.arm53.xyz" = {};
-      "dash.arm53.xyz" = {};
-    };
+    certs = let
+      hosts = [
+        "${hostName}"
+        "nextcloud"
+        "cache"
+        "hydra"
+        "metrics"
+        "dash"
+        "plex"
+        "jlf"
+      ];
+    in
+      lib.genAttrs (map (host: "${host}.arm53.xyz") hosts) (_: {});
   };
 }
