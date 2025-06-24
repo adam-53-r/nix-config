@@ -32,6 +32,8 @@ in {
       "mysql"
       "gns3"
       "minecraft"
+      "plex"
+      "jellyfin"
     ];
 
     hashedPasswordFile = lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;

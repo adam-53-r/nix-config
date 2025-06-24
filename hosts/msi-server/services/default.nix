@@ -17,5 +17,6 @@
     ./grafana
     ./cloudflared
     ./plex.nix
+    ./jellyfin.nix
   ];
 }

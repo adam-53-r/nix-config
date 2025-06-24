@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   services.plex = {
     enable = true;
     openFirewall = true;
@@ -6,5 +6,10 @@
   };
   environment.persistence = {
     "/persist".directories = [config.services.plex.dataDir];
+  };
+  services.nginx.virtualHosts."plex.arm53.xyz" = {
+    forceSSL = true;
+    useACMEHost = "plex.arm53.xyz";
+    locations."/".proxyPass = "http://localhost:32400";
   };
 }
