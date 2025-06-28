@@ -823,15 +823,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1740513468,
-        "narHash": "sha256-MaSS9uYPMPD0NUWxPDfJtPNgccRKVE91ictOAHnBUxs=",
-        "owner": "misterio77",
+        "lastModified": 1751115332,
+        "narHash": "sha256-GR0lqxVtkide23udMJaBGwxvdfjgNBS/3RhbCWQU0/o=",
+        "owner": "adam-53-r",
         "repo": "themes",
-        "rev": "430f39469fe8eaec08340449237e01a408323585",
+        "rev": "d23922eb128a3644c708d7409f29afb01213dc72",
         "type": "github"
       },
       "original": {
-        "owner": "misterio77",
+        "owner": "adam-53-r",
         "repo": "themes",
         "type": "github"
       }

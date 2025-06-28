@@ -21,7 +21,7 @@
 
     # My own programs, packaged with nix
     themes = {
-      url = "github:misterio77/themes";
+      url = "github:adam-53-r/themes";
       inputs.systems.follows = "systems";
     };
     nix-colors.url = "github:misterio77/nix-colors";

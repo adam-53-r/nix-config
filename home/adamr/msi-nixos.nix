@@ -13,7 +13,7 @@
   ];
 
   # Red
-  wallpaper = pkgs.inputs.themes.wallpapers.kosmos-space-dark;
+  wallpaper = pkgs.inputs.themes.wallpapers.berserk-blood-moon;
 
   monitors = [
     {
