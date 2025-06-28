@@ -18,5 +18,7 @@
     ./cloudflared
     ./plex.nix
     ./jellyfin.nix
+    ./loki.nix
+    ./alloy.nix
   ];
 }
