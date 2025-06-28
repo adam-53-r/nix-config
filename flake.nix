@@ -328,75 +328,50 @@
         #################
         msi-nixos = {
           hostname = "msi-nixos";
-          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
               path = activate-nixos self.nixosConfigurations.msi-nixos;
-            };
-            hm-adamr = {
-              user = "adamr";
-              path = activate-hm self.homeConfigurations."adamr@msi-nixos";
             };
           };
         };
 
         msi-server = {
           hostname = "msi-server";
-          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
               path = activate-nixos self.nixosConfigurations.msi-server;
-            };
-            hm-adamr = {
-              user = "adamr";
-              path = activate-hm self.homeConfigurations."adamr@msi-server";
             };
           };
         };
 
         vm-tests = {
           hostname = "vm-tests";
-          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
               path = activate-nixos self.nixosConfigurations.vm-tests;
-            };
-            hm-adamr = {
-              user = "adamr";
-              path = activate-hm self.homeConfigurations."adamr@vm-tests";
             };
           };
         };
 
         nixos-htb = {
           hostname = "nixos-htb";
-          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
               path = activate-nixos self.nixosConfigurations.nixos-htb;
-            };
-            hm-adamr = {
-              user = "adamr";
-              path = activate-hm self.homeConfigurations."adamr@nixos-htb";
             };
           };
         };
 
         # raspberrypi = {
         #   hostname = "raspberrypi";
-        #   profilesOrder = [ "system" ];
         #   profiles = {
         #     system = {
         #       user = "root";
         #       path = activate-nixos self.nixosConfigurations.raspberrypi;
-        #     };
-        #     hm-adamr = {
-        #       user = "adamr";
-        #       path = activate-hm self.homeConfigurations."adamr@raspberrypi";
         #     };
         #   };
         # };
@@ -416,15 +391,10 @@
 
         danix = {
           hostname = "danix";
-          profilesOrder = ["system"];
           profiles = {
             system = {
               user = "root";
               path = activate-nixos self.nixosConfigurations.danix;
-            };
-            hm-dani = {
-              user = "dani";
-              path = activate-hm self.homeConfigurations."dani@danix";
             };
           };
         };
