@@ -5,6 +5,9 @@
     ./features/pass
   ];
   home.persistence = lib.mkForce {};
+  targets.genericLinux.enable = true;
+  programs.git.includes = [{path = "local.conf";}];
+  programs.ssh.includes = ["local.conf"];
   services.gpg-agent.enable = lib.mkForce false;
   nix = {
     settings = {
