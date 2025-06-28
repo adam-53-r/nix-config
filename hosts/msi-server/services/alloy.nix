@@ -3,20 +3,10 @@
     enable = true;
   };
   environment.etc."alloy/config.alloy".text = ''
-    loki.relabel "journal" {
-      forward_to = []
-
-      rule {
-        source_labels = ["__journal__systemd_unit"]
-        target_label  = "unit"
-      }
-    }
-
-    loki.source.journal "read"  {
-      forward_to    = [loki.write.grafana_loki.receiver]
-      relabel_rules = loki.relabel.journal.rules
-      labels        = {component = "loki.source.journal"}
-    }
+    // Enables the ability to view logs in the Alloy UI in realtime
+    // livedebugging {
+    //   enabled = true
+    // }
 
     // local.file_match "local_files" {
     //    path_targets = [{"__path__" = "/var/log/test.log"}]
@@ -38,7 +28,22 @@
     //    forward_to = [loki.write.grafana_loki.receiver]
     // }
 
-    loki.write "grafana_loki" {
+    loki.relabel "relabel_journal" {
+      forward_to = []
+
+      rule {
+        source_labels = ["__journal__systemd_unit"]
+        target_label  = "unit"
+      }
+    }
+
+    loki.source.journal "read_journalctl_logs"  {
+      forward_to    = [loki.write.main_loki.receiver]
+      relabel_rules = loki.relabel.relabel_journal.rules
+      labels        = {component = "loki.source.journal"}
+    }
+
+    loki.write "main_loki" {
        endpoint {
           url = "http://localhost:3100/loki/api/v1/push"
 
@@ -49,9 +54,5 @@
        }
     }
 
-    // Enables the ability to view logs in the Alloy UI in realtime
-    // livedebugging {
-    //   enabled = true
-    // }
   '';
 }
