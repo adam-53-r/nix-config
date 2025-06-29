@@ -38,6 +38,21 @@
     jq # JSON pretty printer and manipulator
     timer # To help with my ADHD paralysis
     tldr # Get command common usages
+    lsd # Modern 'ls' replacement with colorful, tree-like output and git integration
+    dust # Rust-based disk usage analyzer with live updates and sorting
+    duf # Disk Usage Free - terminal-based disk usage analyzer with ncurses interface
+    broot # Tree-like file explorer with git status integration and disk usage visualization
+    choose # Modern replacement for cut command with improved syntax and functionality
+    sd # Fast, modern sed replacement written in Rust for searching and replacing text
+    cheat # Command-line cheat sheet viewer with examples and documentation
+    glances # System monitoring tool providing comprehensive resource usage overview
+    hyperfine # Modern benchmarking tool for shell commands with statistical analysis
+    gping # Graphical ping utility with latency visualization
+    procs # Modern ps replacement with improved terminal interface and filtering
+    curlie # Modern curl wrapper with improved UX and JSON highlighting
+    xh # HTTP client tool with improved syntax and colorized output
+    zoxide # Modern cd command replacement with intelligent directory jumping
+    doggo # DNS lookup tool with improved error handling and response formatting
 
     nixd # Nix LSP
     alejandra # Nix formatter
@@ -63,6 +78,10 @@
     yq-go
     fzf
 
+    ansible
+    yaml-language-server
+    ansible-language-server
+
     iperf3
     dnsutils
     ldns
@@ -70,6 +89,7 @@
     socat
     nmap
     ipcalc
+    tcpdump
 
     file
     tree
