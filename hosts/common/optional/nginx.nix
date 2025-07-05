@@ -13,17 +13,19 @@ in {
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       clientMaxBodySize = "300m";
+      statusPage = true;
 
       virtualHosts."${hostName}.arm53.xyz" = {
         default = true;
         forceSSL = true;
         useACMEHost = "${hostName}.arm53.xyz";
         locations."/metrics" = {
-          proxyPass = "http://localhost:${toString config.services.prometheus.exporters.nginxlog.port}";
+          proxyPass = "http://localhost:${toString config.services.prometheus.exporters.nginx.port}/metrics";
         };
       };
     };
 
+    prometheus.exporters.nginx.enable = true;
     prometheus.exporters.nginxlog = {
       enable = true;
       group = "nginx";
