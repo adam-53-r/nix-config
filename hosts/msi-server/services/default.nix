@@ -20,5 +20,6 @@
     ./jellyfin.nix
     ./loki.nix
     ./alloy.nix
+    ./exporters.nix
   ];
 }
