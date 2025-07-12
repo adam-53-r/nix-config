@@ -103,6 +103,8 @@ in {
         movefocus_cycles_fullscreen = false;
       };
       input = {
+        accel_profile = "flat";
+        sensitivity = 0.5;
         kb_layout = "us,es";
         kb_options = [
           "grp:win_space_toggle"

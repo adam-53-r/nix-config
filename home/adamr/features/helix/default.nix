@@ -12,8 +12,8 @@ in {
   programs.helix = {
     enable = true;
     settings = {
-      theme = "nix-${hash}";
-      # theme = "catppuccin_frappe";
+      # theme = "nix-${hash}";
+      theme = "catppuccin_frappe";
       editor = {
         soft-wrap.enable = true;
         color-modes = true;
