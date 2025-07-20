@@ -3,17 +3,16 @@
     ./global
     ./features/desktop/cinnamon
     ./features/desktop/hyprland
+    ./features/desktop/wayvnc.nix
     ./features/games
     ./features/productivity
     ./features/pass
-    # ./features/desktop/wireless
-    # ./features/rgb
-    # ./features/games/star-citizen.nix
-    # ./features/games/shadps4.nix
   ];
 
   # Red
   wallpaper = pkgs.inputs.themes.wallpapers.berserk-blood-moon;
+
+  programs.ssh.includes = ["local.conf"];
 
   monitors = [
     {
