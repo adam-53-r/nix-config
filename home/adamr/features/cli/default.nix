@@ -133,4 +133,9 @@
     deploy-rs
     nixos-anywhere
   ];
+
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 }
