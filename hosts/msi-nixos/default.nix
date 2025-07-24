@@ -53,6 +53,8 @@
     fish.enable = true;
   };
 
+  hardware.bluetooth.powerOnBoot = false;
+
   # Lid settings
   services.logind = {
     lidSwitch = "suspend";
