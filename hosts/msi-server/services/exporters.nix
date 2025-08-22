@@ -1,7 +1,7 @@
 {
   services.prometheus.exporters = {
     mikrotik = {
-      enable = true;
+      enable = false;
       configuration = {
         devices = [
           {
