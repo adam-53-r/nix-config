@@ -20,6 +20,7 @@
     ./byobu.nix
     ./nb.nix
     ./aws.nix
+    ./zoxide.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix
@@ -51,7 +52,6 @@
     procs # Modern ps replacement with improved terminal interface and filtering
     curlie # Modern curl wrapper with improved UX and JSON highlighting
     xh # HTTP client tool with improved syntax and colorized output
-    zoxide # Modern cd command replacement with intelligent directory jumping
     doggo # DNS lookup tool with improved error handling and response formatting
 
     nixd # Nix LSP
