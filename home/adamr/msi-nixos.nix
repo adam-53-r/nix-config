@@ -16,20 +16,29 @@
 
   monitors = [
     {
-      name = "DP-2";
+      name = "HDMI-A-2";
       width = 1920;
       height = 1080;
-      workspace = "2";
-      primary = true;
+      workspace = "1";
+      position = "0x0";
       refreshRate = 144;
     }
     {
       name = "eDP-1";
       width = 1920;
       height = 1080;
-      workspace = "1";
-      position = "auto-left";
+      workspace = "2";
+      position = "1920x0";
       refreshRate = 144;
+    }
+    {
+      name = "DP-2";
+      width = 2560;
+      height = 1440;
+      workspace = "3";
+      position = "auto-right";
+      primary = true;
+      refreshRate = 120;
     }
   ];
 
