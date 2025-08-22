@@ -118,5 +118,26 @@
     };
   };
 
+  services.udev.packages = [pkgs.yubikey-manager];
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
+  services.pcscd.enable = true;
+
+  # Configuration to use your Luks device
+  boot.initrd.luks.devices = {
+    "msi-nixos" = {
+      crypttabExtraOpts = ["fido2-device=auto"];
+    };
+  };
+
   system.stateVersion = "25.05";
 }
