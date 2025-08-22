@@ -55,7 +55,7 @@ in {
       init.defaultBranch = "main";
       user.signing = {
         signByDefault = true;
-        key = "7813B7E2E0BE0E7DCB1669161058F611DC61E875";
+        key = "B998745F05F7068594D4A6E216ED7CEB30C70359";
       };
       commit.gpgSign = lib.mkDefault true;
       gpg.program = "${config.programs.gpg.package}/bin/gpg2";
