@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./global
     ./features/desktop/cinnamon
@@ -24,21 +28,21 @@
       refreshRate = 144;
     }
     {
-      name = "eDP-1";
-      width = 1920;
-      height = 1080;
-      workspace = "2";
-      position = "1920x0";
-      refreshRate = 144;
-    }
-    {
       name = "DP-2";
       width = 2560;
       height = 1440;
-      workspace = "3";
-      position = "auto-right";
+      workspace = "2";
+      position = "1920x0";
       primary = true;
       refreshRate = 120;
+    }
+    {
+      name = "eDP-1";
+      width = 1920;
+      height = 1080;
+      workspace = "3";
+      position = "auto-right";
+      refreshRate = 144;
     }
   ];
 
@@ -47,6 +51,10 @@
     "LIBVA_DRIVER_NAME,nvidia"
     "__GLX_VENDOR_LIBRARY_NAME,nvidia"
     "NVD_BACKEND,direct"
+  ];
+
+  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+    ".config/Yubico"
   ];
 
   dconf.settings = {
