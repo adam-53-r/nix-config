@@ -34,6 +34,7 @@ in {
       "minecraft"
       "plex"
       "jellyfin"
+      "ark"
     ];
 
     hashedPasswordFile = lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   imports = [
@@ -98,6 +99,45 @@
   };
 
   networking.firewall.allowedTCPPorts = [80 443];
+
+  # Users for Ark Server
+  users.users = let
+    ark = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [
+        "ark"
+      ];
+      openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../home/adamr/ssh.pub);
+      packages = [pkgs.home-manager];
+    };
+    pau = ark;
+    marti = ark;
+  in {
+    inherit ark marti pau;
+  };
+
+  services.openssh.extraConfig = ''
+    Match User ark
+      Banner /etc/ark_ssh_banner
+  '';
+
+  environment.etc.ark_ssh_banner.text = ''
+    Entra a la sessio de byobu amb `byobu-tmux a` o creala amb `byobu-tmux`.
+  '';
+
+  environment.persistence = {
+    "/persist".directories = map (user: "/home/" + user) ["ark" "pau" "marti"];
+  };
+
+  users.groups = {
+    ark = {};
+  };
+
+  environment.systemPackages = [
+    pkgs.tmux
+    pkgs.byobu
+  ];
 
   system.stateVersion = "25.05";
 }
