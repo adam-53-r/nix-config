@@ -21,5 +21,6 @@
     ./loki.nix
     ./alloy.nix
     ./exporters.nix
+    ./satisfactory.nix
   ];
 }

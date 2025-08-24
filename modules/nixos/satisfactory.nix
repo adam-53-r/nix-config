@@ -38,6 +38,24 @@ in {
         Whether to open ports in the firewall for the server
       '';
     };
+
+    standardPort = mkOption {
+      type = types.int;
+      default = 7777;
+      description = ''
+        Standard udp & tcp port for Server traffic, HTTPS API, Game traffic and Lightweight Query API, defaults to 7777/tcp/udp
+        See: https://satisfactory.wiki.gg/wiki/Dedicated_servers#Port_Forwarding_and_Firewall_Settings
+      '';
+    };
+
+    reliablePort = mkOption {
+      type = types.int;
+      default = 8888;
+      description = ''
+        Reliable tcp port for Game traffic and Reliable messaging, defaults to 8888/tcp
+        See: https://satisfactory.wiki.gg/wiki/Dedicated_servers#Port_Forwarding_and_Firewall_Settings
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -51,7 +69,7 @@ in {
 
       serviceConfig = {
         TimeoutSec = "15min";
-        ExecStart = "${steam-run} ${cfg.dataDir}/FactoryServer.sh ${cfg.launchOptions}";
+        ExecStart = "${steam-run} ${cfg.dataDir}/FactoryServer.sh -Port=${toString cfg.standardPort} -ReliablePort=${toString cfg.reliablePort} ${cfg.launchOptions}";
         Restart = "always";
         User = "satisfactory";
         WorkingDirectory = cfg.dataDir;
@@ -73,9 +91,11 @@ in {
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedUDPPorts = [
-        15777
-        7777
-        15000
+        cfg.standardPort
+      ];
+      allowedTCPPorts = [
+        cfg.standardPort
+        cfg.reliablePort
       ];
     };
   };
