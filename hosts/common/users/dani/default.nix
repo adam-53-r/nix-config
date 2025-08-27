@@ -29,9 +29,6 @@ in {
       "wheel"
       "wireshark"
       "vboxusers"
-      # "i2c"
-      # "minecraft"
-      # "mysql"
     ];
 
     hashedPasswordFile = config.sops.secrets.dani-password.path;
