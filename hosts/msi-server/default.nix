@@ -115,6 +115,31 @@
     marti = ark;
   in {
     inherit ark marti pau;
+    dani = {
+      isNormalUser = true;
+      shell = pkgs.fish;
+      extraGroups = [
+        "libvirtd"
+        "podman"
+      ];
+
+      openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../home/dani/ssh.pub + "\n" + builtins.readFile ../../home/adamr/ssh.pub);
+      packages = [pkgs.home-manager];
+    };
+  };
+
+  home-manager = let
+    hm =
+      import ../../home/adamr/${config.networking.hostName}_no_persistance.nix;
+    dani = hm;
+    ark = hm;
+    pau = hm;
+    marti = hm;
+  in {
+    users = {
+      inherit dani ark marti pau;
+    };
+    backupFileExtension = "hm.bak";
   };
 
   services.openssh.extraConfig = ''
@@ -127,7 +152,7 @@
   '';
 
   environment.persistence = {
-    "/persist".directories = map (user: "/home/" + user) ["ark" "pau" "marti"];
+    "/persist".directories = map (user: "/home/" + user) ["dani" "ark" "pau" "marti"];
   };
 
   users.groups = {
@@ -138,6 +163,24 @@
     pkgs.tmux
     pkgs.byobu
   ];
+
+  services.snapper = {
+    snapshotInterval = "*-*-* *:00,20,40:00";
+    configs = {
+      DATA = {
+        SUBVOLUME = "/DATA";
+        ALLOW_GROUPS = ["wheel"];
+        TIMELINE_CREATE = true;
+        TIMELINE_CLEANUP = true;
+        TIMELINE_LIMIT_HOURLY = 3;
+        TIMELINE_LIMIT_DAILY = 10;
+        TIMELINE_LIMIT_WEEKLY = 7;
+        TIMELINE_LIMIT_MONTHLY = 5;
+        TIMELINE_LIMIT_QUARTERLY = 0;
+        TIMELINE_LIMIT_YEARLY = 0;
+      };
+    };
+  };
 
   system.stateVersion = "25.05";
 }
