@@ -8,7 +8,7 @@
 
     ./dns-server.nix
     ./acme.nix
-    ./minecraft-server.nix
+    # ./minecraft-server
     ./windscribe-container
     ./nextcloud
     ./binary-cache.nix

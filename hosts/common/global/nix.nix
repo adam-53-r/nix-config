@@ -10,10 +10,12 @@ in {
       extra-substituters = lib.mkAfter [
         "https://cache.arm53.xyz"
         "https://hyprland.cachix.org"
+        "https://devenv.cachix.org"
       ];
       trusted-public-keys = [
         "cache.arm53.xyz:GEscuhzZqqKd7b3xFFk3AjKAJoYCGVcTimTYq56mcH8="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       ];
       trusted-users = [
         "root"

@@ -21,12 +21,12 @@
     ./audacity.nix
     ./bitwarden.nix
     ./blender.nix
-    ./brave.nix
+    # ./brave.nix
     ./burpsuite.nix
     ./chromium.nix
     ./drawio.nix
     ./emote.nix
-    # ./firefox-devedition.nix
+    ./firefox-devedition.nix
     ./ghidra.nix
     ./gimp.nix
     ./gns3.nix
