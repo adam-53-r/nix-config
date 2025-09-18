@@ -146,6 +146,15 @@
         };
       };
 
+      pc = lib.nixosSystem {
+        modules = [
+          ./hosts/pc
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
       # msi-server
       msi-server = lib.nixosSystem {
         modules = [
@@ -208,6 +217,18 @@
       "adamr@msi-nixos" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/msi-nixos.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      # Adam laptop
+      "adamr@pc" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/pc.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
