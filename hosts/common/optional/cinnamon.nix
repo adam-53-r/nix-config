@@ -6,7 +6,6 @@
 }: {
   services.xserver = {
     enable = true;
-    tty = lib.mkForce 2;
     displayManager.startx.enable = true;
     desktopManager.cinnamon = {
       enable = true;

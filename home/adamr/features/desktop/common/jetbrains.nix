@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    jetbrains.clion
+    # jetbrains.clion
     jetbrains.rust-rover
     jetbrains.webstorm
   ];

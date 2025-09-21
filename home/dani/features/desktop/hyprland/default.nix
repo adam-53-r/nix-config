@@ -162,7 +162,7 @@ in {
           "noanim, ${kdeconnect-pointer}"
           "noshadow, ${kdeconnect-pointer}"
           "noborder, ${kdeconnect-pointer}"
-          "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
+          # "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
           "suppressevent fullscreen, ${kdeconnect-pointer}"
           "workspace special silent, ${wineTray}"
           "tile, ${rsiLauncher}"

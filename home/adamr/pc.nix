@@ -20,13 +20,21 @@
 
   monitors = [
     {
-      name = "HDMI-1";
+      name = "HDMI-A-1";
       width = 1920;
       height = 1080;
       workspace = "1";
       position = "auto";
-      primary = true;
       refreshRate = 120;
+    }
+    {
+      name = "DP-6";
+      width = 2560;
+      height = 1440;
+      workspace = "2";
+      position = "auto-right";
+      primary = true;
+      refreshRate = 180;
     }
   ];
 
@@ -35,18 +43,18 @@
     ".config/Yubico"
   ];
 
-  # dconf.settings = {
-  #   "org/virt-manager/virt-manager/connections" = {
-  #     autoconnect = [
-  #       "qemu:///system"
-  #       "qemu+ssh://adamr@msi-server/system"
-  #     ];
-  #     uris = [
-  #       "qemu:///system"
-  #       "qemu+ssh://adamr@msi-server/system"
-  #     ];
-  #   };
-  # };
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [
+        "qemu:///system"
+        "qemu+ssh://adamr@msi-server/system"
+      ];
+      uris = [
+        "qemu:///system"
+        "qemu+ssh://adamr@msi-server/system"
+      ];
+    };
+  };
 
   # home.file = {
   #   ".config/cinnamon-monitors.xml" = {

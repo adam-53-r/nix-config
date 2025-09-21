@@ -129,11 +129,11 @@ in {
         split_width_multiplier = 1.35;
         pseudotile = true;
       };
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_min_speed_to_force = 10;
-        workspace_swipe_forever = true;
-      };
+      # gestures = {
+      #   workspace_swipe = true;
+      #   workspace_swipe_min_speed_to_force = 10;
+      #   workspace_swipe_forever = true;
+      # };
       misc = {
         vfr = true;
         close_special_on_empty = true;
@@ -164,7 +164,7 @@ in {
           "noanim, ${kdeconnect-pointer}"
           "noshadow, ${kdeconnect-pointer}"
           "noborder, ${kdeconnect-pointer}"
-          "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
+          # "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
           "suppressevent fullscreen, ${kdeconnect-pointer}"
           "workspace special silent, ${wineTray}"
           "tile, ${rsiLauncher}"

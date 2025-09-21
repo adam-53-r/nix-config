@@ -8,7 +8,7 @@
     ./git.nix
     ./gpg.nix
     ./jujutsu.nix
-    ./lyrics.nix
+    # ./lyrics.nix
     ./nushell.nix
     ./nix-index.nix
     ./pfetch.nix
