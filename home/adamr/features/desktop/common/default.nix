@@ -48,6 +48,7 @@
     ./virtualbox.nix
     ./spotify.nix
     ./telegram.nix
+    ./thunderbird.nix
   ];
 
   home.packages = [
