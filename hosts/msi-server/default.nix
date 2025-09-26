@@ -48,7 +48,7 @@
     vlans = {
       servers-vlan = {
         id = 2;
-        interface = "enp2s0";
+        interface = "enp1s0";
       };
     };
     bridges = {
@@ -59,7 +59,7 @@
       };
     };
     interfaces = {
-      enp2s0.useDHCP = false;
+      enp1s0.useDHCP = false;
       servers-vlan.useDHCP = false;
       br-servers-vlan = {
         ipv4 = {
