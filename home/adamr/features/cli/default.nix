@@ -53,6 +53,7 @@
     curlie # Modern curl wrapper with improved UX and JSON highlighting
     xh # HTTP client tool with improved syntax and colorized output
     doggo # DNS lookup tool with improved error handling and response formatting
+    fx
 
     nixd # Nix LSP
     alejandra # Nix formatter
@@ -134,6 +135,7 @@
     nixos-anywhere
   ];
 
+  # To-do: Put in own file
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
