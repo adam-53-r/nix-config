@@ -64,6 +64,7 @@ in {
         # Custom consoles
         "--web.console.templates=${prometheus}/etc/prometheus/consoles"
         "--web.console.libraries=${prometheus}/etc/prometheus/console_libraries"
+        "--storage.tsdb.retention.time 1y"
       ];
     };
     nginx.virtualHosts = {
