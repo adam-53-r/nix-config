@@ -21,7 +21,7 @@
     ./audacity.nix
     ./bitwarden.nix
     ./blender.nix
-    ./brave.nix
+    # ./brave.nix
     ./burpsuite.nix
     ./chromium.nix
     ./drawio.nix
