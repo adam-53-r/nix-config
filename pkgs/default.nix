@@ -1,6 +1,5 @@
 {pkgs ? import <nixpkgs> {}, ...}: {
   # Packages with an actual source
-  lyrics = pkgs.python3Packages.callPackage ./lyrics {};
 
   # Personal scripts
   minicava = pkgs.callPackage ./minicava {};
