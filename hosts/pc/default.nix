@@ -10,7 +10,6 @@
     ../common/global
     ../common/users/adamr
 
-    # ../common/optional/secure-boot.nix
     ../common/optional/quietboot.nix
     ../common/optional/sddm.nix
     ../common/optional/cinnamon.nix
@@ -137,6 +136,12 @@
     "pc" = {
       crypttabExtraOpts = ["fido2-device=auto"];
     };
+  };
+
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+    package = pkgs.openrgb-with-all-plugins;
   };
 
   system.stateVersion = "25.05";
