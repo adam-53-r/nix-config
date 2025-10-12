@@ -24,7 +24,7 @@
       width = 1920;
       height = 1080;
       workspace = "1";
-      position = "auto";
+      position = "0x0";
       refreshRate = 120;
     }
     {
