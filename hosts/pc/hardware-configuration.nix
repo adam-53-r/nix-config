@@ -11,6 +11,7 @@
     ../common/optional/btrfs.nix
     ../common/optional/encrypted.nix
     ../common/optional/ephemeral.nix
+    ../common/optional/quietboot.nix
     ../common/optional/secure-boot.nix
   ];
 
