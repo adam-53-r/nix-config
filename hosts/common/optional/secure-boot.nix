@@ -18,14 +18,17 @@
   ...
 }: {
   imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
+    # inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
 
-  boot.lanzaboote = {
+  boot.loader.limine = {
     enable = true;
-    pkiBundle = "/var/lib/sbctl";
+    secureBoot = {
+      enable = true;
+    };
+    maxGenerations = 3;
   };
 
   environment.systemPackages = [pkgs.sbctl];
