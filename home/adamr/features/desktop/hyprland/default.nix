@@ -104,7 +104,7 @@ in {
       };
       input = {
         accel_profile = "flat";
-        sensitivity = 0.5;
+        sensitivity = 0.3;
         kb_layout = "us,es";
         kb_options = [
           "grp:win_space_toggle"
