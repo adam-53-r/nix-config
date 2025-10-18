@@ -165,15 +165,15 @@
         };
       };
 
-      # # vm-tests
-      # vm-tests = lib.nixosSystem {
-      #   modules = [
-      #     ./hosts/vm-tests
-      #   ];
-      #   specialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
+      # vm-tests
+      vm-tests = lib.nixosSystem {
+        modules = [
+          ./hosts/vm-tests
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
 
       # # VM for HackTheBox
       # nixos-htb = lib.nixosSystem {
@@ -274,16 +274,16 @@
       };
 
       # Adam vm-tests
-      # "adamr@vm-tests" = lib.homeManagerConfiguration {
-      #   modules = [
-      #     ./home/adamr/vm-tests.nix
-      #     ./home/adamr/nixpkgs.nix
-      #   ];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
+      "adamr@vm-tests" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/vm-tests.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
 
       # Adam nixos-htb
       # "adamr@nixos-htb" = lib.homeManagerConfiguration {

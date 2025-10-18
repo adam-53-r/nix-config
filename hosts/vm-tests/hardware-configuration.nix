@@ -12,11 +12,12 @@ in {
     (modulesPath + "/profiles/qemu-guest.nix")
 
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
 
     ../common/optional/btrfs.nix
-    # ../common/optional/encrypted.nix
+    ../common/optional/encrypted.nix
     ../common/optional/ephemeral.nix
+    ../common/optional/quietboot.nix
   ];
 
   boot = {
@@ -43,7 +44,7 @@ in {
   };
 
   disko.devices.disk.main = {
-    device = lib.mkForce "/dev/sda";
+    device = lib.mkForce "/dev/sdb";
   };
 
   # fileSystems = {
@@ -54,6 +55,6 @@ in {
   #   };
   # };
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   nixpkgs.hostPlatform.system = "x86_64-linux";
 }
