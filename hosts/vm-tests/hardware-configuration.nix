@@ -18,6 +18,7 @@ in {
     ../common/optional/encrypted.nix
     ../common/optional/ephemeral.nix
     ../common/optional/quietboot.nix
+    ../common/optional/snapshots.nix
   ];
 
   boot = {

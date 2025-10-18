@@ -13,6 +13,7 @@
     ../common/optional/ephemeral.nix
     ../common/optional/quietboot.nix
     ../common/optional/secure-boot.nix
+    ../common/optional/snapshots.nix
   ];
 
   boot = {

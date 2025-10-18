@@ -36,6 +36,9 @@ hostname: {
           mountpoint = "/swap";
           mountOptions = ["noatime"];
         };
+        "/snapshots" = {};
+        "/snapshots/root" = {};
+        "/snapshots/persist" = {};
       };
     };
   };
