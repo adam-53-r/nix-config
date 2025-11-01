@@ -38,6 +38,12 @@
     };
   };
 
+  boot.loader.limine.extraEntries = ''
+    /Windows
+      protocol: efi
+      path: uuid(e126e23c-49f9-4264-abff-18506d70a3af):/EFI/Microsoft/Boot/bootmgfw.efi
+  '';
+
   disko.devices.disk.main = {
     device = lib.mkForce "/dev/nvme1n1";
   };
