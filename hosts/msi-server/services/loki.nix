@@ -4,6 +4,7 @@
     dataDir = "/DATA/msi-server/loki";
     configuration = {
       auth_enabled = false;
+      server.log_level = "error";
 
       server.http_listen_port = 3100;
       server.grpc_listen_port = 9096;
