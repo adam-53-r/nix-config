@@ -40,13 +40,13 @@
   };
 
   disko.devices.disk.main = {
-    device = lib.mkForce "/dev/nvme1n1";
+    device = lib.mkForce "/dev/nvme0n1";
   };
 
   swapDevices = [
     {
       device = "/swap/swapfile";
-      size = 32768;
+      size = 16384;
       randomEncryption.enable = true;
     }
   ];
