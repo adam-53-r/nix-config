@@ -51,7 +51,12 @@ in {
   home.packages = [
     pkgs.grimblast
     pkgs.hyprpicker
+    pkgs.nemo
   ];
+
+  xdg.mimeApps.associations.added = {
+    "inode/directory" = "nemo.desktop";
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
