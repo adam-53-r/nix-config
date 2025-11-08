@@ -26,13 +26,25 @@ in {
     enable = true;
     # See above
     # userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts.d/hosts";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      forwardAgent = false;
+      addKeysToAgent = "no";
+      compression = false;
+      serverAliveInterval = 0;
+      serverAliveCountMax = 3;
+      hashKnownHosts = false;
+      userKnownHostsFile = "~/.ssh/known_hosts";
+      controlMaster = "no";
+      controlPath = "~/.ssh/master-%r@%n:%p";
+      controlPersist = "no";
+    };
     matchBlocks = {
       net = {
         host = lib.concatStringsSep " " (
           lib.flatten (map (host: [
               host
               "${host}.tail6743b5.ts.net"
-              # "${host}.ts.m7.rs"
             ])
             hostnames)
         );
