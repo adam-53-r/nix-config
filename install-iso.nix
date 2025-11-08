@@ -11,13 +11,13 @@ nixos-generators.nixosGenerate {
       users.users.nixos = {
         initialHashedPassword = lib.mkForce "$y$j9T$tRAkzHi9kpFVhiUg21FIQ0$mkHVaqB1A/Seq4NfGnZaBswCQNWQ/8FWPrVKR5Qo7zD";
         openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ./home/adamr/ssh.pub);
+        extraGroups = [
+          "networkmanager"
+        ];
       };
-      programs = {
-        fish.enable = true;
-      };
-      security.pam.sshAgentAuth = {
-        enable = true;
-      };
+      programs.fish.enable = true;
+      networking.networkmanager.enable = true;
+      security.pam.sshAgentAuth.enable = true;
       services.openssh = {
         enable = true;
         hostKeys = [
