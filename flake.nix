@@ -347,6 +347,16 @@
         #################
         # Adam Machines #
         #################
+        pc = {
+          hostname = "pc";
+          profiles = {
+            system = {
+              user = "root";
+              path = activate-nixos self.nixosConfigurations.pc;
+            };
+          };
+        };
+
         msi-nixos = {
           hostname = "msi-nixos";
           profiles = {
