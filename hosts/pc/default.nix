@@ -32,7 +32,7 @@
     hostName = "pc";
   };
 
-  environment.systemPackages = [pkgs.hostctl];
+  environment.systemPackages = [pkgs.hostctl pkgs.yubikey-manager];
   environment.etc.hosts.mode = "0644";
 
   boot = {
@@ -116,6 +116,9 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+
+  programs.yubikey-touch-detector.enable = true;
 
   security.pam.services = {
     login.u2fAuth = true;
