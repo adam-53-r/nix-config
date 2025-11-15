@@ -114,11 +114,15 @@
 
   programs.gnupg.agent = {
     enable = true;
-    enableSSHSupport = true;
+    # enableSSHSupport = true;
   };
 
+  # services.yubikey-agent.enable = true;
 
   programs.yubikey-touch-detector.enable = true;
+
+  # programs.ssh.startAgent = true;
+  # services.gnome.gcr-ssh-agent.enable = false;
 
   security.pam.services = {
     login.u2fAuth = true;
@@ -131,7 +135,7 @@
     control = "sufficient";
   };
 
-  services.pcscd.enable = true;
+  # services.pcscd.enable = true;
 
   # Configuration to use your Luks device
   boot.initrd.luks.devices = {

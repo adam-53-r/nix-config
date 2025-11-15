@@ -22,6 +22,8 @@ in {
 
   home.packages = with pkgs; [sshfs];
 
+  # services.yubikey-agent.enable = true;
+
   programs.ssh = {
     enable = true;
     # See above
