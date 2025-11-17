@@ -52,13 +52,8 @@ in {
       fsType = "btrfs";
       options = ["compress=zstd" "discard=async" "autodefrag"];
     };
-    "/DATA2" = {
-      device = "/dev/disk/by-label/DATA2";
-      fsType = "btrfs";
-      options = ["compress=zstd" "discard=async" "autodefrag"];
-    };
     "/nix" = {
-      device = lib.mkForce "/dev/disk/by-label/DATA2";
+      device = lib.mkForce "/dev/disk/by-label/DATA";
     };
   };
 
