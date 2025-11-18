@@ -135,7 +135,7 @@
     control = "sufficient";
   };
 
-  # services.pcscd.enable = true;
+  services.pcscd.enable = true;
 
   # Configuration to use your Luks device
   boot.initrd.luks.devices = {
