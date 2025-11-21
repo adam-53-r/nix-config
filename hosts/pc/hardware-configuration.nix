@@ -61,5 +61,10 @@
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
+  hardware.amdgpu = {
+    initrd.enable = true;
+    opencl.enable = true;
+    overdrive.enable = true;
+  };
   services.lact.enable = true;
 }

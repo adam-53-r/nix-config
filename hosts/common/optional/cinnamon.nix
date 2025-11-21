@@ -12,6 +12,5 @@
     };
   };
   services.cinnamon.apps.enable = true;
-  services.speechd.enable = lib.mkForce true;
   services.power-profiles-daemon.enable = false;
 }

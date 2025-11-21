@@ -131,7 +131,9 @@
 
   security.pam.u2f = {
     enable = true;
-    cue = true;
+    settings = {
+      cue = true;
+    };
     control = "sufficient";
   };
 

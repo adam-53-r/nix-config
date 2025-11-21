@@ -60,7 +60,7 @@
     (pkgs.writeShellScriptBin "xdg-open" ''
       handlr open "$@"
     '')
-    pkgs.stable.yubioath-flutter
+    pkgs.yubioath-flutter
   ];
 
   # Also sets org.freedesktop.appearance color-scheme

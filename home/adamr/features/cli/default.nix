@@ -81,7 +81,7 @@
 
     ansible
     yaml-language-server
-    ansible-language-server
+    # ansible-language-server Unmaintained
 
     iperf3
     dnsutils

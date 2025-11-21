@@ -114,6 +114,9 @@ in {
         # Open command buffer in editor when alt+e is pressed
         bind \ee edit_command_buffer
 
+        # Delete key fix
+        bind -M insert delete delete-char
+
         # Use terminal colors
         set -x fish_color_autosuggestion      brblack
         set -x fish_color_cancel              -r

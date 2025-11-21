@@ -1,4 +1,4 @@
 # To-Do List
-1. Automate qemu upgrades:
-    Everytime qemu updates, its breaks the vms because their config isn't updated to point to the new qemu path.
-    possible solution: `sd "/nix/store/.+?/" "$(nix eval --inputs-from self --raw nixpkgs#qemu)/" /var/lib/libvirt/qemu/NixOS-tests.xml`
+1. Fix boot snapshot
+    Snapper snapshots the root subvolume at each boot, problem is that it snapshots the root subvolume after its wiped and regenerated, thus useless.
+    The idea is to snapshot the root subvolume BEFORE it gets wiped at boot so you can recover wiped data afterwards that you maybe forgot to save in a persistance path.

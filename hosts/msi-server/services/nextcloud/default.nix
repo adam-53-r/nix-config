@@ -1,4 +1,4 @@
-{config, ...}: let
+{pkgs, config, ...}: let
   hostname = config.services.nextcloud.hostName;
 in {
   sops.secrets = {
@@ -12,6 +12,7 @@ in {
 
   services.nextcloud = {
     enable = true;
+    package = pkgs.nextcloud32;
     https = true;
     hostName = "nextcloud.arm53.xyz";
     home = "/DATA/msi-server/nextcloud";

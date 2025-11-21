@@ -16,7 +16,7 @@ in {
   services = {
     hydra = {
       enable = true;
-      package = pkgs.hydra_unstable;
+      package = pkgs.hydra;
       hydraURL = "https://hydra.arm53.xyz";
       notificationSender = "hydra@arm53.xyz";
       listenHost = "localhost";

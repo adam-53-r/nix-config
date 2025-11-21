@@ -40,18 +40,12 @@ in {
   ];
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
-    aliases = {
-      p = "pull --ff-only";
-      ff = "merge --ff-only";
-      graph = "log --decorate --oneline --graph";
-      pushall = "!git remote | xargs -L1 git push --all";
-      add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -";
-    };
-    userName = "Daniel Floria Lopez";
-    userEmail = lib.mkDefault "dani-f53@protonmail.com";
-    delta.enable = true;
-    extraConfig = {
+    # package = pkgs.gitAndTools.gitFull;
+    settings = {
+      user = {
+        email = lib.mkDefault "dani-f53@protonmail.com";
+        name = "Daniel Floria Lopez";
+      };
       init.defaultBranch = "main";
       user.signing = {
         signByDefault = true;
@@ -70,6 +64,13 @@ in {
       push.autoSetupRemote = true;
       # Reuse merge conflict fixes when rebasing
       rerere.enabled = true;
+      alias = {
+        p = "pull --ff-only";
+        ff = "merge --ff-only";
+        graph = "log --decorate --oneline --graph";
+        pushall = "!git remote | xargs -L1 git push --all";
+        add-nowhitespace = "!git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -";
+      };
     };
     lfs.enable = true;
     ignores = [
@@ -78,4 +79,6 @@ in {
       ".jj"
     ];
   };
+
+  programs.delta.enable = true;
 }
