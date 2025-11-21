@@ -27,6 +27,17 @@
     };
   };
 
+  # Allow unfree flakes with command-line tools
+  home.file = {
+    ".config/nixpkgs/config.nix" = {
+      text = ''
+        {
+          allowUnfree = true;
+        }
+      '';
+    };
+  };
+
   systemd.user.startServices = "sd-switch";
 
   programs = {
