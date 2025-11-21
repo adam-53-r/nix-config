@@ -1,7 +1,7 @@
 keys:
   # Users
   - &users:
-    - &adamr 7813B7E2E0BE0E7DCB1669161058F611DC61E875
+    - &adamr D2C3F59395C30CE67FE4991ADCAB4CBA3284E15F
     - &dani 197E0A55F7BF748AE35B69804FD8819DFE1EF761
   # Hosts
   - &hosts:
@@ -19,7 +19,6 @@ creation_rules:
       - *msi-nixos
       - *pc
       - *msi-server
-      # - *raspberrypi
       pgp:
       - *adamr
 
