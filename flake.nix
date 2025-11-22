@@ -11,7 +11,10 @@
   inputs = {
     # Nix ecosystem
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+
+    # TEMP TO-DO: Tailscale security patch
+    nixpkgs-tailscale.url = "github:NixOS/nixpkgs/dc59eaca54b6bfc8e8ec0deb37e2fbcfc7ecb81a";
 
     # Home manager
     home-manager = {
@@ -349,6 +352,7 @@
         #################
         pc = {
           hostname = "pc";
+          sshUser = "root";
           profiles = {
             system = {
               user = "root";
@@ -359,6 +363,7 @@
 
         msi-nixos = {
           hostname = "msi-nixos";
+          sshUser = "root";
           profiles = {
             system = {
               user = "root";
@@ -369,6 +374,7 @@
 
         msi-server = {
           hostname = "msi-server";
+          sshUser = "root";
           profiles = {
             system = {
               user = "root";
@@ -379,6 +385,7 @@
 
         vm-tests = {
           hostname = "vm-tests";
+          sshUser = "root";
           profiles = {
             system = {
               user = "root";
@@ -389,6 +396,7 @@
 
         nixos-htb = {
           hostname = "nixos-htb";
+          sshUser = "root";
           profiles = {
             system = {
               user = "root";
