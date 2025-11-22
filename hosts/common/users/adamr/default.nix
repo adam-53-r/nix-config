@@ -43,6 +43,9 @@ in {
     packages = [pkgs.home-manager];
   };
 
+  # Allow adamr to SSH as root for automation purposes
+  users.users.root.openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../../../home/adamr/ssh.pub);
+
   sops.secrets = lib.mkIf (!config.disable-user-sops) {
     adamr-password = {
       sopsFile = ../../secrets.json;
