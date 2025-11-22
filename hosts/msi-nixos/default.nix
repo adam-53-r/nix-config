@@ -56,7 +56,7 @@
   hardware.bluetooth.powerOnBoot = false;
 
   # Lid settings
-  services.logind = {
+  services.logind.settings.Login = {
     lidSwitch = "suspend";
     lidSwitchExternalPower = "lock";
   };
@@ -132,7 +132,7 @@
 
   security.pam.u2f = {
     enable = true;
-    cue = true;
+    settings.cue = true;
     control = "sufficient";
   };
 
