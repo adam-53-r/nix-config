@@ -102,6 +102,5 @@ in {
       NIX_CFLAGS_COMPILE = ["-fno-fast-math"];
     });
 
-    tailscale = inputs.nixpkgs-tailscale.legacyPackages.${final.system}.tailscale;
   };
 }

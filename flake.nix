@@ -13,9 +13,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    # TEMP TO-DO: Tailscale security patch
-    nixpkgs-tailscale.url = "github:NixOS/nixpkgs/dc59eaca54b6bfc8e8ec0deb37e2fbcfc7ecb81a";
-
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager";
