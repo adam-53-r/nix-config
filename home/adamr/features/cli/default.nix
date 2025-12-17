@@ -8,7 +8,6 @@
     ./git.nix
     ./gpg.nix
     ./jujutsu.nix
-    # ./lyrics.nix
     ./nushell.nix
     ./nix-index.nix
     ./pfetch.nix
@@ -21,6 +20,7 @@
     ./nb.nix
     ./aws.nix
     ./zoxide.nix
+    ./yazi.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix
