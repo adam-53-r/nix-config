@@ -21,6 +21,7 @@
     ./aws.nix
     ./zoxide.nix
     ./yazi.nix
+    ./zellij.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix
