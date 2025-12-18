@@ -31,8 +31,8 @@ in {
     };
   };
 
-  services.prometheus.exporters.unbound = {
-    enable = true;
-    listenAddress = "100.86.227.101";
-  };
+  # services.prometheus.exporters.unbound = {
+  #   enable = true;
+  #   listenAddress = "100.86.227.101";
+  # };
 }

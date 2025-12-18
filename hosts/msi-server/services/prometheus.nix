@@ -32,16 +32,16 @@ in {
           scheme = "https";
           static_configs = [{targets = ["msi-server.arm53.xyz"];}];
         }
-        {
-          job_name = "unbound";
-          scheme = "http";
-          static_configs = [{targets = ["dns.arm53.xyz:9167"]; labels.instance = "unbound";}];
-        }
-        {
-          job_name = "mikrotik";
-          scheme = "http";
-          static_configs = [{targets = ["localhost:9436"]; labels.instance = "R1";}];
-        }
+        # {
+        #   job_name = "unbound";
+        #   scheme = "http";
+        #   static_configs = [{targets = ["dns.arm53.xyz:9167"]; labels.instance = "unbound";}];
+        # }
+        # {
+        #   job_name = "mikrotik";
+        #   scheme = "http";
+        #   static_configs = [{targets = ["localhost:9436"]; labels.instance = "R1";}];
+        # }
         {
           job_name = "nextcloud";
           scheme = "https";
