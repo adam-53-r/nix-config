@@ -71,6 +71,7 @@
     };
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
   outputs = {
@@ -165,6 +166,16 @@
         };
       };
 
+      # Windows WSL
+      wsl = lib.nixosSystem {
+        modules = [
+          ./hosts/wsl
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
       # vm-tests
       vm-tests = lib.nixosSystem {
         modules = [
@@ -250,9 +261,9 @@
       };
 
       # Adam msi-windows
-      "adamr@msi-windows" = lib.homeManagerConfiguration {
+      "adamr@wsl" = lib.homeManagerConfiguration {
         modules = [
-          ./home/adamr/msi-windows.nix
+          ./home/adamr/wsl.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
