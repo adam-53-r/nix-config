@@ -114,12 +114,8 @@
   in {
     inherit lib;
 
-    nixosModules = (import ./modules/nixos) // {
-      wsl-base = import ./hosts/wsl;
-    };
-    homeManagerModules = (import ./modules/home-manager) // {
-      wsl-base = import ./home/adamr/wsl.nix;
-    };
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/home-manager;
 
     overlays = import ./overlays {inherit inputs outputs pkgs;};
     hydraJobs = import ./hydra.nix {inherit inputs outputs;};
