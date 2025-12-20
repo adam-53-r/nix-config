@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.nixos-wsl.nixosModules.default
 
@@ -16,11 +17,13 @@
     interop.includePath = false;
   };
 
+  disable-user-sops = true;
+
   networking = {
     hostName = "wsl";
   };
 
-  environment.systemPackages = [pkgs.hostctl];
+  environment.systemPackages = [ pkgs.hostctl ];
   environment.etc.hosts.mode = "0644";
 
   boot = {
@@ -36,11 +39,6 @@
     dconf.enable = true;
     fish.enable = true;
   };
-
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   # enableSSHSupport = true;
-  # };
 
   nixpkgs.hostPlatform.system = "x86_64-linux";
   system.stateVersion = "25.05";
