@@ -5,7 +5,8 @@
 }: {
   system.hydraAutoUpgrade = {
     # Only enable if not dirty
-    enable = inputs.self ? rev;
+    # enable = inputs.self ? rev;
+    enable = false;
     dates = "weekly";
     instance = "https://hydra.arm53.xyz";
     project = "nix-config";
