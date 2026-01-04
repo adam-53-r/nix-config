@@ -23,7 +23,7 @@
     ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
     ../common/optional/virtualbox.nix
-    ../common/optional/vmware.nix
+    # ../common/optional/vmware.nix
     ../common/optional/gns3.nix
     ../common/optional/gns3-server.nix
   ];
