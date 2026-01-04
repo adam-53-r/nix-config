@@ -14,8 +14,8 @@
       then pkgs.pinentry-gnome3
       else pkgs.pinentry-tty;
     noAllowExternalCache = true;
-    defaultCacheTtl = 1800;
-    defaultCacheTtlSsh = 1800;
+    defaultCacheTtl = 10800;
+    defaultCacheTtlSsh = 10800;
   };
 
   home.packages = lib.optional config.gtk.enable pkgs.gcr;
