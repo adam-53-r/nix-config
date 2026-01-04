@@ -3,8 +3,8 @@
   config,
   ...
 }: {
-  home.packages = with pkgs; [
-    # jetbrains.clion
+  home.packages = with pkgs.stable; [
+    jetbrains.clion
     jetbrains.rust-rover
     jetbrains.webstorm
   ];

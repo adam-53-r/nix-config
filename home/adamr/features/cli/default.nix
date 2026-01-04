@@ -103,7 +103,7 @@
     iotop
     iftop
 
-    ltrace
+    pkgs.stable.ltrace
     lsof
 
     sysstat
