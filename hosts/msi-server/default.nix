@@ -15,8 +15,7 @@
     ../common/optional/wireguard-server.nix
     ../common/optional/docker.nix
     ../common/optional/libvirtd.nix
-    # ../common/optional/virtualbox.nix
-    # ../common/optional/vmware.nix
+    ../common/optional/snapshots.nix
 
     ./services
   ];
