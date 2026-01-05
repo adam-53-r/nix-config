@@ -17,7 +17,8 @@
 
   system.autoUpgrade = {
     # Only enable if not dirty
-    enable = inputs.self ? rev;
+    # enable = inputs.self ? rev;
+    enable = false;
     flake = "github:adam-53-r/nix-config#${config.networking.hostName}";
     operation = "boot";
     runGarbageCollection = true;
