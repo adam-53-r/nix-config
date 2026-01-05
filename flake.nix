@@ -210,14 +210,14 @@
       # Dani Machines #
       #################
       # Dani Laptop
-      danix = lib.nixosSystem {
-        modules = [
-          ./hosts/danix
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      # danix = lib.nixosSystem {
+      #   modules = [
+      #     ./hosts/danix
+      #   ];
+      #   specialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
     };
 
     homeConfigurations = {
@@ -324,28 +324,28 @@
       # Dani users #
       ##############
       # Dani laptop
-      "kali@kali" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/dani/kali.nix
-          ./home/dani/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      # "kali@kali" = lib.homeManagerConfiguration {
+      #   modules = [
+      #     ./home/dani/kali.nix
+      #     ./home/dani/nixpkgs.nix
+      #   ];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
 
-      # Dani laptop
-      "dani@danix" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/dani/danix.nix
-          ./home/dani/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
+      # # Dani laptop
+      # "dani@danix" = lib.homeManagerConfiguration {
+      #   modules = [
+      #     ./home/dani/danix.nix
+      #     ./home/dani/nixpkgs.nix
+      #   ];
+      #   pkgs = pkgsFor.x86_64-linux;
+      #   extraSpecialArgs = {
+      #     inherit inputs outputs;
+      #   };
+      # };
     };
 
     # Deploy-rs configs
@@ -402,16 +402,16 @@
           };
         };
 
-        nixos-htb = {
-          hostname = "nixos-htb";
-          sshUser = "root";
-          profiles = {
-            system = {
-              user = "root";
-              path = activate-nixos self.nixosConfigurations.nixos-htb;
-            };
-          };
-        };
+        # nixos-htb = {
+        #   hostname = "nixos-htb";
+        #   sshUser = "root";
+        #   profiles = {
+        #     system = {
+        #       user = "root";
+        #       path = activate-nixos self.nixosConfigurations.nixos-htb;
+        #     };
+        #   };
+        # };
 
         # raspberrypi = {
         #   hostname = "raspberrypi";
@@ -426,25 +426,25 @@
         #################
         # Dani Machines #
         #################
-        kali = {
-          hostname = "kali";
-          profiles = {
-            hm-kali = {
-              user = "kali";
-              path = activate-hm self.homeConfigurations."kali@kali";
-            };
-          };
-        };
+        # kali = {
+        #   hostname = "kali";
+        #   profiles = {
+        #     hm-kali = {
+        #       user = "kali";
+        #       path = activate-hm self.homeConfigurations."kali@kali";
+        #     };
+        #   };
+        # };
 
-        danix = {
-          hostname = "danix";
-          profiles = {
-            system = {
-              user = "root";
-              path = activate-nixos self.nixosConfigurations.danix;
-            };
-          };
-        };
+        # danix = {
+        #   hostname = "danix";
+        #   profiles = {
+        #     system = {
+        #       user = "root";
+        #       path = activate-nixos self.nixosConfigurations.danix;
+        #     };
+        #   };
+        # };
       };
     };
   };
