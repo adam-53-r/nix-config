@@ -31,6 +31,8 @@ in {
     };
   };
 
+  networking.firewall.interfaces.tailscale0.allowedUDPPorts = [53];
+
   # services.prometheus.exporters.unbound = {
   #   enable = true;
   #   listenAddress = "100.86.227.101";

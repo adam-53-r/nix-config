@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  # Enable nftables (better and newer firewall but may give compatibility issues)
+  networking.nftables.enable = true;
+
   networking.networkmanager = {
     enable = true;
     wifi.backend = "iwd";
