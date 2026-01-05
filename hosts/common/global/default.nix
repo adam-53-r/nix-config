@@ -32,6 +32,7 @@
       ./keymap.nix
       ./optin-persistence.nix
       ./mtr.nix
+      ./pass.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
