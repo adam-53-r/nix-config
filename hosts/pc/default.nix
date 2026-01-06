@@ -101,15 +101,6 @@
     };
   };
 
-  sops.secrets = {
-    wg-priv-key = {
-      sopsFile = ./secrets.json;
-    };
-    adamr-wg-password = {
-      sopsFile = ../common/secrets.json;
-    };
-  };
-
   services.udev.packages = [pkgs.yubikey-manager];
 
   programs.gnupg.agent = {
@@ -151,6 +142,40 @@
     motherboard = "amd";
     package = pkgs.openrgb-with-all-plugins;
   };
+
+  services.restic.backups = {
+    persist = {
+      repository = "rest:https://restic.arm53.xyz/pc/persist";
+      paths = [
+        "/persist/"
+      ];
+      exclude = [
+        "/persist/home/adamr/.local/share/Steam/steamapps/common"
+        "/persist/home/adamr/.local/share/Steam/steamapps/shadercache"
+      ];
+      timerConfig = {
+        OnCalendar = "weekly";
+        Persistent = true;
+      };
+      pruneOpts = [
+        "--keep-last 5"
+      ];
+      passwordFile = config.sops.secrets."restic/repo-passwd".path;
+      environmentFile = config.sops.templates."restic-server-auth".path;
+    };
+  };
+
+  sops.secrets = {
+    wg-priv-key.sopsFile = ./secrets.json;
+    adamr-wg-password.sopsFile = ../common/secrets.json;
+    "restic/repo-passwd".sopsFile = ./secrets.json;
+    "restic/rest-auth/pc".sopsFile = ./secrets.json;
+  };
+
+  sops.templates."restic-server-auth".content = ''
+      RESTIC_REST_USERNAME=pc
+      RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest-auth/pc"}
+    '';
 
   system.stateVersion = "25.05";
 }
