@@ -4,9 +4,7 @@
   lib,
   ...
 }: let
-  hosts =
-    lib.remove "danix" (lib.attrNames outputs.nixosConfigurations)
-    ++ ["danix.tail4bc4b5.ts.net" "fedorix.tail4bc4b5.ts.net"];
+  hosts = lib.attrNames outputs.nixosConfigurations;
 in {
   services = {
     prometheus = {
@@ -48,6 +46,15 @@ in {
           static_configs = [{targets = ["nextcloud.arm53.xyz"];}];
         }
         {
+          job_name = "restic-server";
+          scheme = "https";
+          static_configs = [{targets = ["restic.arm53.xyz"];}];
+          basic_auth = {
+            username = "prometheus";
+            password_file = config.sops.secrets."restic-servers-users/prometheus".path;
+          };
+        }
+        {
           job_name = "hosts";
           scheme = "http";
           static_configs =
@@ -78,5 +85,11 @@ in {
 
   environment.persistence = {
     "/persist".directories = ["/var/lib/prometheus2"];
+  };
+
+  sops.secrets."restic-servers-users/prometheus" = {
+    owner = "prometheus";
+    group = "prometheus";
+    sopsFile = ./secrets.json;
   };
 }
