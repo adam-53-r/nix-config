@@ -18,13 +18,6 @@ in {
     certs = let
       hosts = [
         "${hostName}"
-        "nextcloud"
-        "cache"
-        "hydra"
-        "metrics"
-        "dash"
-        "plex"
-        "jlf"
       ];
     in
       lib.genAttrs (map (host: "${host}.arm53.xyz") hosts) (_: {});
