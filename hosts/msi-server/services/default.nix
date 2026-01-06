@@ -22,5 +22,6 @@
     ./alloy.nix
     ./exporters.nix
     ./satisfactory.nix
+    ./restic-server.nix
   ];
 }
