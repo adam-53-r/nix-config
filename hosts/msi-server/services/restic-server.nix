@@ -3,8 +3,9 @@
     enable = true;
     dataDir = "/DATA/msi-server/restic-server";
     listenAddress = "127.0.0.1:8090";
-    appendOnly = true;
+    appendOnly = false;
     prometheus = true;
+    privateRepos = true;
   };
   services.nginx.virtualHosts."restic.arm53.xyz" = {
     forceSSL = true;
