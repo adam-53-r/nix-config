@@ -31,7 +31,7 @@ in {
     };
   };
 
-  networking.firewall.interfaces.tailscale0.allowedUDPPorts = [53];
+  networking.firewall.interfaces."${config.services.tailscale.interfaceName}".allowedUDPPorts = [53];
 
   # services.prometheus.exporters.unbound = {
   #   enable = true;
