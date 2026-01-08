@@ -153,6 +153,7 @@
         "/persist/home/adamr/.local/share/Steam/steamapps/common"
         "/persist/home/adamr/.local/share/Steam/steamapps/shadercache"
       ];
+      extraBackupArgs = ["--one-file-system"];
       timerConfig = {
         OnCalendar = "weekly";
         Persistent = true;
