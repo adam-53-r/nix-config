@@ -50,8 +50,8 @@ in {
           scheme = "https";
           static_configs = [{targets = ["restic.arm53.xyz"];}];
           basic_auth = {
-            username = "prometheus";
-            password_file = config.sops.secrets."restic-servers-users/prometheus".path;
+            username = "metrics";
+            password_file = config.sops.secrets."restic-servers-users/metrics".path;
           };
         }
         {
@@ -87,7 +87,7 @@ in {
     "/persist".directories = ["/var/lib/prometheus2"];
   };
 
-  sops.secrets."restic-servers-users/prometheus" = {
+  sops.secrets."restic-servers-users/metrics" = {
     owner = "prometheus";
     group = "prometheus";
     sopsFile = ./secrets.json;
