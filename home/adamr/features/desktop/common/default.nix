@@ -49,6 +49,7 @@
     ./spotify.nix
     ./telegram.nix
     ./thunderbird.nix
+    ./restic-browser.nix
   ];
 
   home.packages = [
