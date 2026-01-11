@@ -157,6 +157,7 @@ in {
         wineTray = "class:explorer.exe";
         rsiLauncher = "class:rsi launcher.exe";
         steamBigPicture = "title:Steam Big Picture Mode";
+        calculator = "class:org.gnome.Calculator";
       in
         [
           "nofocus, ${sweethome3d-tooltips}"
@@ -173,6 +174,8 @@ in {
           "workspace special silent, ${wineTray}"
           "tile, ${rsiLauncher}"
           "fullscreen, ${steamBigPicture}"
+          "float, ${calculator}"
+          "move (cursor_x) (cursor_y), ${calculator}"
         ]
         ++ (lib.mapAttrsToList (
             name: colors: "bordercolor ${rgba colors.primary "ee"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
