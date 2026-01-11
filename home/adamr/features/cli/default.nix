@@ -22,6 +22,7 @@
     ./zoxide.nix
     ./yazi.nix
     ./zellij.nix
+    ./lazygit.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix
