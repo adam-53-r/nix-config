@@ -8,6 +8,7 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      inputs.nixos-generators.nixosModules.all-formats
       ./acme.nix
       ./auto-upgrade.nix
       ./fish.nix
