@@ -1,4 +1,8 @@
-{pkgs, config, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   hostname = config.services.nextcloud.hostName;
 in {
   sops.secrets = {

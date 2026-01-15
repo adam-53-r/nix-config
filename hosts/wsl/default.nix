@@ -2,8 +2,7 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     inputs.nixos-wsl.nixosModules.default
 
@@ -23,7 +22,7 @@
     hostName = "wsl";
   };
 
-  environment.systemPackages = [ pkgs.hostctl ];
+  environment.systemPackages = [pkgs.hostctl];
   environment.etc.hosts.mode = "0644";
 
   boot = {

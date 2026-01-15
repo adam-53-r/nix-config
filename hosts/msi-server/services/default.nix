@@ -30,5 +30,4 @@
     dataDir = "/DATA/msi-server/hytale";
     openFirewall = true;
   };
-
 }

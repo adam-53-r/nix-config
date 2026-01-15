@@ -174,9 +174,9 @@
   };
 
   sops.templates."restic-server-auth".content = ''
-      RESTIC_REST_USERNAME=pc
-      RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest-auth/pc"}
-    '';
+    RESTIC_REST_USERNAME=pc
+    RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest-auth/pc"}
+  '';
 
   services.flatpak.enable = true;
 

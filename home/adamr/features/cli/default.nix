@@ -137,5 +137,4 @@
     deploy-rs
     nixos-anywhere
   ];
-
 }

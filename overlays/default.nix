@@ -101,6 +101,5 @@ in {
     gamescope = prev.gamescope.overrideAttrs (_: {
       NIX_CFLAGS_COMPILE = ["-fno-fast-math"];
     });
-
   };
 }

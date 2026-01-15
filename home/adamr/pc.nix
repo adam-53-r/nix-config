@@ -38,7 +38,6 @@
     }
   ];
 
-
   home.persistence."/persist/${config.home.homeDirectory}".directories = [
     ".config/Yubico"
     ".var"

@@ -14,7 +14,6 @@
   #   outputs.homeConfigurations;
   # rgb = color: "rgb(${lib.removePrefix "#" color})";
   # rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
-
   # hyprbars =
   #   (pkgs.hyprlandPlugins.hyprbars.override {
   #     # Make sure it's using the same hyprland package as we are
