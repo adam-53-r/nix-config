@@ -138,9 +138,4 @@
     nixos-anywhere
   ];
 
-  # To-do: Put in own file
-  programs.zoxide = {
-    enable = true;
-    enableFishIntegration = true;
-  };
 }
