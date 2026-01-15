@@ -128,6 +128,9 @@
           (import ./pkgs {inherit pkgs;})
           // {
             install-iso = import ./install-iso.nix {inherit lib nixos-generators;};
+          }
+          // {
+            install-kexec = import ./install-kexec.nix {inherit lib nixos-generators;};
           };
       };
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
