@@ -23,6 +23,7 @@
     ./yazi.nix
     ./zellij.nix
     ./lazygit.nix
+    ./flatpak.nix
   ];
   home.packages = with pkgs; [
     uutils-coreutils-noprefix

@@ -178,5 +178,7 @@
       RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest-auth/pc"}
     '';
 
+  services.flatpak.enable = true;
+
   system.stateVersion = "25.05";
 }
