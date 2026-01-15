@@ -189,6 +189,16 @@
         };
       };
 
+      # cloud-vm
+      cloud-vm = lib.nixosSystem {
+        modules = [
+          ./hosts/cloud-vm
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
       # # VM for HackTheBox
       # nixos-htb = lib.nixosSystem {
       #   modules = [
@@ -291,6 +301,18 @@
       "adamr@vm-tests" = lib.homeManagerConfiguration {
         modules = [
           ./home/adamr/vm-tests.nix
+          ./home/adamr/nixpkgs.nix
+        ];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      # Adam cloud-vm
+      "adamr@cloud-vm" = lib.homeManagerConfiguration {
+        modules = [
+          ./home/adamr/cloud-vm.nix
           ./home/adamr/nixpkgs.nix
         ];
         pkgs = pkgsFor.x86_64-linux;
