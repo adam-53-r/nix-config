@@ -35,6 +35,7 @@ in {
       "plex"
       "jellyfin"
       "ark"
+      "hytale"
     ];
 
     hashedPasswordFile = lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;

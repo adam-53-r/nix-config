@@ -24,4 +24,11 @@
     ./satisfactory.nix
     ./restic-server.nix
   ];
+
+  services.hytale-server = {
+    enable = true;
+    dataDir = "/DATA/msi-server/hytale";
+    openFirewall = true;
+  };
+
 }
