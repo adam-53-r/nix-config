@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [telegram-desktop];
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".local/share/TelegramDesktop/"
   ];
 }

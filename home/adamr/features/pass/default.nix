@@ -22,6 +22,6 @@
   };
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".password-store"];
+    "/persist".directories = [".password-store"];
   };
 }

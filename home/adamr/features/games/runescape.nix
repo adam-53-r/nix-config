@@ -27,8 +27,8 @@ in {
   ];
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}" = {
-      allowOther = true;
+    "/persist" = {
+      # allowOther = true;
       directories = ["Jagex"];
     };
   };

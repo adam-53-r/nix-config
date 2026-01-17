@@ -7,10 +7,9 @@
   home = {
     persistence = {
       # Not persisting is safer
-      "/persist/${config.home.homeDirectory}".directories = [
+      "/persist".directories = [
         {
           directory = ".config/BraveSoftware";
-          method = "bindfs";
         }
       ];
     };

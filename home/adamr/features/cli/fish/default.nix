@@ -25,7 +25,7 @@ in {
   ];
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".files = [
+    "/persist".files = [
       ".local/share/fish/fish_history"
     ];
   };

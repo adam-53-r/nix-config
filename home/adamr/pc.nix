@@ -8,7 +8,7 @@
     ./features/desktop/cinnamon
     ./features/desktop/hyprland
     ./features/desktop/wayvnc.nix
-    ./features/games
+    # ./features/games
     ./features/productivity
     ./features/pass
   ];
@@ -38,7 +38,7 @@
     }
   ];
 
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".config/Yubico"
     ".var"
   ];

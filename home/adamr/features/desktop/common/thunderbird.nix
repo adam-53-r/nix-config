@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [thunderbird-latest];
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".thunderbird"
   ];
 }

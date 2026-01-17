@@ -11,8 +11,8 @@
   home = {
     packages = with pkgs; [gamescope];
     persistence = {
-      "/persist/${config.home.homeDirectory}" = {
-        allowOther = true;
+      "/persist" = {
+        # allowOther = true;
         directories = [
           "Games"
         ];

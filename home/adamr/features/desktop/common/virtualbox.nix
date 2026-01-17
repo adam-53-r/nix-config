@@ -1,5 +1,5 @@
 {config, ...}: {
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     "VirtualBox VMs"
     ".config/VirtualBox"
   ];

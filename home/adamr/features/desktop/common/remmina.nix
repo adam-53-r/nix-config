@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [remmina];
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".config/remmina"
     ".local/share/remmina"
   ];

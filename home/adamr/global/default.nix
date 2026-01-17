@@ -8,7 +8,7 @@
 }: {
   imports =
     [
-      inputs.impermanence.homeManagerModules.impermanence
+      # inputs.impermanence.homeManagerModules.impermanence
       ../features/cli
       # ../features/neovim
       ../features/helix
@@ -61,8 +61,8 @@
     };
 
     persistence = {
-      "/persist/${config.home.homeDirectory}" = {
-        defaultDirectoryMethod = "symlink";
+      "/persist" = {
+        # defaultDirectoryMethod = "symlink";
         directories = [
           "Adam"
           "mynix"
@@ -74,7 +74,7 @@
           ".local/share/nix" # trusted settings and repl history
           ".local/share/containers"
         ];
-        allowOther = true;
+        # allowOther = true;
       };
     };
   };

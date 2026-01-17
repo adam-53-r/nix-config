@@ -5,6 +5,6 @@
 }: {
   home.packages = [pkgs.stable.sublime-music];
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".config/sublime-music"];
+    "/persist".directories = [".config/sublime-music"];
   };
 }

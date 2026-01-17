@@ -6,6 +6,6 @@
   home.packages = with pkgs; [drawio];
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".config/draw.io"];
+    "/persist".directories = [".config/draw.io"];
   };
 }

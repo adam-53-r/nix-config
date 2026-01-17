@@ -5,7 +5,7 @@
 }: {
   home.packages = with pkgs.stable; [rustdesk];
 
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".config/rustdesk"
   ];
 }
