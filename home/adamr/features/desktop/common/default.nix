@@ -16,7 +16,7 @@
     ./pavucontrol.nix
     ./playerctl.nix
     ./qt.nix
-    ./sublime-music.nix
+    # ./sublime-music.nix
     ./anydesk.nix
     ./audacity.nix
     ./bitwarden.nix
