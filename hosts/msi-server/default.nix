@@ -11,7 +11,6 @@
     ../common/users/adamr
 
     ../common/optional/quietboot.nix
-    ../common/optional/ecryptfs.nix
     ../common/optional/wireguard-server.nix
     ../common/optional/docker.nix
     ../common/optional/libvirtd.nix

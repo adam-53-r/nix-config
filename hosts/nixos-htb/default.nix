@@ -18,7 +18,6 @@
     ../common/optional/tlp.nix
     ../common/optional/wireshark.nix
     ../common/optional/x11-no-suspend.nix
-    ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
   ];
 

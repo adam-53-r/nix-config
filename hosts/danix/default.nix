@@ -22,7 +22,6 @@
     ../common/optional/gns3.nix
     ../common/optional/steam.nix
     ../common/optional/libvirtd.nix
-    ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
     ../common/optional/hyprland.nix
     # ../common/optional/virtualbox.nix
