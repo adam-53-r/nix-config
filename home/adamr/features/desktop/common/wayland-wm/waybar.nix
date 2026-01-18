@@ -59,13 +59,11 @@ in {
   };
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar.overrideAttrs (oa: {
-      mesonFlags = (oa.mesonFlags or []) ++ ["-Dexperimental=true"];
-    });
+    package = pkgs.waybar;
     systemd.enable = true;
     settings = {
       primary = {
-        exclusive = false;
+        exclusive = true;
         passthrough = false;
         height = 40;
         margin = "6";
@@ -81,9 +79,9 @@ in {
             "hyprland/submap"
           ])
           ++ [
-            "custom/currentplayer"
-            "custom/player"
-            "custom/minicava"
+            # "custom/currentplayer"
+            # "custom/player"
+            # "custom/minicava"
           ];
 
         modules-center = [
@@ -97,9 +95,9 @@ in {
         modules-right = [
           "tray"
           "custom/gpg-status"
-          "custom/sync-status"
-          "custom/unread-mail"
-          "custom/next-event"
+          # "custom/sync-status"
+          # "custom/unread-mail"
+          # "custom/next-event"
           "network"
           "custom/rfkill"
           "pulseaudio"
@@ -244,39 +242,39 @@ in {
         #     "syncing" = "󰁪";
         #   };
         # };
-        "custom/next-event" = {
-          interval = 10;
-          return-type = "json";
-          exec = mkScriptJson {
-            deps = [config.programs.khal.package pkgs.gnugrep];
-            script = ''
-              events="$(khal list now tomorrow --notstarted --json title --json start-time | jq 'map("\(."start-time") \(.title)")[]' -r)"
-              count="$(printf "%s" "$events" | grep -c "^" || true)"
-              if [ "$count" == 0 ]; then
-                status="no-event"
-                events="No events!"
-              else
-                if test -n "$(khal list now 10m --notstarted)"; then
-                  status="has-close-event"
-                else
-                  status="has-event"
-                fi
-              fi
-            '';
-            alt = "$status";
-            tooltip = "$events";
-          };
-          format = "{icon}";
-          format-icons = {
-            has-event = "󰃭";
-            has-close-event = "󰨱";
-            no-event = "󰃮";
-          };
-          on-click = mkScript {
-            deps = [pkgs.handlr-regex];
-            script = "handlr launch text/calendar";
-          };
-        };
+        # "custom/next-event" = {
+        #   interval = 10;
+        #   return-type = "json";
+        #   exec = mkScriptJson {
+        #     deps = [config.programs.khal.package pkgs.gnugrep];
+        #     script = ''
+        #       events="$(khal list now tomorrow --notstarted --json title --json start-time | jq 'map("\(."start-time") \(.title)")[]' -r)"
+        #       count="$(printf "%s" "$events" | grep -c "^" || true)"
+        #       if [ "$count" == 0 ]; then
+        #         status="no-event"
+        #         events="No events!"
+        #       else
+        #         if test -n "$(khal list now 10m --notstarted)"; then
+        #           status="has-close-event"
+        #         else
+        #           status="has-event"
+        #         fi
+        #       fi
+        #     '';
+        #     alt = "$status";
+        #     tooltip = "$events";
+        #   };
+        #   format = "{icon}";
+        #   format-icons = {
+        #     has-event = "󰃭";
+        #     has-close-event = "󰨱";
+        #     no-event = "󰃮";
+        #   };
+        #   on-click = mkScript {
+        #     deps = [pkgs.handlr-regex];
+        #     script = "handlr launch text/calendar";
+        #   };
+        # };
         "custom/gpg-status" = {
           interval = 3;
           return-type = "json";
