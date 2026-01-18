@@ -20,7 +20,6 @@
     ../common/optional/x11-no-suspend.nix
     ../common/optional/steam.nix
     ../common/optional/libvirtd.nix
-    ../common/optional/ecryptfs.nix
     ../common/optional/docker.nix
     ../common/optional/virtualbox.nix
     # ../common/optional/vmware.nix
@@ -32,7 +31,7 @@
     hostName = "pc";
   };
 
-  environment.systemPackages = [pkgs.hostctl pkgs.yubikey-manager];
+  environment.systemPackages = with pkgs; [hostctl yubikey-manager android-tools];
   environment.etc.hosts.mode = "0644";
 
   boot = {
@@ -46,7 +45,6 @@
   powerManagement.powertop.enable = true;
   programs = {
     light.enable = true;
-    adb.enable = true;
     dconf.enable = true;
     fish.enable = true;
   };

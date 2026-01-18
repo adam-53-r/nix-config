@@ -6,12 +6,11 @@
   home = {
     packages = [pkgs.factorio];
     persistence = {
-      "/persist/${config.home.homeDirectory}" = {
-        allowOther = true;
+      "/persist" = {
+        # allowOther = true;
         directories = [
           {
             directory = ".factorio";
-            method = "bindfs";
           }
         ];
       };

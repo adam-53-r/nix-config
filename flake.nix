@@ -11,7 +11,7 @@
   inputs = {
     # Nix ecosystem
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # Home manager
     home-manager = {
@@ -233,138 +233,13 @@
       # };
     };
 
+    # No longer used or needed
     homeConfigurations = {
-      ##############
-      # Adam users #
-      ##############
-      # Adam laptop
-      "adamr@msi-nixos" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/msi-nixos.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam laptop
-      "adamr@pc" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/pc.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam msi-server
-      "adamr@msi-server" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/msi-server.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam msi-windows
-      "adamr@wsl" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/wsl.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam work pc
-      "adamr@work" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/work.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam vm-tests
-      "adamr@vm-tests" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/vm-tests.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam cloud-vm
-      "adamr@cloud-vm" = lib.homeManagerConfiguration {
-        modules = [
-          ./home/adamr/cloud-vm.nix
-          ./home/adamr/nixpkgs.nix
-        ];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-      };
-
-      # Adam nixos-htb
-      # "adamr@nixos-htb" = lib.homeManagerConfiguration {
+      # # Adam laptop
+      # "adamr@pc" = lib.homeManagerConfiguration {
       #   modules = [
-      #     ./home/adamr/nixos-htb.nix
+      #     ./home/adamr/pc.nix
       #     ./home/adamr/nixpkgs.nix
-      #   ];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
-
-      # Adam raspberrypi
-      # "adamr@raspberrypi" = lib.homeManagerConfiguration {
-      #   modules = [
-      #     ./home/adamr/raspberrypi.nix
-      #     ./home/adamr/nixpkgs.nix
-      #   ];
-      #   pkgs = pkgsFor.aarch64-linux;
-      #   extraSpecialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
-
-      ##############
-      # Dani users #
-      ##############
-      # Dani laptop
-      # "kali@kali" = lib.homeManagerConfiguration {
-      #   modules = [
-      #     ./home/dani/kali.nix
-      #     ./home/dani/nixpkgs.nix
-      #   ];
-      #   pkgs = pkgsFor.x86_64-linux;
-      #   extraSpecialArgs = {
-      #     inherit inputs outputs;
-      #   };
-      # };
-
-      # # Dani laptop
-      # "dani@danix" = lib.homeManagerConfiguration {
-      #   modules = [
-      #     ./home/dani/danix.nix
-      #     ./home/dani/nixpkgs.nix
       #   ];
       #   pkgs = pkgsFor.x86_64-linux;
       #   extraSpecialArgs = {

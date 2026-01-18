@@ -5,13 +5,30 @@
   outputs,
   ...
 }: let
-  getHostname = x: lib.last (lib.splitString "@" x);
-  remoteColorschemes =
-    lib.mapAttrs' (n: v: {
-      name = getHostname n;
-      value = v.config.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
-    })
-    outputs.homeConfigurations;
+  # Collect each Home Manager user's colorscheme (for each host) into an attrset:
+  # {
+  #   "<user>@<host>" = <colors>;
+  #   ...
+  # }
+  remoteColorschemes = let
+    # All hosts defined in the flake's nixosConfigurations output
+    hosts = builtins.attrNames outputs.nixosConfigurations;
+
+    # Pick the colors for a given HM user config, matching our current mode.
+    # (e.g. "dark" / "light", depending on how config.colorscheme.mode is set)
+    colorsForUser = hmCfg:
+      hmCfg.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
+
+    # For one host, turn HM users into a list of { name, value } pairs.
+    # Example element: { name = "adamr@laptop"; value = <colors>; }
+    pairsForHost = host:
+      lib.mapAttrsToList (
+        user: hmCfg:
+          lib.nameValuePair "${user}@${host}" (colorsForUser hmCfg)
+      ) (outputs.nixosConfigurations.${host}.config.home-manager.users or {});
+  in
+    # Flatten all hosts' pairs and convert to an attrset.
+    builtins.listToAttrs (lib.concatMap pairsForHost hosts);
   rgb = color: "rgb(${lib.removePrefix "#" color})";
   rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
   swayosd = {
@@ -144,7 +161,7 @@ in {
         close_special_on_empty = true;
         focus_on_activate = true;
         # Unfullscreen when opening something
-        new_window_takes_over_fullscreen = 2;
+        on_focus_under_fullscreen = 2;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = true;
@@ -183,17 +200,17 @@ in {
           remoteColorschemes);
 
       layerrule = [
-        "animation fade,hyprpicker"
-        "animation fade,selection"
-        "animation slide,waybar"
-        "blur,waybar"
-        "ignorezero,waybar"
-        "blur,notifications"
-        "ignorezero,notifications"
-        "blur,wofi"
-        "ignorezero,wofi"
-        "noanim,wallpaper"
-        "abovelock,swayosd"
+        "animation fade, match:namespace hyprpicker"
+        "animation fade, match:namespace selection"
+        "animation slide, match:namespace waybar"
+        "blur on, match:namespace waybar"
+        "ignore_alpha 0, match:namespace waybar"
+        "blur on, match:namespace notifications"
+        "ignore_alpha 0, match:namespace notifications"
+        "blur on, match:namespace wofi"
+        "ignore_alpha 0, match:namespace wofi"
+        "no_anim on, match:namespace wallpaper"
+        "above_lock 2, match:namespace swayosd"
       ];
 
       decoration = {
@@ -424,7 +441,7 @@ in {
         };
       in
         [
-          ",addreserved,${toString waybarSpace.top},${toString waybarSpace.bottom},${toString waybarSpace.left},${toString waybarSpace.right}"
+          # ",addreserved,${toString waybarSpace.top},${toString waybarSpace.bottom},${toString waybarSpace.left},${toString waybarSpace.right}"
         ]
         ++ (map (
           m: "${m.name},${
@@ -440,11 +457,11 @@ in {
     };
     # This is order sensitive, so it has to come here.
     extraConfig = ''
-      # Passthrough mode (e.g. for VNC)
-      bind=SUPER,P,submap,passthrough
-      submap=passthrough
-      bind=SUPER,P,submap,reset
-      submap=reset
-    '';
+          # Passthrough mode (e.g. for VNC)
+          bind=SUPER,P,submap,passthrough
+          submap=passthrough
+          bind=SUPER,P,submap,reset
+          submap=reset
+      # '';
   };
 }

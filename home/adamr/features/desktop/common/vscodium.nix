@@ -5,7 +5,7 @@
 }: {
   home.packages = with pkgs; [vscodium];
 
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".vscode-oss"
     ".config/VSCodium"
   ];

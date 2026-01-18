@@ -5,6 +5,6 @@
 }: {
   home.packages = [pkgs.bitwarden-desktop];
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".config/Bitwarden"];
+    "/persist".directories = [".config/Bitwarden"];
   };
 }

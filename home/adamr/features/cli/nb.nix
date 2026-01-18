@@ -6,6 +6,6 @@
 }: {
   home.packages = [pkgs.nb];
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".nb"];
+    "/persist".directories = [".nb"];
   };
 }

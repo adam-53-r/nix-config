@@ -16,7 +16,7 @@
     ./pavucontrol.nix
     ./playerctl.nix
     ./qt.nix
-    ./sublime-music.nix
+    # ./sublime-music.nix
     ./anydesk.nix
     ./audacity.nix
     ./bitwarden.nix
@@ -78,7 +78,7 @@
 
   # Persisting wirepluber state so I dont have to change the default audio devices
   # on each boot.
-  home.persistence."/persist/${config.home.homeDirectory}".directories = [
+  home.persistence."/persist".directories = [
     ".local/state/wireplumber"
   ];
 }

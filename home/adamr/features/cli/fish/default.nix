@@ -7,25 +7,22 @@
   inherit (lib) mkIf;
   packageNames = map (p: p.pname or p.name or null) config.home.packages;
   hasPackage = name: lib.any (x: x == name) packageNames;
-  hasEza = hasPackage "eza";
   hasSpecialisationCli = hasPackage "specialisation";
   hasAwsCli = hasPackage "awscli2";
   hasNeomutt = config.programs.neomutt.enable;
 in {
   imports = [
-    # ./tide.nix
     ./starship.nix
     ./bindings.nix
   ];
 
   home.packages = with pkgs; [
-    # pkgs.bash-completion
     grc
     fishPlugins.grc
   ];
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".files = [
+    "/persist".files = [
       ".local/share/fish/fish_history"
     ];
   };

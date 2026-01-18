@@ -9,7 +9,7 @@
     ./features/desktop/cinnamon
   ];
 
-  home.persistence."/persist/${config.home.homeDirectory}".enable = lib.mkForce false;
+  home.persistence."/persist".enable = lib.mkForce false;
 
   home.file = {
     ".config/cinnamon-monitors.xml" = {

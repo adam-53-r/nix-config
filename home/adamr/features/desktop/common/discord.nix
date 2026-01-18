@@ -8,7 +8,7 @@ in {
   home.packages = with pkgs; [vesktop];
 
   home.persistence = {
-    "/persist/${config.home.homeDirectory}" = {
+    "/persist" = {
       files = [
         ".config/vesktop/settings.json"
         ".config/vesktop/state.json"

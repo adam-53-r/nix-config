@@ -10,11 +10,10 @@
   hostnames = lib.unique (homeConfigs ++ nixosConfigs);
 in {
   home.persistence = {
-    "/persist/${config.home.homeDirectory}" = {
+    "/persist" = {
       directories = [
         {
           directory = ".ssh";
-          method = "bindfs";
         }
       ];
     };

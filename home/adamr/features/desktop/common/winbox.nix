@@ -26,6 +26,6 @@ in {
     icon = "network-workgroup";
   };
   home.persistence = {
-    "/persist/${config.home.homeDirectory}".directories = [".local/share/MikroTik"];
+    "/persist".directories = [".local/share/MikroTik"];
   };
 }
