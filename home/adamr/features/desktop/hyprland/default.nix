@@ -10,25 +10,25 @@
   #   "<user>@<host>" = <colors>;
   #   ...
   # }
-  remoteColorschemes =
-    let
-      # All hosts defined in the flake's nixosConfigurations output
-      hosts = builtins.attrNames outputs.nixosConfigurations;
+  remoteColorschemes = let
+    # All hosts defined in the flake's nixosConfigurations output
+    hosts = builtins.attrNames outputs.nixosConfigurations;
 
-      # Pick the colors for a given HM user config, matching our current mode.
-      # (e.g. "dark" / "light", depending on how config.colorscheme.mode is set)
-      colorsForUser = hmCfg:
-        hmCfg.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
+    # Pick the colors for a given HM user config, matching our current mode.
+    # (e.g. "dark" / "light", depending on how config.colorscheme.mode is set)
+    colorsForUser = hmCfg:
+      hmCfg.colorscheme.rawColorscheme.colors.${config.colorscheme.mode};
 
-      # For one host, turn HM users into a list of { name, value } pairs.
-      # Example element: { name = "adamr@laptop"; value = <colors>; }
-      pairsForHost = host:
-        lib.mapAttrsToList (user: hmCfg:
+    # For one host, turn HM users into a list of { name, value } pairs.
+    # Example element: { name = "adamr@laptop"; value = <colors>; }
+    pairsForHost = host:
+      lib.mapAttrsToList (
+        user: hmCfg:
           lib.nameValuePair "${user}@${host}" (colorsForUser hmCfg)
-        ) (outputs.nixosConfigurations.${host}.config.home-manager.users or {});
-    in
-      # Flatten all hosts' pairs and convert to an attrset.
-      builtins.listToAttrs (lib.concatMap pairsForHost hosts);
+      ) (outputs.nixosConfigurations.${host}.config.home-manager.users or {});
+  in
+    # Flatten all hosts' pairs and convert to an attrset.
+    builtins.listToAttrs (lib.concatMap pairsForHost hosts);
   rgb = color: "rgb(${lib.removePrefix "#" color})";
   rgba = color: alpha: "rgba(${lib.removePrefix "#" color}${alpha})";
   swayosd = {
