@@ -8,21 +8,22 @@
 
     ./dns-server.nix
     ./acme.nix
-    ./minecraft-server.nix
     ./windscribe-container
     ./nextcloud
     ./binary-cache.nix
-    ./hydra
     ./prometheus.nix
     ./grafana
     ./cloudflared
-    ./plex.nix
     ./jellyfin.nix
     ./loki.nix
     ./alloy.nix
     ./exporters.nix
-    ./satisfactory.nix
     ./restic-server.nix
+    # Todo: fix hydra, does not compile
+    # ./hydra
+    # ./minecraft-server.nix
+    # ./plex.nix
+    # ./satisfactory.nix
   ];
 
   services.hytale-server = {
