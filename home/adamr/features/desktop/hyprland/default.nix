@@ -167,35 +167,31 @@ in {
         enable_swallow = true;
         swallow_regex = "(?i)(${lib.concatMapStringsSep "|" (lib.removeSuffix ".desktop") config.xdg.mimeApps.defaultApplications."x-scheme-handler/terminal"})";
       };
-      windowrulev2 = let
-        sweethome3d-tooltips = "title:win[0-9],class:com-eteks-sweethome3d-SweetHome3DBootstrap";
-        steamGame = "class:steam_app_[0-9]*";
-        kdeconnect-pointer = "class:org.kdeconnect.daemon";
-        wineTray = "class:explorer.exe";
-        rsiLauncher = "class:rsi launcher.exe";
-        steamBigPicture = "title:Steam Big Picture Mode";
-        calculator = "class:org.gnome.Calculator";
+      windowrule = let
+        steamGame = "match:class steam_app_[0-9]*";
+        kdeconnect-pointer = "match:class org.kdeconnect.daemon";
+        wineTray = "match:class explorer.exe";
+        steamBigPicture = "match:title Steam Big Picture Mode";
+        calculator = "match:class org.gnome.Calculator";
       in
         [
-          "nofocus, ${sweethome3d-tooltips}"
-          "immediate, ${steamGame}"
+          "immediate on, ${steamGame}"
           "size 100% 100%, ${kdeconnect-pointer}"
-          "float, ${kdeconnect-pointer}"
-          "nofocus, ${kdeconnect-pointer}"
-          "noblur, ${kdeconnect-pointer}"
-          "noanim, ${kdeconnect-pointer}"
-          "noshadow, ${kdeconnect-pointer}"
-          "noborder, ${kdeconnect-pointer}"
+          "float on, ${kdeconnect-pointer}"
+          "no_focus on, ${kdeconnect-pointer}"
+          "no_blur on, ${kdeconnect-pointer}"
+          "no_anim on, ${kdeconnect-pointer}"
+          "no_shadow on, ${kdeconnect-pointer}"
+          "border_size 0, ${kdeconnect-pointer}"
           # "plugin:hyprbars:nobar, ${kdeconnect-pointer}"
-          "suppressevent fullscreen, ${kdeconnect-pointer}"
+          "suppress_event fullscreen, ${kdeconnect-pointer}"
           "workspace special silent, ${wineTray}"
-          "tile, ${rsiLauncher}"
-          "fullscreen, ${steamBigPicture}"
-          "float, ${calculator}"
-          "move (cursor_x) (cursor_y), ${calculator}"
+          "fullscreen on, ${steamBigPicture}"
+          "float on, ${calculator}"
+          "move (monitor_w-window_w-10) (monitor_h-window_h-10), ${calculator}"
         ]
         ++ (lib.mapAttrsToList (
-            name: colors: "bordercolor ${rgba colors.primary "ee"} ${rgba colors.primary_container "aa"}, title:\\[${name}\\].*"
+            name: colors: "border_color ${rgba colors.primary "ee"} ${rgba colors.primary_container "aa"}, match:title \\[${name}\\].*"
           )
           remoteColorschemes);
 
