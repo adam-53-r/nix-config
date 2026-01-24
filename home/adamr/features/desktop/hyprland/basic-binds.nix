@@ -87,7 +87,7 @@
       ++
       # Move windows
       (lib.mapAttrsToList (
-          key: direction: "SUPERCONTROL,${key},movewindow,${direction}"
+          key: direction: "SUPERCONTROL,${key},movewindoworgroup,${direction}"
         )
         directions)
       ++
