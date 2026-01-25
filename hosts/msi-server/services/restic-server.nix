@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   services.restic.server = {
     enable = true;
     dataDir = "/DATA/msi-server/restic-server";
@@ -12,4 +12,5 @@
     useACMEHost = "restic.arm53.xyz";
     locations."/".proxyPass = "http://localhost:8090";
   };
+  users.users.restic.packages = [pkgs.apacheHttpd];
 }
