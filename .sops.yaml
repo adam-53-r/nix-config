@@ -1,7 +1,9 @@
 keys:
   # Users
   - &users:
-    - &adamr D2C3F59395C30CE67FE4991ADCAB4CBA3284E15F
+    - &adamr:
+      - &yubikey1 D2C3F59395C30CE67FE4991ADCAB4CBA3284E15F
+      - &yubikey2 7BC90CBDC348A199BE60955D3DABBE929A3177E9
     - &dani 197E0A55F7BF748AE35B69804FD8819DFE1EF761
   # Hosts
   - &hosts:
@@ -20,21 +22,24 @@ creation_rules:
       - *pc
       - *msi-server
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/msi-nixos/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *msi-nixos
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/pc/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *pc
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
     # All files named secrets.<extension> or files with the .sops
     # extension inside msi-server or subfolders
@@ -43,28 +48,32 @@ creation_rules:
     - age:
       - *msi-server
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/nixos-htb/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *nixos-htb
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/vm-tests/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *vm-tests
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/danix/secrets.(yaml|json|env|ini)$
     key_groups:
     - age:
       - *danix
       pgp:
-      - *adamr
+      - *yubikey1
+      - *yubikey2
 
   - path_regex: hosts/common/users/dani/secrets.(yaml|json|env|ini)$
     key_groups:
