@@ -15,6 +15,7 @@
     ../common/optional/docker.nix
     ../common/optional/libvirtd.nix
     ../common/optional/snapshots.nix
+    ../common/optional/persist-backup.nix
 
     ./services
   ];
@@ -105,6 +106,8 @@
 
   sops.secrets = {
     wg-priv-key.sopsFile = ./secrets.json;
+    "restic/rest/msi-server".sopsFile = ./secrets.json;
+    "restic/repo-passwd".sopsFile = ./secrets.json;
   };
 
   networking.wireguard.interfaces.wg0 = {
@@ -194,6 +197,17 @@
         TIMELINE_LIMIT_YEARLY = 0;
       };
     };
+  };
+
+  sops.templates."restic-server-auth".content = ''
+    RESTIC_REST_USERNAME=msi-server
+    RESTIC_REST_PASSWORD=${config.sops.placeholder."restic/rest/msi-server"}
+  '';
+
+  services.restic.backups.persist = {
+    exclude = [];
+    passwordFile = config.sops.secrets."restic/repo-passwd".path;
+    environmentFile = config.sops.templates."restic-server-auth".path;
   };
 
   system.stateVersion = "25.05";
