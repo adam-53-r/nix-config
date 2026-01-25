@@ -22,7 +22,7 @@
           if gitCfg.commit.gpgSign
           then "own"
           else "never";
-        key = gitCfg.user.signing.key;
+        key = gitCfg.user.signingkey;
       };
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
