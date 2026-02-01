@@ -46,7 +46,7 @@ in {
         name = "Adam Rkouni";
       };
       init.defaultBranch = "main";
-      user.signingkey = "B998745F05F7068594D4A6E216ED7CEB30C70359";
+      user.signingkey = "586D801B64FDF09F4CE596F13068CD4BF2AB1986";
       commit.gpgSign = lib.mkDefault true;
       gpg.program = "${config.programs.gpg.package}/bin/gpg2";
 
