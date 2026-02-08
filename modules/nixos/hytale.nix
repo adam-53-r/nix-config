@@ -49,22 +49,85 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services.hytale-server = let
+    systemd = let
+      systemctl = "${pkgs.systemd}/bin/systemctl";
       # steamcmd = "${cfg.steamcmdPackage}/bin/steamcmd";
       # steam-run = "${pkgs.steam-run}/bin/steam-run";
       java = pkgs.temurin-bin-25;
-    in {
-      description = "Hytale Dedicated Server";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target"];
-      path = [java];
+      hytale-updater = pkgs.writeShellApplication {
+        name = "hytale-update";
 
-      serviceConfig = {
-        TimeoutSec = "15min";
-        ExecStart = "${java}/bin/java -jar ${cfg.dataDir}/Server/HytaleServer.jar --assets Assets.zip -b ${cfg.bind}:${toString cfg.port} ${cfg.extraFlags}";
-        Restart = "always";
-        User = "hytale";
-        WorkingDirectory = cfg.dataDir;
+        # Runtime deps added to PATH automatically
+        runtimeInputs = with pkgs; [
+          bash
+          coreutils
+          util-linux # flock
+          unzip
+        ];
+
+        text = builtins.readFile ./hytale-update.sh;
+      };
+    in {
+      timers.hytale-server-maintenance = {
+        description = "Timer to check for Hyale Server updates";
+        timerConfig = {
+          OnCalendar = "*-*-* 03:00:00";
+          Unit = "hytale-server-maintenance.service";
+        };
+        wantedBy = ["timers.target"];
+      };
+
+      services = {
+        hytale-server-maintenance = {
+          description = "Hytale Server maintenance";
+          wants = ["network-online.target"];
+          after = ["network-online.target"];
+          serviceConfig = {
+            Type = "oneshot";
+            TimeoutStartSec = "15min";
+            ExecStart = [
+              "${systemctl} stop hytale-server.service"
+              # The - prefix makes the update step “best-effort”: if it fails, the unit continues to the restart. (You’ll still see the failure in logs.)
+              "-${systemctl} start hytale-server-update.service"
+              "${systemctl} start hytale-server.service"
+            ];
+            NoNewPrivileges = "true";
+            PrivateTmp = "true";
+            ProtectHome = "true";
+            ProtectSystem = "strict";
+          };
+        };
+
+        hytale-server-update = {
+          description = "Checks for Hyale Server updates and applies them when available";
+          unitConfig = {
+            # RefuseManualStart = true;
+          };
+          serviceConfig = {
+            Type = "oneshot";
+            WorkingDirectory = cfg.dataDir;
+            User = "hytale";
+            Group = "hytale";
+            TimeoutStartSec = "15min";
+            # Restart = "always";
+            ExecStart = "${hytale-updater}/bin/hytale-update --server-dir ${cfg.dataDir}";
+          };
+        };
+
+        hytale-server = {
+          description = "Hytale Dedicated Server";
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
+          path = [java];
+
+          serviceConfig = {
+            TimeoutSec = "15min";
+            ExecStart = "${java}/bin/java -jar ./HytaleServer.jar --assets ../Assets.zip -b ${cfg.bind}:${toString cfg.port} ${cfg.extraFlags}";
+            Restart = "always";
+            User = "hytale";
+            WorkingDirectory = "${cfg.dataDir}/Server";
+          };
+        };
       };
     };
 
