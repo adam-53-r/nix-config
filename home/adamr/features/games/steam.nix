@@ -40,7 +40,7 @@
     ];
   in
     pkgs.writeTextDir "share/wayland-sessions/steam-sesson.desktop" # ini
-    
+
     ''
       [Desktop Entry]
       Name=Steam Session
@@ -54,13 +54,19 @@ in {
     pkgs.gamescope
     pkgs.protontricks
   ];
+
   home.persistence = {
     "/persist" = {
       directories = [
         {
           directory = ".factorio";
         }
-        ".local/share/Steam"
+        {
+          directory = ".steam";
+        }
+        {
+          directory = ".local/share/Steam";
+        }
       ];
     };
   };

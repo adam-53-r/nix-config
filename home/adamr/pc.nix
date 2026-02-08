@@ -8,7 +8,7 @@
     ./features/desktop/cinnamon
     ./features/desktop/hyprland
     ./features/desktop/wayvnc.nix
-    # ./features/games
+    ./features/games
     ./features/productivity
     ./features/pass
   ];
