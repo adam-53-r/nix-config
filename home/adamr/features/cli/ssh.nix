@@ -45,6 +45,7 @@ in {
         host = lib.concatStringsSep " " (
           lib.flatten (map (host: [
               host
+              # TODO: set net domain dynamically?
               "${host}.tail6743b5.ts.net"
             ])
             hostnames)
