@@ -14,6 +14,8 @@ in {
         scrape_interval = "30s";
         scrape_timeout = "30s";
       };
+      enableReload = true;
+      retentionTime = "2y";
       scrapeConfigs = [
         {
           job_name = "hydra";
@@ -71,7 +73,6 @@ in {
         # Custom consoles
         "--web.console.templates=${prometheus}/etc/prometheus/consoles"
         "--web.console.libraries=${prometheus}/etc/prometheus/console_libraries"
-        "--storage.tsdb.retention.time 1y"
       ];
     };
     nginx.virtualHosts = {
