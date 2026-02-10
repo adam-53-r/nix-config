@@ -55,6 +55,44 @@ in {
           };
         }
         {
+          job_name = "snmp";
+          static_configs = [
+            # {
+            #   targets = [
+            #     "192.168.2.1"
+            #   ];
+            #   labels.instance = "R1";
+            # }
+          ];
+          metrics_path = "/snmp";
+          params = {
+            auth = ["public_v2"];
+            module = ["if_mib"];
+          };
+          relabel_configs = [
+            {
+              source_labels = ["__address__"];
+              target_label = "__param_target";
+            }
+            {
+              source_labels = ["__param_target"];
+              target_label = "instance";
+            }
+            {
+              source_labels = ["__address__"];
+              target_label = "127.0.0.1:${toString config.services.prometheus.exporters.snmp.port}";
+            }
+          ];
+        }
+        {
+          job_name = "mktxp";
+          static_configs = [
+            {
+              targets = ["localhost:49090"];
+            }
+          ];
+        }
+        {
           job_name = "hosts";
           scheme = "http";
           static_configs =
@@ -71,7 +109,6 @@ in {
         # Custom consoles
         "--web.console.templates=${prometheus}/etc/prometheus/consoles"
         "--web.console.libraries=${prometheus}/etc/prometheus/console_libraries"
-        "--storage.tsdb.retention.time 1y"
       ];
     };
     nginx.virtualHosts = {

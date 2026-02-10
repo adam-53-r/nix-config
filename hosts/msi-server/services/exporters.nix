@@ -1,26 +1,15 @@
-{
+{pkgs, ...}: {
   services.prometheus.exporters = {
-    mikrotik = {
-      enable = false;
-      configuration = {
-        devices = [
-          {
-            name = "R1";
-            address = "192.168.2.1";
-            user = "prometheus";
-            password = "1234";
-          }
-        ];
-        features = {
-          bgp = true;
-          dhcp = true;
-          dhcpv6 = true;
-          dhcpl = true;
-          routes = true;
-          pools = true;
-          optics = true;
-        };
-      };
+    snmp = let
+      snmpYml =
+        pkgs.writeText "snmp.yml"
+        (builtins.readFile "${pkgs.prometheus-snmp-exporter.src}/snmp.yml");
+    in {
+      enable = true;
+      listenAddress = "127.0.0.1";
+      # TODO: make this bullshit work
+      # configurationPath = /. + builtins.unsafeDiscardStringContext "${pkgs.prometheus-snmp-exporter.src}/snmp.yml";
+      configurationPath = snmpYml;
     };
   };
 }
