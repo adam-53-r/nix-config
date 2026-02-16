@@ -25,6 +25,8 @@
     # ../common/optional/vmware.nix
     ../common/optional/gns3.nix
     ../common/optional/gns3-server.nix
+
+    ./ups.nix
   ];
 
   networking = {
@@ -177,6 +179,7 @@
   '';
 
   services.flatpak.enable = true;
+
 
   system.stateVersion = "25.05";
 }
