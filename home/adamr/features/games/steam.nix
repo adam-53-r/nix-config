@@ -4,7 +4,16 @@
   config,
   ...
 }: let
+  # Fixing steam desktop entry to work with AMD GPU
+  steam-unwrapped-without-DRI = pkgs.steam-unwrapped.overrideAttrs (old: {
+    postInstall =
+      ''
+        substituteInPlace steam.desktop --replace-fail "steam %U" "env -u DRI_PRIME steam %U"
+      ''
+      + old.postInstall;
+  });
   steam-with-pkgs = pkgs.steam.override {
+    steam-unwrapped = steam-unwrapped-without-DRI;
     extraPkgs = pkgs:
       with pkgs; [
         xorg.libXcursor
@@ -39,7 +48,7 @@
       "steam://open/bigpicture"
     ];
   in
-    pkgs.writeTextDir "share/wayland-sessions/steam-sesson.desktop" # ini
+    pkgs.writeTextDir "share/wayland-sessions/steam-session.desktop" # ini
 
     ''
       [Desktop Entry]
