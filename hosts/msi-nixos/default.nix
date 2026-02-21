@@ -47,7 +47,6 @@
   powerManagement.powertop.enable = true;
   programs = {
     light.enable = true;
-    adb.enable = true;
     dconf.enable = true;
     fish.enable = true;
   };
