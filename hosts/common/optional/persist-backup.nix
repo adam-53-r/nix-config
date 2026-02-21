@@ -7,7 +7,7 @@
       exclude = lib.mkDefault (throw "Must set excludes for restic.");
       extraBackupArgs = ["--one-file-system"];
       timerConfig = {
-        OnCalendar = "weekly";
+        OnCalendar = "Sat *-*-* 09:00:00";
         Persistent = true;
       };
       pruneOpts = [
