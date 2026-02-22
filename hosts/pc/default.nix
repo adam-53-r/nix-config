@@ -25,6 +25,7 @@
     # ../common/optional/vmware.nix
     ../common/optional/gns3.nix
     ../common/optional/gns3-server.nix
+    ../common/optional/persist-backup.nix
 
     ./ups.nix
   ];
@@ -143,27 +144,13 @@
     package = pkgs.openrgb-with-all-plugins;
   };
 
-  services.restic.backups = {
-    persist = {
-      repository = "rest:https://restic.arm53.xyz/pc/persist";
-      paths = [
-        "/persist/"
-      ];
-      exclude = [
-        "/persist/home/adamr/.local/share/Steam/steamapps/common"
-        "/persist/home/adamr/.local/share/Steam/steamapps/shadercache"
-      ];
-      extraBackupArgs = ["--one-file-system"];
-      timerConfig = {
-        OnCalendar = "weekly";
-        Persistent = true;
-      };
-      pruneOpts = [
-        "--keep-last 5"
-      ];
-      passwordFile = config.sops.secrets."restic/repo-passwd".path;
-      environmentFile = config.sops.templates."restic-server-auth".path;
-    };
+  services.restic.backups.persist = {
+    exclude = [
+      "/persist/home/adamr/.local/share/Steam/steamapps/common"
+      "/persist/home/adamr/.local/share/Steam/steamapps/shadercache"
+    ];
+    passwordFile = config.sops.secrets."restic/repo-passwd".path;
+    environmentFile = config.sops.templates."restic-server-auth".path;
   };
 
   sops.secrets = {
@@ -179,7 +166,6 @@
   '';
 
   services.flatpak.enable = true;
-
 
   system.stateVersion = "25.05";
 }

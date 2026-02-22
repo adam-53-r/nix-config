@@ -5,12 +5,12 @@
         "/persist/"
       ];
       exclude = lib.mkDefault (throw "Must set excludes for restic.");
-      extraBackupArgs = ["--one-file-system"];
-      timerConfig = {
+      extraBackupArgs = lib.mkDefault ["--one-file-system"];
+      timerConfig = lib.mkDefault {
         OnCalendar = "Sat *-*-* 09:00:00";
         Persistent = true;
       };
-      pruneOpts = [
+      pruneOpts = lib.mkDefault [
         "--keep-last 5"
       ];
       passwordFile = lib.mkDefault (throw "Must set password file for restic.");
