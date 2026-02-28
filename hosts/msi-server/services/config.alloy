@@ -1,18 +1,18 @@
 loki.relabel "journal" {
-  forward_to = []
   rule {
     source_labels = ["__journal__systemd_unit"]
     target_label  = "unit"
   }
+  forward_to = []
 }
 
 loki.source.journal "journalctl"  {
-  forward_to    = [loki.write.main_loki.receiver]
   relabel_rules = loki.relabel.journal.rules
   labels        = {
     component = "loki.source.journal",
     instance = constants.hostname,
   }
+  forward_to    = [loki.write.main_loki.receiver]
 }
 
 loki.source.file "nginxlog" {
@@ -23,17 +23,45 @@ loki.source.file "nginxlog" {
 }
 
 loki.process "nginx" {
-	forward_to = [loki.write.main_loki.receiver]
 	stage.static_labels {
 		values = {
 			job  = "nginx",
-	        service_name = "nginx",
+      service_name = "nginx",
+      instance = constants.hostname,
 		}
 	}
+	forward_to = [loki.write.main_loki.receiver]
+}
+
+loki.relabel "syslog" {
+  rule {
+    action = "labelmap"
+    regex = "__syslog_(.+)"
+  }
+  forward_to = []
+}
+loki.source.syslog "syslog" {
+  listener {
+    address  = "0.0.0.0:51893"
+    protocol = "udp"
+    syslog_format = "rfc3164"
+
+    // Optional but usually desired for network gear:
+    // use_incoming_timestamp            = true
+    // rfc3164_default_to_current_year   = true
+
+    labels   = {
+      job = "syslog",
+      component = "loki.source.syslog",
+    }
+  }
+
+  relabel_rules = loki.relabel.syslog.rules
+  forward_to = [loki.write.main_loki.receiver]
 }
 
 loki.write "main_loki" {
    endpoint {
-      url = "http://msi-server.arm53.xyz:3100/loki/api/v1/push"
+      url = "http://localhost:3100/loki/api/v1/push"
    }
 }
