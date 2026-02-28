@@ -45,5 +45,6 @@
       #   retention_enabled = true;
       # };
     };
+    extraFlags = [ "--pattern-ingester.enabled=true" ];
   };
 }
