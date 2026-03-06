@@ -19,6 +19,7 @@
     ./alloy.nix
     ./exporters.nix
     ./restic-server.nix
+    ./zammad.nix
     # TODO: fix hydra, does not compile
     # ./hydra
     # ./minecraft-server.nix
