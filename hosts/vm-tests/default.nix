@@ -33,13 +33,14 @@
     hostName = "vm-tests";
   };
 
-  disable-user-sops = true;
   environment.systemPackages = [pkgs.hostctl];
   environment.etc.hosts.mode = "0644";
 
+  disable-user-sops = true;
   users.users.adamr = {
     initialHashedPassword = "$y$j9T$lgLih3qHgZnQSSV.Cfk0T1$/BM.PW5.2dc/1yu4069/wF845WW95YBYRpGrSnxPba3";
   };
+
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
     binfmt.emulatedSystems = [
