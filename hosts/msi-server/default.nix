@@ -210,12 +210,12 @@
     environmentFile = config.sops.templates."restic-server-auth".path;
   };
 
-  programs.steam.enable = true;
-  services.nginx.virtualHosts."xpra.arm53.xyz" = {
-    forceSSL = true;
-    useACMEHost = "xpra.arm53.xyz";
-    locations."/".proxyPass = "http://localhost:47990";
-  };
+  # programs.steam.enable = true;
+  # services.nginx.virtualHosts."xpra.arm53.xyz" = {
+  #   forceSSL = true;
+  #   useACMEHost = "xpra.arm53.xyz";
+  #   locations."/".proxyPass = "http://localhost:47990";
+  # };
 
   system.stateVersion = "25.05";
 }
