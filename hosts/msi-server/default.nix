@@ -217,5 +217,19 @@
   #   locations."/".proxyPass = "http://localhost:47990";
   # };
 
+  # services.samba = {
+  #   enable = true;
+  #   openFirewall = true;
+  #   settings = {
+  #     movies = {
+  #       browseable = "yes";
+  #       comment = "Movies public samba share.";
+  #       "guest ok" = "yes";
+  #       path = "/DATA/msi-server/Movies";
+  #       "read only" = "yes";
+  #     };
+  #   };
+  # };
+
   system.stateVersion = "25.05";
 }
