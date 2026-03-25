@@ -127,7 +127,7 @@
     perf-tools
     flamegraph
     cargo-flamegraph
-    localstack
+    pkgs.stable.localstack
     dysk
 
     sops
