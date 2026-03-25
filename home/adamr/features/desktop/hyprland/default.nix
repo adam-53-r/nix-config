@@ -128,10 +128,7 @@ in {
         accel_profile = "flat";
         sensitivity = 0.3;
         kb_layout = "us,es";
-        kb_options = [
-          "grp:win_space_toggle"
-          "caps:swapescape"
-        ];
+        kb_options = "caps:swapescape,grp:win_space_toggle";
         touchpad = {
           disable_while_typing = true;
           natural_scroll = true;
