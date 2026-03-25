@@ -51,7 +51,7 @@
   home = {
     username = lib.mkDefault "adamr";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
-    stateVersion = lib.mkDefault "25.05";
+    stateVersion = lib.mkDefault "26.05";
     sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
       FLAKE = "$HOME/mynix";
