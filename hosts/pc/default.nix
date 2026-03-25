@@ -21,7 +21,7 @@
     ../common/optional/steam.nix
     ../common/optional/libvirtd.nix
     ../common/optional/docker.nix
-    ../common/optional/virtualbox.nix
+    # ../common/optional/virtualbox.nix
     # ../common/optional/vmware.nix
     ../common/optional/gns3.nix
     ../common/optional/gns3-server.nix
@@ -47,7 +47,6 @@
 
   powerManagement.powertop.enable = true;
   programs = {
-    light.enable = true;
     dconf.enable = true;
     fish.enable = true;
   };
