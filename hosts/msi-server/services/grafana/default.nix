@@ -4,6 +4,10 @@
       sopsFile = ../../secrets.json;
       owner = "grafana";
     };
+    grafana-secret-key = {
+      sopsFile = ../../secrets.json;
+      owner = "grafana";
+    };
     # grafana-mail-password = {
     #   sopsFile = ../../secrets.yaml;
     #   owner = "grafana";
@@ -23,6 +27,7 @@
           admin_email = "hi@arm53.xyz";
           admin_password = "$__file{${config.sops.secrets.grafana-adamr-password.path}}";
           cookie_secure = true;
+          secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
         };
         "auth.anonymous" = {
           enabled = true;
