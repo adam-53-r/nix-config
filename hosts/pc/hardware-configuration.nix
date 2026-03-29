@@ -19,9 +19,9 @@
   boot = {
     initrd = {
       availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage"];
-      kernelModules = ["kvm-intel" "amdgpu"];
+      kernelModules = ["amdgpu"];
     };
-    kernelModules = ["kvm-intel"];
+    kernelModules = [];
     extraModulePackages = [];
     loader = {
       efi = {
