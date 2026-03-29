@@ -134,6 +134,7 @@
   boot.initrd.luks.devices = {
     "pc" = {
       crypttabExtraOpts = ["fido2-device=auto"];
+      allowDiscards = true;
     };
   };
 
