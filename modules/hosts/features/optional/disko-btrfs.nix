@@ -58,7 +58,9 @@
         trap 'umount "$MNTPOINT"' EXIT
 
         echo "Creating needed directories"
-        mkdir -p "$MNTPOINT"/persist/var/{log,lib/{nixos,systemd}}
+        mkdir -p "$MNTPOINT"/persist/var/log \
+                 "$MNTPOINT"/persist/var/lib/nixos \
+                 "$MNTPOINT"/persist/var/lib/systemd
 
         if [ -e "$MNTPOINT/persist/dont-wipe" ]; then
           echo "Skipping wipe"
