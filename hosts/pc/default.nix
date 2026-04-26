@@ -34,6 +34,8 @@
     hostName = "pc";
   };
 
+  services.resolved.enable = true;
+
   environment.systemPackages = with pkgs; [hostctl yubikey-manager android-tools];
   environment.etc.hosts.mode = "0644";
 
