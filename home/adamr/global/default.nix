@@ -73,6 +73,7 @@
           ".local/bin"
           ".local/share/nix" # trusted settings and repl history
           ".local/share/containers"
+          ".local/share/networkmanagement/" # files and configs of networkmanager
         ];
         # allowOther = true;
       };
