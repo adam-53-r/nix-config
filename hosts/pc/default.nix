@@ -169,5 +169,18 @@
 
   services.flatpak.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = ["*"];
+      settings = {
+        main = {
+          capslock = "esc";
+          esc = "capslock";
+        };
+      };
+    };
+  };
+
   system.stateVersion = "25.05";
 }
