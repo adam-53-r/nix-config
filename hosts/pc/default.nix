@@ -28,6 +28,7 @@
     ../common/optional/persist-backup.nix
 
     ./ups.nix
+    ./ai.nix
   ];
 
   networking = {
