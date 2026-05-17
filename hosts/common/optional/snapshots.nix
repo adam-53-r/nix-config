@@ -97,7 +97,7 @@
           echo "[mount-snapshots] $target already mounted; skipping"
         else
           echo "[mount-snapshots] Mounting $subvol at $target"
-          mount -t btrfs -o "subvol=$subvol,compress=zstd,discard=async,autodefrag" ${partition} "$target"
+          mount -t btrfs -o "subvol=$subvol,compress=zstd,discard=async" ${partition} "$target"
         fi
       }
 
