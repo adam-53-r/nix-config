@@ -24,9 +24,9 @@
     enable = true;
   };
 
-  services.searx = {
-    enable = true;
-  };
+  # services.searx = {
+  #   enable = true;
+  # };
 
   environment.systemPackages = with pkgs; [
     # openclaw

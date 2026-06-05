@@ -104,7 +104,12 @@
     };
   };
 
-  services.udev.packages = [pkgs.yubikey-manager];
+  services.udev.packages = [
+    pkgs.yubikey-manager
+    (pkgs.writeTextDir "etc/udev/rules.d/59-vial.rules" ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+    '')
+  ];
 
   programs.gnupg.agent = {
     enable = true;
@@ -182,6 +187,8 @@
       };
     };
   };
+
+  hardware.keyboard.qmk.enable = true;
 
   system.stateVersion = "25.05";
 }
