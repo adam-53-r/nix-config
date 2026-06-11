@@ -96,16 +96,16 @@ in {
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = ["compress=zstd" "discard=async"];
+                      mountOptions = ["compress=zstd"];
                     };
                     "/root-blank" = {};
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = ["compress=zstd" "noatime" "discard=async"];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = ["compress=zstd" "discard=async"];
+                      mountOptions = ["compress=zstd"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";

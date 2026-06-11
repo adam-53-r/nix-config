@@ -52,7 +52,7 @@ in {
   #   "/persist/DATA" = {
   #     device = "/dev/disk/by-partlabel/DATA";
   #     fsType = "btrfs";
-  #     options = [ "compress=zstd" "discard=async" "autodefrag" "nofail"];
+  #     options = [ "compress=zstd" "autodefrag" "nofail"];
   #   };
   # };
 

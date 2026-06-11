@@ -50,7 +50,7 @@ in {
     "/DATA" = {
       device = "/dev/disk/by-label/DATA";
       fsType = "btrfs";
-      options = ["compress=zstd" "discard=async" "autodefrag"];
+      options = ["compress=zstd" "autodefrag"];
     };
     "/nix" = {
       device = lib.mkForce "/dev/disk/by-label/DATA";
