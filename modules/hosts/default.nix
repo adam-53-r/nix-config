@@ -14,5 +14,10 @@
         self.nixosModules.vmConfiguration
       ];
     };
+    oci = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.ociConfiguration
+      ];
+    };
   };
 }
