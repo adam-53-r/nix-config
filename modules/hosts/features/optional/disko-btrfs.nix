@@ -14,15 +14,15 @@
       subvolumes = {
         "/root" = {
           mountpoint = "/";
-          mountOptions = ["compress=zstd" "discard=async" "autodefrag"];
+          mountOptions = ["compress=zstd"];
         };
         "/nix" = {
           mountpoint = "/nix";
-          mountOptions = ["compress=zstd" "noatime" "discard=async" "autodefrag"];
+          mountOptions = ["compress=zstd" "noatime"];
         };
         "/persist" = {
           mountpoint = "/persist";
-          mountOptions = ["compress=zstd" "discard=async" "autodefrag"];
+          mountOptions = ["compress=zstd"];
         };
         "/swap" = {
           mountpoint = "/swap";
