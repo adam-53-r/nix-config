@@ -1,5 +1,4 @@
 # Prometheus node exporter, reachable only over Tailscale, shared by every host.
-# Ported from msi-server `common/global/prometheus-node-exporter.nix`.
 {...}: {
   flake.nixosModules.globalNodeExporter = {config, ...}: {
     services.prometheus.exporters.node = {

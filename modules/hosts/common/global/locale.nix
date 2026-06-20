@@ -1,7 +1,4 @@
 # Locale / timezone defaults, shared by every host.
-# Ported from msi-server `common/global/locale.nix`. The `location.provider =
-# geoclue2` line was dropped: a headless cloud VM has no need for geolocation
-# and it would pull in geoclue unnecessarily.
 {...}: {
   flake.nixosModules.globalLocale = {lib, ...}: {
     i18n = {

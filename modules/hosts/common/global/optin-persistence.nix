@@ -1,9 +1,8 @@
 # Opt-in persistence via impermanence, shared by every host.
-# Ported from msi-server `common/global/optin-persistence.nix`. This defines the
-# non-hardware part of persistence: it imports impermanence, lists the baseline
-# state dirs to keep, and ensures each user's /persist home exists with correct
-# ownership. It pairs with the ephemeral btrfs root rollback already configured
-# for the OCI host (hardware.disko-btrfs.ephemeral = true).
+# This defines the non-hardware part of persistence: it imports impermanence,
+# lists the baseline state dirs to keep, and ensures each user's /persist home
+# exists with correct ownership. It pairs with the ephemeral btrfs root rollback
+# already configured for the OCI host (hardware.disko-btrfs.ephemeral = true).
 {inputs, ...}: {
   flake.nixosModules.globalPersistence = {
     lib,

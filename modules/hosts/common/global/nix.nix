@@ -1,7 +1,4 @@
 # Global nix daemon settings, shared by every host.
-# Ported from the msi-server `common/global/nix.nix`; the binary cache and
-# trusted keys are kept, the desktop-only hyprland cache was dropped since this
-# is a headless cloud VM.
 {inputs, ...}: {
   flake.nixosModules.globalNix = {lib, ...}: let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;

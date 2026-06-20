@@ -1,10 +1,4 @@
 # Aggregate of the global baseline applied to every host.
-# Ported from msi-server `common/global/default.nix`: it pulls together all the
-# individual global aspect modules and adds a few small cross-cutting settings.
-#
-# Desktop/laptop-only modules from the original (kdeconnect, upower,
-# steam-hardware, gamemode, tpm, pass, keymap/xserver, networkmanager) are
-# intentionally not ported here since this baseline targets a headless cloud VM.
 {self, ...}: {
   flake.nixosModules.globalDefaults = {lib, ...}: {
     imports = [
@@ -35,7 +29,7 @@
     networking.nftables.enable = true;
 
     # The tailnet domain, used for host name resolution.
-    networking.domain = "tail6743b5.ts.net";
+    networking.domain = "arm53.xyz";
 
     # Increase the open file limit for members of the wheel group.
     security.pam.loginLimits = [

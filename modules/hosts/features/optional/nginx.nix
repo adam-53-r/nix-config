@@ -1,15 +1,5 @@
-# Optional nginx reverse proxy with TLS + metrics, adapted from msi-server
-# `common/optional/nginx.nix`.
-#
-# Adaptations for the OCI cloud VM:
-#  - The uWSGI emperor block was dropped; it existed only to serve the
-#    nextcloud/cgit vassals which are not ported here.
-#  - msi-server used `useACMEHost` pointing at a cert provisioned by a
-#    DNS-challenge service that is not ported here. We instead use `enableACME`
-#    so the vhost requests its own HTTP-01 certificate. For it to issue, a
-#    public DNS record for `${hostName}.arm53.xyz` must point at the VM and
-#    ports 80/443 must be reachable; until then ACME keeps retrying without
-#    blocking boot.
+# Optional nginx reverse proxy with TLS + metrics
+
 {...}: {
   flake.nixosModules.optionalNginx = {config, ...}: let
     inherit (config.networking) hostName;

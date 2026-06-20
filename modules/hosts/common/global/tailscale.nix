@@ -1,6 +1,6 @@
 # Tailscale mesh VPN, shared by every host.
-# Ported from msi-server `common/global/tailscale.nix`. Persisting
-# /var/lib/tailscale keeps the node identity across ephemeral-root reboots.
+# Persisting /var/lib/tailscale keeps the node identity across
+# ephemeral-root reboots.
 {...}: {
   flake.nixosModules.globalTailscale = {
     lib,

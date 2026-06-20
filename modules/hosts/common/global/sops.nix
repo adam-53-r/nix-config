@@ -1,7 +1,7 @@
 # sops-nix secret decryption keyed on the SSH host key, shared by every host.
-# Ported from msi-server `common/global/sops.nix`. No secrets are defined here;
-# hosts that need secrets add `sops.secrets.*` themselves. The age key is
-# derived from the ed25519 SSH host key configured in globalOpenssh.
+# No secrets are defined here; hosts that need secrets add `sops.secrets.*`
+# themselves. The age key is derived from the ed25519 SSH host key configured
+# in globalOpenssh.
 {inputs, ...}: {
   flake.nixosModules.globalSops = {config, ...}: let
     isEd25519 = k: k.type == "ed25519";
