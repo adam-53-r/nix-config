@@ -2,7 +2,9 @@
   self,
   inputs,
   ...
-}: {
+}: let
+  x86Pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
+in {
   flake.nixosModules.ociHardware = {
     config,
     lib,
@@ -35,6 +37,10 @@
       ephemeral = true;
     };
     disko.devices.disk.main.device = "/dev/sda";
+    disko.devices.disk.main.imageSize = "8G";
+    disko.imageBuilder.pkgs = x86Pkgs;
+    disko.imageBuilder.kernelPackages = x86Pkgs.linuxPackages;
+    disko.imageBuilder.enableBinfmt = true;
 
     swapDevices = [];
     hardware.enableRedistributableFirmware = true;
