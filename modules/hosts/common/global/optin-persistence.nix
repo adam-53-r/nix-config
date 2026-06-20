@@ -4,10 +4,9 @@
 # state dirs to keep, and ensures each user's /persist home exists with correct
 # ownership. It pairs with the ephemeral btrfs root rollback already configured
 # for the OCI host (hardware.disko-btrfs.ephemeral = true).
-{...}: {
+{inputs, ...}: {
   flake.nixosModules.globalPersistence = {
     lib,
-    inputs,
     config,
     pkgs,
     ...

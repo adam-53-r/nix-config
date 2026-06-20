@@ -2,12 +2,8 @@
 # Ported from the msi-server `common/global/nix.nix`; the binary cache and
 # trusted keys are kept, the desktop-only hyprland cache was dropped since this
 # is a headless cloud VM.
-{...}: {
-  flake.nixosModules.globalNix = {
-    inputs,
-    lib,
-    ...
-  }: let
+{inputs, ...}: {
+  flake.nixosModules.globalNix = {lib, ...}: let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
     nix = {

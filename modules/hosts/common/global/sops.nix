@@ -2,12 +2,8 @@
 # Ported from msi-server `common/global/sops.nix`. No secrets are defined here;
 # hosts that need secrets add `sops.secrets.*` themselves. The age key is
 # derived from the ed25519 SSH host key configured in globalOpenssh.
-{...}: {
-  flake.nixosModules.globalSops = {
-    inputs,
-    config,
-    ...
-  }: let
+{inputs, ...}: {
+  flake.nixosModules.globalSops = {config, ...}: let
     isEd25519 = k: k.type == "ed25519";
     getKeyPath = k: k.path;
     keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
