@@ -12,6 +12,23 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Per-user environment management. Pin to the release branch matching
+    # nixpkgs (26.05) and follow our nixpkgs to avoid version drift.
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Secret management via age/ssh host keys (used by the global sops module).
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Opt-in persistence; pairs with the ephemeral btrfs root rollback so that
+    # only explicitly listed paths survive a reboot.
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
