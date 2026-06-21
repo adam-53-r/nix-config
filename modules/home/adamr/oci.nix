@@ -5,7 +5,7 @@
 # reboot), so enable home persistence here. Host-specific home tweaks would also
 # go in this file.
 {self, ...}: {
-  flake.homeModules."adamr-oci" = {...}: {
+  flake.homeModules."adamr@oci" = {...}: {
     imports = [self.homeModules.adamrHome];
 
     # Ephemeral root → keep the colocated stateful dirs across reboots.

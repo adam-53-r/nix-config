@@ -5,7 +5,7 @@
 # rather than in each host file.
 #
 # The home profile is selected by hostname: a host named "oci" gets
-# self.homeModules."adamr-oci". root reuses the identity-free cliBase so admin
+# self.homeModules."adamr@oci". root reuses the identity-free cliBase so admin
 # work in a root shell shares the tooling without adamr's signing key/gh auth.
 {self, ...}: {
   flake.nixosModules.userAdamr = {
@@ -72,7 +72,7 @@
 
       # Per-host home profile for adamr, plus the shared tooling base for root.
       home-manager.users.adamr =
-        self.homeModules."adamr-${config.networking.hostName}";
+        self.homeModules."adamr@${config.networking.hostName}";
       home-manager.users.root = self.homeModules.cliBase;
     };
   };
