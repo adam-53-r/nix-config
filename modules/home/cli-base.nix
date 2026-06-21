@@ -2,20 +2,23 @@
 #
 # This is the "tools + shell" layer: prompt, shell config, file/dir tooling and
 # a curated package set. It intentionally contains NO personal identity (git
-# user/email/signing key, gpg keys, ssh match blocks, gh auth) and NO
-# persistence wiring, so it is safe to assign to ANY user — including root, which
-# on this box is handy because admin work often lands in a root shell.
+# user/email/signing key) and NO host-specific assumptions, so it is safe to
+# assign to ANY user — including root, which on this box is handy because admin
+# work often lands in a root shell.
 #
-# adamr layers identity on top of this in modules/home/adamr.nix. Persistence
-# for the ephemeral OCI root is handled at the system level (see the oci host's
-# environment.persistence) rather than via the home-manager impermanence module,
-# matching how msi-server avoids per-user HM bind mounts.
-{...}: {
+# Optional shared features (gpg, ssh, gh) and personal identity layer on top of
+# this in modules/home/adamr/. It pulls in the impermanence feature so the shell
+# state below can colocate its persisted dirs; whether they actually persist is
+# governed by myPersistence.enable (off by default — per-host profiles flip it).
+{self, ...}: {
   flake.homeModules.cliBase = {
     pkgs,
     lib,
+    config,
     ...
   }: {
+    imports = [self.homeModules.homeImpermanence];
+
     # Let home-manager manage itself so `home-manager` is on PATH.
     programs.home-manager.enable = true;
 
@@ -31,6 +34,15 @@
       NH_FLAKE = "$HOME/mynix";
     };
     home.sessionPath = ["$HOME/.local/bin"];
+
+    # Shell state worth keeping across reboots (history, dir-jump db, direnv
+    # allowlist). Only persisted when myPersistence.enable is set.
+    home.persistence."/persist".directories = [
+      ".local/share/atuin"
+      ".local/share/zoxide"
+      ".local/share/direnv"
+      ".local/share/fish"
+    ];
 
     ###########################################################################
     # Shell + prompt
