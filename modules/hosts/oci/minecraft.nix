@@ -87,9 +87,10 @@
       };
     };
 
-    # The modpack's server pack (mods/config/defaultconfigs), pinned by
-    # content hash from CurseForge's CDN. Verified to be reproducible: the
-    # hash matches whether fetched fresh or hashed from a manual download.
+    # The modpack's server pack (mods/config), pinned by content hash from
+    # CurseForge's CDN. Verified to be reproducible: the hash matches whether
+    # fetched fresh or hashed from a manual download. This version's zip has
+    # no top-level defaultconfigs/ directory.
     modpackZip = pkgs.fetchurl {
       url = "https://mediafilez.forgecdn.net/files/6525/852/Minecraft%20Extremo%202%20%28Server%20Pack%29%20-%20MC%201.18.2%20-%209.0.0.zip";
       hash = "sha256-v/QJILdeNRuBVc7ge0ElAnGJfLZ7fvq4c1uAEvSqhHg=";
@@ -97,7 +98,7 @@
 
     modpack = pkgs.runCommand "minecraft-extremo-2-modpack" {nativeBuildInputs = [pkgs.unzip];} ''
       mkdir -p $out
-      unzip -q ${modpackZip} 'mods/*' 'config/*' 'defaultconfigs/*' -d $out
+      unzip -q ${modpackZip} 'mods/*' 'config/*' -d $out
     '';
   in {
     imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
@@ -117,7 +118,6 @@
         symlinks = {
           "mods" = "${modpack}/mods";
           "config" = "${modpack}/config";
-          "defaultconfigs" = "${modpack}/defaultconfigs";
         };
 
         serverProperties = {
