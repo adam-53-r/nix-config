@@ -100,6 +100,30 @@
       mkdir -p $out
       unzip -q ${modpackZip} 'mods/*' 'config/*' -d $out
     '';
+
+    # Forge/FML and mods rewrite their own files under config/ at runtime
+    # (e.g. journeymap/voicechat migrate their configs on first boot).
+    # nix-minecraft's own symlinks/files handling unconditionally re-links or
+    # re-copies every managed entry from the Nix store on EVERY restart
+    # (backing up whatever was there to *.bak, but never restoring it) - so
+    # letting it manage "config" would silently discard any such runtime
+    # writes on every restart. Instead, seed config from the modpack only if
+    # it doesn't already exist (first boot ever), via our own ExecStartPre
+    # entry that's independent of nix-minecraft's own tracking file - so
+    # ExecStopPost's cleanup (which only deletes what nix-minecraft itself
+    # created) leaves it alone too. After that it's just an ordinary
+    # writable dataDir directory that persists indefinitely. To pick up a
+    # modpack update, manually remove/rename the on-disk config/ dir on the
+    # host and restart.
+    seedConfig = pkgs.writeShellApplication {
+      name = "minecraft-server-extremo-seed-config";
+      text = ''
+        if [ ! -e config ]; then
+          cp -r --dereference ${modpack}/config -T config
+          chmod -R u+w config
+        fi
+      '';
+    };
   in {
     imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
     nixpkgs.overlays = [inputs.nix-minecraft.overlays.default];
@@ -117,7 +141,6 @@
 
         symlinks = {
           "mods" = "${modpack}/mods";
-          "config" = "${modpack}/config";
         };
 
         serverProperties = {
@@ -130,5 +153,11 @@
         };
       };
     };
+
+    # List-typed so it concatenates with nix-minecraft's own ExecStartPre
+    # (a plain string) instead of conflicting - see seedConfig's comment.
+    systemd.services."minecraft-server-extremo".serviceConfig.ExecStartPre = [
+      (lib.getExe seedConfig)
+    ];
   };
 }
