@@ -76,6 +76,10 @@
           --replace-fail "libraries/" "$out/libraries/"
         cat > $out/bin/minecraft-server <<SCRIPT
         #!/bin/sh
+        # ncurses' infocmp is on PATH so JLine (the console's interactive
+        # line-editor) can query tmux-256color's capabilities instead of
+        # warning and falling back to a dumb terminal.
+        export PATH="${pkgs.ncurses}/bin:\$PATH"
         exec ${pkgs.jdk17_headless}/bin/java @${forgeLibraries}/user_jvm_args.txt "\$@" @$args
         SCRIPT
         chmod +x $out/bin/minecraft-server
