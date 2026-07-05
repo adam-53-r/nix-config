@@ -22,6 +22,9 @@
       # Optional server features that make sense on an internet-facing VM.
       self.nixosModules.optionalNginx
       self.nixosModules.optionalFail2ban
+
+      # Minecraft Extremo 2 modpack server.
+      self.nixosModules.ociMinecraft
     ];
 
     networking.hostName = "oci";
