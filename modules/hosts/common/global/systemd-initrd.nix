@@ -4,6 +4,7 @@
 # matching msi-server.
 {...}: {
   flake.nixosModules.globalSystemdInitrd = {...}: {
+    key = "mynix#nixosModules.globalSystemdInitrd";
     boot.initrd.systemd.enable = true;
   };
 }

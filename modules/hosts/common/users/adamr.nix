@@ -24,6 +24,7 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFgSs2wJGphaoUPS+VAu0QTJfvQ1P99AIYSc94V9WIEV cardno:30_548_977"
     ];
   in {
+    key = "mynix#nixosModules.userAdamr";
     # Per-host opt-out of sops-managed user passwords (hosts without a secrets
     # file set this true; mirrors main's `disable-user-sops`).
     options.disable-user-sops = lib.mkEnableOption "disabling sops-managed user passwords";
@@ -51,6 +52,8 @@
             "docker"
             "libvirtd"
             "wireshark"
+            "ubridge"
+            "gns3"
           ];
         hashedPasswordFile =
           lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;

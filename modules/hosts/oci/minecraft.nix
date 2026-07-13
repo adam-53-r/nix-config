@@ -129,6 +129,7 @@
       '';
     };
   in {
+    key = "mynix#nixosModules.ociMinecraft";
     imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
     nixpkgs.overlays = [inputs.nix-minecraft.overlays.default];
 

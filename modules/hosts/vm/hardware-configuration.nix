@@ -10,6 +10,7 @@
     modulesPath,
     ...
   }: {
+    key = "mynix#nixosModules.vmHardware";
     imports = [
       (modulesPath + "/profiles/qemu-guest.nix")
 

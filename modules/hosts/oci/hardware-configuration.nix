@@ -34,6 +34,7 @@ in {
     modulesPath,
     ...
   }: {
+    key = "mynix#nixosModules.ociHardware";
     imports = [
       (modulesPath + "/profiles/qemu-guest.nix")
       self.nixosModules.diskoBtrfs

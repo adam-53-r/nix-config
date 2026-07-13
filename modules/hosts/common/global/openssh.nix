@@ -12,6 +12,7 @@
     # opt-in persistence is enabled we store the key directly under /persist.
     hasOptinPersistence = config.environment.persistence ? "/persist";
   in {
+    key = "mynix#nixosModules.globalOpenssh";
     services.openssh = {
       enable = true;
       settings = {

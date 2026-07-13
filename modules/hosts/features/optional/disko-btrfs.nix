@@ -14,19 +14,19 @@
       subvolumes = {
         "/root" = {
           mountpoint = "/";
-          mountOptions = ["compress=zstd"];
+          mountOptions = ["compress=zstd"] ++ cfg.extraMountOptions;
         };
         "/nix" = {
           mountpoint = "/nix";
-          mountOptions = ["compress=zstd" "noatime"];
+          mountOptions = ["compress=zstd" "noatime"] ++ cfg.extraMountOptions;
         };
         "/persist" = {
           mountpoint = "/persist";
-          mountOptions = ["compress=zstd"];
+          mountOptions = ["compress=zstd"] ++ cfg.extraMountOptions;
         };
         "/swap" = {
           mountpoint = "/swap";
-          mountOptions = ["noatime"];
+          mountOptions = ["noatime"] ++ cfg.extraMountOptions;
         };
 
         "/root-blank" = {};
@@ -82,6 +82,7 @@
       then "dev-mapper-${escapedHostname}.device"
       else "dev-disk-by\\x2dpartlabel-${escapedPartName}.device";
   in {
+    key = "mynix#nixosModules.diskoBtrfs";
     imports = [
       inputs.disko.nixosModules.disko
     ];
@@ -89,6 +90,12 @@
     options.hardware.disko-btrfs = {
       encrypted = lib.mkEnableOption "LUKS encryption for the main partition";
       ephemeral = lib.mkEnableOption "ephemeral root via btrfs snapshot rollback (impermanence)";
+      extraMountOptions = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+        example = ["nodiscard"];
+        description = "Extra mount options appended to every btrfs subvolume (e.g. nodiscard on SSDs that rely on fstrim.timer instead of continuous discard).";
+      };
     };
 
     config = {

@@ -3,6 +3,7 @@
   flake.nixosModules.globalNix = {lib, ...}: let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
+    key = "mynix#nixosModules.globalNix";
     nix = {
       settings = {
         extra-substituters = lib.mkAfter [

@@ -1,9 +1,9 @@
 # Optional nginx reverse proxy with TLS + metrics
-
 {...}: {
   flake.nixosModules.optionalNginx = {config, ...}: let
     inherit (config.networking) hostName;
   in {
+    key = "mynix#nixosModules.optionalNginx";
     services = {
       nginx = {
         enable = true;

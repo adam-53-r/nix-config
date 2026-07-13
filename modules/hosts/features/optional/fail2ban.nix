@@ -3,6 +3,7 @@
 # range is whitelisted.
 {...}: {
   flake.nixosModules.optionalFail2ban = {...}: {
+    key = "mynix#nixosModules.optionalFail2ban";
     services.fail2ban = {
       enable = true;
       ignoreIP = [

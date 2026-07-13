@@ -8,6 +8,7 @@
     lib,
     ...
   }: {
+    key = "mynix#nixosModules.ociConfiguration";
     imports = [
       self.nixosModules.ociHardware
 

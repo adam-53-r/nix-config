@@ -8,6 +8,7 @@
     lib,
     ...
   }: {
+    key = "mynix#nixosModules.vmConfiguration";
     imports = [
       self.nixosModules.vmHardware
     ];

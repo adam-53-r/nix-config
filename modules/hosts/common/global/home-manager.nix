@@ -5,6 +5,7 @@
   ...
 }: {
   flake.nixosModules.globalHomeManager = {...}: {
+    key = "mynix#nixosModules.globalHomeManager";
     imports = [inputs.home-manager.nixosModules.home-manager];
 
     home-manager = {

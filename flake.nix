@@ -8,6 +8,18 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
+    systems.url = "github:nix-systems/default-linux";
+
+    # Wallpapers + colorscheme generation (pkgs.inputs.themes via the
+    # flake-inputs overlay; used by the homeColors/homeWallpaper modules).
+    themes = {
+      url = "github:adam-53-r/themes";
+      inputs = {
+        systems.follows = "systems";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,6 +39,9 @@
     # Opt-in persistence; pairs with the ephemeral btrfs root rollback so that
     # only explicitly listed paths survive a reboot.
     impermanence.url = "github:nix-community/impermanence";
+
+    # Hardware quirk modules (cpu microcode, ssd fstrim, ...).
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # Declarative remote deployment. Inputs must live in flake.nix (they're
     # resolved before module evaluation); the `deploy` output and the per-host

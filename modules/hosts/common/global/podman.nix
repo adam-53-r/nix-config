@@ -5,6 +5,7 @@
   flake.nixosModules.globalPodman = {config, ...}: let
     dockerEnabled = config.virtualisation.docker.enable;
   in {
+    key = "mynix#nixosModules.globalPodman";
     virtualisation.podman = {
       enable = true;
       dockerCompat = !dockerEnabled;

@@ -7,6 +7,7 @@
     pkgs,
     ...
   }: {
+    key = "mynix#nixosModules.globalTailscale";
     services.tailscale = {
       enable = true;
       useRoutingFeatures = lib.mkDefault "client";

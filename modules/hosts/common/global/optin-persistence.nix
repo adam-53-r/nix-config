@@ -10,6 +10,7 @@
     pkgs,
     ...
   }: {
+    key = "mynix#nixosModules.globalPersistence";
     imports = [inputs.impermanence.nixosModules.impermanence];
 
     environment.persistence = {

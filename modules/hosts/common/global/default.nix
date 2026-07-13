@@ -1,6 +1,7 @@
 # Aggregate of the global baseline applied to every host.
 {self, ...}: {
   flake.nixosModules.globalDefaults = {lib, ...}: {
+    key = "mynix#nixosModules.globalDefaults";
     imports = [
       self.nixosModules.globalNix
       self.nixosModules.globalOpenssh
@@ -21,7 +22,10 @@
       self.nixosModules.globalHomeManager
     ];
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      overlays = builtins.attrValues self.overlays;
+      config.allowUnfree = true;
+    };
 
     hardware.enableRedistributableFirmware = lib.mkDefault true;
 

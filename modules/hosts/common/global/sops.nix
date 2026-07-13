@@ -8,6 +8,7 @@
     getKeyPath = k: k.path;
     keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
   in {
+    key = "mynix#nixosModules.globalSops";
     imports = [inputs.sops-nix.nixosModules.sops];
 
     sops.age.sshKeyPaths = map getKeyPath keys;

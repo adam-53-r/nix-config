@@ -1,5 +1,6 @@
 {...}: {
   flake.nixosModules.globalAutoUpgrade = {config, ...}: {
+    key = "mynix#nixosModules.globalAutoUpgrade";
     system.autoUpgrade = {
       enable = false;
       flake = "github:adam-53-r/nix-config#${config.networking.hostName}";
