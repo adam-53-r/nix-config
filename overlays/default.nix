@@ -60,7 +60,10 @@ in {
     });
 
     # Let pass type/copy secrets on wayland without leaking to cliphist
-    wl-clipboard = addPatches prev.wl-clipboard [./wl-clipboard-secrets.diff];
+    # wl-clipboard >= 2.3 has native sensitive-content support (wl-copy
+    # --sensitive offers x-kde-passwordManagerHint and wl-paste exports
+    # CLIPBOARD_STATE=sensitive, which cliphist honors) — main's wl-paste
+    # patch is upstreamed and the pass patch now just uses --sensitive.
     pass = addPatches prev.pass [./pass-wlclipboard-secret.diff];
 
     # https://github.com/ValveSoftware/gamescope/issues/1622
