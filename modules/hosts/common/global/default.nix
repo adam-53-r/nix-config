@@ -20,6 +20,7 @@
       self.nixosModules.globalMtr
       self.nixosModules.globalAcme
       self.nixosModules.globalHomeManager
+      self.nixosModules.globalSshServe
     ];
 
     nixpkgs = {
