@@ -94,3 +94,15 @@ conventions proven in worknix.
 
 - msi-nixos laptop, msi-server (+services), wsl host — after pc proves the pattern.
 - Patching `main` itself: fixes land in the dendritic port; cherry-pick back on request.
+
+## Validation status (2026-07-14)
+
+- `nix eval` toplevel: pc, vm, oci and the oci deploy node all pass.
+- Disk/boot parity vs main (the live system): `fileSystems`,
+  `boot.initrd.luks.devices`, swap and the initrd `restore-root` script are
+  identical; `boot.loader.limine` differs only by nixpkgs revision.
+- Eval fixes needed on current unstable: themes input un-followed from our
+  nixpkgs (colorscheme generator regression), bitwarden's EOL electron
+  permitted in desktopBase, steam xorg.* attr renames.
+- Full toplevel build: see git history / CI for the final word; switching the
+  live pc to this build requires an explicit decision.
