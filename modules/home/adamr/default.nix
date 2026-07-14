@@ -10,9 +10,29 @@
       self.homeModules.homeSsh
       self.homeModules.homeGh
       self.homeModules.adamrIdentity
+
+      # Reusable option modules (colorscheme, fonts, monitors, wallpaper, …).
+      # Pure option declarations with lazy defaults — harmless on headless
+      # hosts, required wherever desktop features read config.colorscheme etc.
+      self.homeModules.homeColors
+      self.homeModules.homeFonts
+      self.homeModules.homeMonitors
+      self.homeModules.homeWallpaper
+      self.homeModules.homeXpo
+      self.homeModules.homePassSecretService
     ];
 
     home.username = "adamr";
     home.homeDirectory = "/home/adamr";
+
+    # Restart changed user units on home-manager switch.
+    systemd.user.startServices = "sd-switch";
+
+    # Allow unfree flakes with command-line tools (nix shell nixpkgs#…).
+    home.file.".config/nixpkgs/config.nix".text = ''
+      {
+        allowUnfree = true;
+      }
+    '';
   };
 }
