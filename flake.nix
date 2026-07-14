@@ -12,12 +12,12 @@
 
     # Wallpapers + colorscheme generation (pkgs.inputs.themes via the
     # flake-inputs overlay; used by the homeColors/homeWallpaper modules).
+    # NOTE: must NOT follow our nixpkgs — the colorscheme generator changes
+    # behaviour on unstable (demands a --prefer color for multi-hue
+    # wallpapers); its own pinned nixpkgs reproduces main's colorschemes.
     themes = {
       url = "github:adam-53-r/themes";
-      inputs = {
-        systems.follows = "systems";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.systems.follows = "systems";
     };
 
     disko = {

@@ -24,5 +24,11 @@
     programs.dconf.enable = true;
 
     services.upower.enable = true;
+
+    # bitwarden-desktop on unstable still bundles an EOL electron; accept it
+    # until upstream bumps (revisit whenever this list grows).
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
   };
 }
