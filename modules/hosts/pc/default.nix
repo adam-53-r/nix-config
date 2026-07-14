@@ -51,6 +51,11 @@
         "aarch64-linux"
         "i686-linux"
       ];
+      # Disable USB autosuspend so peripherals (YubiKey included) don't flake
+      # out after going idle. (main did this via services.tlp.settings, which
+      # also applies laptop-battery power heuristics this desktop doesn't want
+      # — just the kernel param is ported here.)
+      kernelParams = ["usbcore.autosuspend=-1"];
     };
 
     services.displayManager.defaultSession = "hyprland-uwsm";
