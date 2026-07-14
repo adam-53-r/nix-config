@@ -36,5 +36,14 @@
         key = signingKey;
       };
     };
+
+    # Own public key, so `git log --show-signature` / `gpg --verify` trust it
+    # locally without a keyserver lookup.
+    programs.gpg.publicKeys = [
+      {
+        source = ./pgp.asc;
+        trust = 5;
+      }
+    ];
   };
 }

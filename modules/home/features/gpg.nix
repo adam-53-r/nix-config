@@ -22,8 +22,13 @@
       enable = true;
       enableSshSupport = true;
       enableExtraSocket = true;
-      # Headless box: curses pinentry works over an ssh session.
-      pinentry.package = pkgs.pinentry-curses;
+      # GUI hosts (gtk.enable, e.g. pc) get a proper graphical prompt; headless
+      # hosts fall back to a curses prompt that still works over an ssh session.
+      pinentry.package =
+        if config.gtk.enable
+        then pkgs.pinentry-gnome3
+        else pkgs.pinentry-curses;
+      noAllowExternalCache = true;
       defaultCacheTtl = 10800;
       defaultCacheTtlSsh = 10800;
     };
@@ -39,5 +44,19 @@
         mode = "0700";
       }
     ];
+
+    # Link /run/user/$UID/gnupg to ~/.gnupg-sockets so the ssh `net` match
+    # block (homeSsh) can forward the agent socket without needing to know
+    # the UID ahead of time.
+    systemd.user.services.link-gnupg-sockets = {
+      Unit.Description = "link gnupg sockets from /run to /home";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/%U/gnupg %h/.gnupg-sockets";
+        ExecStop = "${pkgs.coreutils}/bin/rm $HOME/.gnupg-sockets";
+        RemainAfterExit = true;
+      };
+      Install.WantedBy = ["default.target"];
+    };
   };
 }
