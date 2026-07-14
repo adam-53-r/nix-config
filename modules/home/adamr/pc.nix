@@ -4,6 +4,7 @@
   flake.homeModules."adamr@pc" = {pkgs, ...}: {
     imports = [
       self.homeModules.adamrHome
+      self.homeModules.cliWorkstation
 
       self.homeModules.homeHyprland
       self.homeModules.homeCinnamon
