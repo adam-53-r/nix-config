@@ -1,4 +1,5 @@
 {
+  description = "My NixOS Config";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
@@ -10,11 +11,6 @@
 
     systems.url = "github:nix-systems/default-linux";
 
-    # Wallpapers + colorscheme generation (pkgs.inputs.themes via the
-    # flake-inputs overlay; used by the homeColors/homeWallpaper modules).
-    # NOTE: must NOT follow our nixpkgs — the colorscheme generator changes
-    # behaviour on unstable (demands a --prefer color for multi-hue
-    # wallpapers); its own pinned nixpkgs reproduces main's colorschemes.
     themes = {
       url = "github:adam-53-r/themes";
       inputs.systems.follows = "systems";
@@ -43,9 +39,7 @@
     # Hardware quirk modules (cpu microcode, ssd fstrim, ...).
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Declarative remote deployment. Inputs must live in flake.nix (they're
-    # resolved before module evaluation); the `deploy` output and the per-host
-    # node definitions live in modules/deploy.nix. Follow our nixpkgs to keep
+    # Declarative remote deployment. Follow our nixpkgs to keep
     # the closure small.
     deploy-rs = {
       url = "github:serokell/deploy-rs";
