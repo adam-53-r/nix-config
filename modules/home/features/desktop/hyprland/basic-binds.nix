@@ -49,16 +49,18 @@
           "SUPERSHIFT,q,killactive"
           "SUPERSHIFT,e,exec, uwsm stop"
 
-          "SUPER,s,togglesplit"
+          # togglesplit/splitratio stopped being dispatchers in Hyprland 0.55
+          # (the layout refactor moved the dwindle commands under layoutmsg).
+          "SUPER,s,layoutmsg,togglesplit"
           "SUPER,f,fullscreen,1"
           "SUPERSHIFT,f,fullscreen,0"
           "SUPERSHIFT,space,togglefloating"
 
-          "SUPER,minus,splitratio,-0.25"
-          "SUPERSHIFT,minus,splitratio,-0.3333333"
+          "SUPER,minus,layoutmsg,splitratio -0.25"
+          "SUPERSHIFT,minus,layoutmsg,splitratio -0.3333333"
 
-          "SUPER,equal,splitratio,0.25"
-          "SUPERSHIFT,equal,splitratio,0.3333333"
+          "SUPER,equal,layoutmsg,splitratio 0.25"
+          "SUPERSHIFT,equal,layoutmsg,splitratio 0.3333333"
 
           "SUPER,g,togglegroup"
           "SUPER,t,lockactivegroup,toggle"

@@ -22,6 +22,13 @@
             mods = "Control|Shift";
             action = "SpawnNewInstance";
           }
+          {
+            # ESC+CR — what Claude Code (and other TUIs) read as "insert
+            # newline", so Shift+Enter matches its /terminal-setup behavior.
+            key = "Enter";
+            mods = "Shift";
+            chars = builtins.fromJSON ''"\u001b\r"'';
+          }
         ];
         font = {
           size = config.fontProfiles.monospace.size;
