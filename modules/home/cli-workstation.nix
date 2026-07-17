@@ -3,10 +3,8 @@
 # any host) has no use for — embedded/infra tooling, profilers, a few extra
 # shells/program configs, and xpo. Imported by adamr@pc only.
 #
-# A handful of main's packages were dropped as straight duplicates of tools
-# cliBase already provides: lsd (eza), gdu/bottom/glances (btop/dust/ncdu/duf),
-# httpie (xh/curlie), and the bare fzf package (programs.fzf in cliBase already
-# installs it).
+# The only package from main not carried over is the bare fzf package
+# (programs.fzf in cliBase already installs it).
 {self, ...}: {
   flake.homeModules.cliWorkstation = {
     pkgs,

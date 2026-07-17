@@ -354,10 +354,12 @@
       tree
       file
       ncdu
+      gdu
       dust
       duf
       dua
       broot
+      lsd
       trash-cli
       ouch # universal (un)archiver
       zip
@@ -367,6 +369,8 @@
 
       # system / process / disk inspection
       btop
+      bottom
+      glances
       procs
       lsof
       sysstat
@@ -393,6 +397,7 @@
       aria2
       wget
       xh # friendly HTTP client (httpie-like)
+      httpie
       curlie
       gping
       bandwhich # per-process network usage
