@@ -54,6 +54,16 @@
             "wireshark"
             "ubridge"
             "gns3"
+            "deluge"
+            "git"
+            "lxd"
+            "vboxusers"
+            "mysql"
+            "minecraft"
+            "plex"
+            "jellyfin"
+            "ark"
+            "hytale"
           ];
         hashedPasswordFile =
           lib.mkIf (!config.disable-user-sops) config.sops.secrets.adamr-password.path;
