@@ -62,6 +62,12 @@
       # UWSM owns the session units; the disabled integration made the
       # extraCommands/variables on main dead config, so they were dropped.
       systemd.enable = false;
+      # Since stateVersion 26.05 HM defaults to Hyprland's new Lua config
+      # (hyprland.lua) — but it pastes extraConfig (conf syntax) into the Lua
+      # file verbatim, breaking the submap block below. Stay on the classic
+      # hyprlang renderer; moving to lua + the `submaps` option is a future
+      # cleanup.
+      configType = "hyprlang";
       importantPrefixes = [
         "$"
         "bezier"

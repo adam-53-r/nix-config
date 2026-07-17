@@ -25,6 +25,11 @@
 
     services.upower.enable = true;
 
+    # Geoclue location service — gammastep's night light reads its location
+    # from it (main enabled this globally via locale.nix; only desktops
+    # actually consume it).
+    location.provider = "geoclue2";
+
     # bitwarden-desktop on unstable still bundles an EOL electron; accept it
     # until upstream bumps (revisit whenever this list grows).
     nixpkgs.config.permittedInsecurePackages = [
