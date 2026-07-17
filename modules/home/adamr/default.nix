@@ -25,6 +25,21 @@
     home.username = "adamr";
     home.homeDirectory = "/home/adamr";
 
+    # Personal data and cross-reboot state worth keeping on ephemeral hosts
+    # (only bind-mounted where myPersistence.enable is set).
+    home.persistence."/persist".directories = [
+      "Adam"
+      "mynix"
+      "Documents"
+      "Downloads"
+      "Pictures"
+      "Videos"
+      ".local/bin"
+      ".local/share/nix" # trusted settings and repl history
+      ".local/share/containers"
+      ".local/share/networkmanagement/" # files and configs of networkmanager
+    ];
+
     # Restart changed user units on home-manager switch.
     systemd.user.startServices = "sd-switch";
 

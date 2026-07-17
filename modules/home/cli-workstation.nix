@@ -22,6 +22,9 @@
 
     programs.tmux.enable = true;
 
+    # cliBase enables starship for fish; also hook it into nushell here.
+    programs.starship.enableNushellIntegration = true;
+
     programs.nushell = {
       enable = true;
       extraConfig =

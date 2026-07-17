@@ -12,6 +12,14 @@
         layout = "us";
         variant = "";
       };
+      # Never blank/suspend the display from X11 (the wayland side handles
+      # idling via swayidle; the cinnamon fallback session shouldn't sleep
+      # screens either).
+      serverFlagsSection = ''
+        Option "StandbyTime" "0"
+        Option "SuspendTime" "0"
+        Option "OffTime" "0"
+      '';
     };
 
     services.displayManager.sddm = {
