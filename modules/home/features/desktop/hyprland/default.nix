@@ -116,17 +116,19 @@
           #   kb_layout = "us_intl";
           # }
         ];
+        # dwindle:pseudotile was removed with the 0.55 layout refactor (the
+        # pseudo dispatcher still works without it).
         dwindle = {
           split_width_multiplier = 1.35;
-          pseudotile = true;
         };
         # gestures = {
         #   workspace_swipe = true;
         #   workspace_swipe_min_speed_to_force = 10;
         #   workspace_swipe_forever = true;
         # };
+        # vfr = true not carried over: it moved to debug:vfr in 0.55 and is
+        # already the default.
         misc = {
-          vfr = true;
           close_special_on_empty = true;
           focus_on_activate = true;
           # Unfullscreen when opening something
