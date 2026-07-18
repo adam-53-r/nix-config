@@ -24,6 +24,7 @@
       self.nixosModules.optionalGns3Server
       self.nixosModules.optionalPersistBackup
       self.nixosModules.optionalFlatpak
+      self.nixosModules.optionalAtop
       self.nixosModules.userAdamr
 
       ./_hardware.nix
