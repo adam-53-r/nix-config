@@ -1,8 +1,4 @@
-{
-  outputs,
-  inputs,
-  pkgs,
-}: let
+{inputs}: let
   addPatches = pkg: patches:
     pkg.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ patches;
@@ -15,8 +11,8 @@ in {
     inputs =
       builtins.mapAttrs (
         _: flake: let
-          legacyPackages = (flake.legacyPackages or {}).${final.system} or {};
-          packages = (flake.packages or {}).${final.system} or {};
+          legacyPackages = (flake.legacyPackages or {}).${final.stdenv.hostPlatform.system} or {};
+          packages = (flake.packages or {}).${final.stdenv.hostPlatform.system} or {};
         in
           if legacyPackages != {}
           then legacyPackages
@@ -25,49 +21,19 @@ in {
       inputs;
   };
 
-  # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
+  # Adds pkgs.stable == the nixpkgs-stable channel for the same system
   stable = final: _: {
-    # stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
     stable = import inputs.nixpkgs-stable {
       config.allowUnfree = true;
-      system = final.system;
+      system = final.stdenv.hostPlatform.system;
     };
   };
 
   # Adds my custom packages
-  additions = final: prev:
-    import ../pkgs {pkgs = final;}
-    // {
-      formats = (prev.formats or {}) // import ../pkgs/formats {pkgs = final;};
-      vimPlugins = (prev.vimPlugins or {}) // import ../pkgs/vim-plugins {pkgs = final;};
-    };
+  additions = final: _prev: import ../pkgs {pkgs = final;};
 
   # Modifies existing packages
   modifications = final: prev: {
-    vimPlugins =
-      prev.vimPlugins
-      // {
-        vim-numbertoggle = addPatches prev.vimPlugins.vim-numbertoggle [
-          ./vim-numbertoggle-command-mode.patch
-        ];
-        ltex_extra-nvim = addPatches prev.vimPlugins.ltex_extra-nvim [
-          ./ltex-change-lang-command.diff
-        ];
-      };
-
-    hyprlandPlugins =
-      prev.hyprlandPlugins
-      // {
-        hyprbars = prev.hyprlandPlugins.hyprbars.overrideAttrs (old: {
-          src = "${final.fetchFromGitHub {
-            owner = "hyprwm";
-            repo = "hyprland-plugins";
-            rev = "v0.49.0";
-            hash = "sha256-GpsLyK/U05q7QnyFIWrnGS2loVyjPZByTtPitwu9UNw=";
-          }}/hyprbars";
-        });
-      };
-
     # https://github.com/mdellweg/pass_secret_service/pull/37
     pass-secret-service = addPatches prev.pass-secret-service [./pass-secret-service-native.diff];
 
@@ -93,8 +59,11 @@ in {
         ];
     });
 
-    wl-clipboard = addPatches prev.wl-clipboard [./wl-clipboard-secrets.diff];
-
+    # Let pass type/copy secrets on wayland without leaking to cliphist
+    # wl-clipboard >= 2.3 has native sensitive-content support (wl-copy
+    # --sensitive offers x-kde-passwordManagerHint and wl-paste exports
+    # CLIPBOARD_STATE=sensitive, which cliphist honors) — main's wl-paste
+    # patch is upstreamed and the pass patch now just uses --sensitive.
     pass = addPatches prev.pass [./pass-wlclipboard-secret.diff];
 
     # https://github.com/ValveSoftware/gamescope/issues/1622

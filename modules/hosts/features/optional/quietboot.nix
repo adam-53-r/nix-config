@@ -1,0 +1,35 @@
+# Silent boot with the monochrome plymouth spinner (custom package).
+{
+  flake.nixosModules.optionalQuietboot = {
+    pkgs,
+    config,
+    ...
+  }: {
+    key = "mynix#nixosModules.optionalQuietboot";
+
+    console = {
+      useXkbConfig = true;
+      earlySetup = false;
+    };
+
+    boot = {
+      plymouth = {
+        enable = true;
+        theme = "spinner-monochrome";
+        themePackages = [
+          (pkgs.plymouth-spinner-monochrome.override {inherit (config.boot.plymouth) logo;})
+        ];
+      };
+      kernelParams = [
+        "quiet"
+        "loglevel=3"
+        "systemd.show_status=auto"
+        "udev.log_level=3"
+        "rd.udev.log_level=3"
+        "vt.global_cursor_default=0"
+      ];
+      consoleLogLevel = 0;
+      initrd.verbose = false;
+    };
+  };
+}

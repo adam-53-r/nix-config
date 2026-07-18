@@ -1,0 +1,15 @@
+# Optional fail2ban to throttle brute-force attempts on a public host.
+# Especially relevant on an internet-facing cloud VM. Tailscale CGNAT
+# range is whitelisted.
+{...}: {
+  flake.nixosModules.optionalFail2ban = {...}: {
+    key = "mynix#nixosModules.optionalFail2ban";
+    services.fail2ban = {
+      enable = true;
+      ignoreIP = [
+        # Ignore Tailscale IPs
+        "100.64.0.0/10"
+      ];
+    };
+  };
+}
