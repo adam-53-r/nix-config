@@ -49,7 +49,12 @@
   hardware.amdgpu = {
     initrd.enable = true;
     opencl.enable = true;
-    overdrive.enable = true;
+    overdrive = {
+      enable = true;
+      # Full sysfs power-state API (voltage curve, power limit) for LACT —
+      # the conservative nixpkgs default (0xfffd7fff) blocks some of it.
+      ppfeaturemask = "0xffffffff";
+    };
   };
   services.lact.enable = true;
 }

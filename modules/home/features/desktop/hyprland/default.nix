@@ -139,6 +139,9 @@
           focus_on_activate = true;
           # Unfullscreen when opening something
           on_focus_under_fullscreen = 2;
+          # fullscreen-only VRR: avoids desktop-compositing flicker some
+          # FreeSync panels show when adaptive sync stays on outside games.
+          vrr = 2;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           enable_swallow = true;
