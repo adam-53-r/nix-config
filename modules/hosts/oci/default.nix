@@ -26,6 +26,10 @@
 
       # Minecraft Extremo 2 modpack server.
       self.nixosModules.ociMinecraft
+
+      # Hytale dedicated server.
+      self.nixosModules.hytaleServer
+      self.nixosModules.ociHytale
     ];
 
     networking.hostName = "oci";
