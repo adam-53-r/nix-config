@@ -17,6 +17,17 @@
       font = {
         inherit (config.fontProfiles.regular) name size;
       };
+      # Plain GTK3 apps (and Qt via the gtk3 platform theme) don't honor the
+      # portal's prefer-dark; they need an actual dark theme name. adw-gtk3
+      # ports the libadwaita look to GTK3 so everything matches.
+      colorScheme = config.colorscheme.mode;
+      theme = {
+        name =
+          if config.colorscheme.mode == "dark"
+          then "adw-gtk3-dark"
+          else "adw-gtk3";
+        package = pkgs.adw-gtk3;
+      };
       iconTheme = {
         name = "Papirus-${
           if config.colorscheme.mode == "dark"
@@ -46,6 +57,9 @@
           "Net/ThemeName" = config.gtk.theme.name;
         };
     };
+
+    # GTK3 under Wayland reads the theme name from gsettings, not settings.ini.
+    dconf.settings."org/gnome/desktop/interface".gtk-theme = config.gtk.theme.name;
 
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
