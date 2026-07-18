@@ -71,6 +71,7 @@ modules/
     adamr/                adamr's identity + per-host home profiles
   hosts/
     default.nix           the ONLY place nixosSystem is called, once per host
+    install-iso.nix       bootable install-media ISO package (`.#install-iso`)
     common/
       global/              globalDefaults aggregate: nix, ssh, fish, sops,
                            persistence, tailscale, ...
@@ -120,6 +121,7 @@ Then:
 ```sh
 nixos-rebuild --flake .#<host>            # build/switch a system configuration
 nix build .#<package>                     # build/shell/run a package from pkgs/
+nix build .#install-iso                   # build a bootable install-media ISO
 deploy --hostname <ip> .#<host>    # ship the host with deploy-rs
 ```
 
@@ -182,7 +184,6 @@ Nixy stuff:
 - disko
 - deploy-rs
 - nix-minecraft
-- nixos-generators
 - ...and NixOS and Nix itself, of course :)
 
 Let me know if you have any questions about any of it :)
