@@ -15,9 +15,12 @@
 # nightly update timer can do anything, hytale-downloader-linux-amd64 and a
 # .hytale-downloader-credentials.json (from its OAuth device-flow login) must
 # be placed by hand under ${dataDir}/downloader/.
-{...}: {
+{self, ...}: {
   flake.nixosModules.ociHytale = {...}: {
     key = "mynix#nixosModules.ociHytale";
+    imports = [
+      self.nixosModules.hytaleServer
+    ];
 
     boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
