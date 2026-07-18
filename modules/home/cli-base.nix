@@ -370,7 +370,6 @@
       # system / process / disk inspection
       btop
       bottom
-      glances
       procs
       lsof
       sysstat
