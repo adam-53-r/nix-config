@@ -19,7 +19,6 @@
 
     boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk"];
     boot.initrd.kernelModules = [];
-    boot.kernelModules = ["kvm-amd"];
     boot.extraModulePackages = [];
 
     boot.loader = {
@@ -31,14 +30,13 @@
         efiSupport = true;
         enableCryptodisk = true;
         device = "nodev";
-        useOSProber = true;
         timeoutStyle = "menu";
       };
     };
 
     hardware.disko-btrfs = {
       encrypted = true;
-      # ephemeral = true;
+      ephemeral = true;
     };
     disko.devices.disk.main.device = "/dev/vda";
 
