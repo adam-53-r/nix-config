@@ -19,10 +19,7 @@
     ifTheyExist = groups:
       builtins.filter (g: builtins.hasAttr g config.users.groups) groups;
 
-    sshKeys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPvzQgNgw4EvEdpACjxlxKAJJl2sa8bvohMkh4mKUqja cardno:31_859_120"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFgSs2wJGphaoUPS+VAu0QTJfvQ1P99AIYSc94V9WIEV cardno:30_548_977"
-    ];
+    sshKeys = lib.splitString "\n" (builtins.readFile ../../../home/adamr/ssh.pub);
   in {
     key = "mynix#nixosModules.userAdamr";
     # Per-host opt-out of sops-managed user passwords (hosts without a secrets
