@@ -5,7 +5,5 @@
   flake.homeModules.homeProductivity = {pkgs, ...}: {
     services.syncthing.enable = true;
     home.persistence."/persist".directories = [".local/state/syncthing"];
-
-    home.packages = [pkgs.wpsoffice];
   };
 }
