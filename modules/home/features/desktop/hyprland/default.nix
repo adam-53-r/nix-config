@@ -76,6 +76,12 @@
         "exec-once"
       ];
       settings = {
+        # Screen sharing (Discord/vesktop) negotiates a tiled AMD DRM
+        # modifier for the PipeWire capture buffer that Chromium's dmabuf
+        # importer can't consume, so the stream dies right after it starts
+        # ("streaming" -> "paused" -> "unconnected", CAPTURE_FAILURE). Forcing
+        # linear buffers for capture avoids that negotiation entirely.
+        env = ["WLR_DRM_NO_MODIFIERS,1"];
         ecosystem = {
           no_update_news = true;
         };
