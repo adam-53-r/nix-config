@@ -19,5 +19,20 @@
         self.nixosModules.ociConfiguration
       ];
     };
+    msi-server = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.msiServerConfiguration
+      ];
+    };
+    msi-nixos = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.msiNixosConfiguration
+      ];
+    };
+    wsl = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.wslConfiguration
+      ];
+    };
   };
 }

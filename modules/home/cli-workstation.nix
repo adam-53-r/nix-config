@@ -183,7 +183,7 @@
           vim
         ]
         ++ lib.optionals (config.myWine.enable && pkgs.stdenv.hostPlatform.system != "aarch64-linux") [
-          wineWowPackages.stable
+          wineWow64Packages.stable
           winetricks
         ];
     };
