@@ -30,3 +30,21 @@ creation_rules:
         pgp:
           - *yubikey1
           - *yubikey2
+
+  - path_regex: modules/hosts/msi-nixos/secrets.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *msi-nixos
+        pgp:
+          - *yubikey1
+          - *yubikey2
+
+  # Any secrets.<ext> or *.sops file under msi-server (the service stack keeps
+  # per-service secrets next to the service module).
+  - path_regex: modules/hosts/msi-server/.*(secrets.(yaml|json|env|ini)|.*.sops)$
+    key_groups:
+      - age:
+          - *msi-server
+        pgp:
+          - *yubikey1
+          - *yubikey2
