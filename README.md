@@ -18,11 +18,8 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 > [starter config][nix-starter-config] instead.
 
 > [!NOTE]
-> This is the `dendritic-setup` branch: a from-scratch refactor of the
-> traditional `hosts/` + `home/` layout onto [flake-parts][flake-parts] +
-> [`import-tree`][import-tree]. See [`docs/dendritic-overview.md`](docs/dendritic-overview.md)
-> for the conventions and wiring quirks, and [`docs/pc-migration.md`](docs/pc-migration.md)
-> for the phase-by-phase migration log.
+> See [`docs/dendritic-overview.md`](docs/dendritic-overview.md)
+> for the conventions and wiring quirks.
 
 ## Highlights
 
