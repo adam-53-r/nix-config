@@ -202,7 +202,7 @@
     ];
 
     services.snapper = {
-      snapshotInterval = "*-*-* *:00,20,40:00";
+      # snapshotInterval/cleanupInterval inherited from optionalSnapshots (hourly).
       configs = {
         DATA = {
           SUBVOLUME = "/DATA";

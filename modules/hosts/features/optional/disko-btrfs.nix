@@ -33,6 +33,7 @@
         "/snapshots" = {};
         "/snapshots/root" = {};
         "/snapshots/persist" = {};
+        "/snapshots/pre-wipe" = {};
       };
     };
 
@@ -65,6 +66,20 @@
         if [ -e "$MNTPOINT/persist/dont-wipe" ]; then
           echo "Skipping wipe"
         else
+          # Snapshot the outgoing root BEFORE wiping it, so files that were
+          # only on / (unclean shutdown, forgot to move to /persist) stay
+          # recoverable. Pre-existing installs may lack the subvolume.
+          mkdir -p "$MNTPOINT/snapshots"
+          if ! btrfs subvolume show "$MNTPOINT/snapshots/pre-wipe" >/dev/null 2>&1; then
+            btrfs subvolume create "$MNTPOINT/snapshots/pre-wipe"
+          fi
+          echo "Snapshotting root before wipe"
+          btrfs subvolume snapshot -r "$MNTPOINT/root" \
+            "$MNTPOINT/snapshots/pre-wipe/$(date +%Y-%m-%d_%H-%M-%S)"
+          echo "Pruning pre-wipe snapshots (keeping ${toString cfg.preWipeSnapshotCount})"
+          for old in $(ls -1 "$MNTPOINT/snapshots/pre-wipe" | sort | head -n -${toString cfg.preWipeSnapshotCount}); do
+            btrfs subvolume delete "$MNTPOINT/snapshots/pre-wipe/$old"
+          done
           echo "Cleaning root subvolume"
           btrfs subvolume delete -R "$MNTPOINT/root"
           echo "Restoring blank subvolume"
@@ -90,6 +105,11 @@
     options.hardware.disko-btrfs = {
       encrypted = lib.mkEnableOption "LUKS encryption for the main partition";
       ephemeral = lib.mkEnableOption "ephemeral root via btrfs snapshot rollback (impermanence)";
+      preWipeSnapshotCount = lib.mkOption {
+        type = lib.types.ints.positive;
+        default = 5;
+        description = "How many pre-wipe root snapshots (taken in the initrd just before the ephemeral-root rollback) to keep in /snapshots/pre-wipe.";
+      };
       extraMountOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
