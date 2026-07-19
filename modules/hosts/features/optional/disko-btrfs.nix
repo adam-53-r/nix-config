@@ -14,7 +14,7 @@
       subvolumes = {
         "/root" = {
           mountpoint = "/";
-          mountOptions = ["compress=zstd"] ++ cfg.extraMountOptions;
+          mountOptions = ["compress=zstd" "noatime"] ++ cfg.extraMountOptions;
         };
         "/nix" = {
           mountpoint = "/nix";
@@ -22,7 +22,7 @@
         };
         "/persist" = {
           mountpoint = "/persist";
-          mountOptions = ["compress=zstd"] ++ cfg.extraMountOptions;
+          mountOptions = ["compress=zstd" "noatime"] ++ cfg.extraMountOptions;
         };
         "/swap" = {
           mountpoint = "/swap";
