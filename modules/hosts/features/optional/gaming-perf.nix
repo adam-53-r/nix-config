@@ -15,8 +15,14 @@
     # (Unity/KSP physics) want the opposite. "cache" only changes which CCD
     # fills first — all-core loads like nix builds still use both.
     # No-op on hardware without the AMDI0101 platform device.
+    #
+    # NVMe defaults to the "none" scheduler: bulk writes and interactive
+    # reads share one FIFO queue, so a Steam/CKAN download starves the
+    # desktop. mq-deadline prioritizes reads (500ms vs 5s expiry) and honors
+    # ionice classes (kernel >= 5.17), letting bulk jobs be demoted to idle.
     services.udev.extraRules = ''
       ACTION=="add|bind", SUBSYSTEM=="platform", KERNEL=="AMDI0101:00", ATTR{amd_x3d_mode}="cache"
+      ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="mq-deadline"
     '';
 
     # gamemoderun already raises the cpufreq governor to performance; also

@@ -15,6 +15,10 @@
       luks.devices."pc" = {
         crypttabExtraOpts = ["fido2-device=auto"];
         allowDiscards = true;
+        # Don't bounce IO through dm-crypt's kernel workqueues: on NVMe they
+        # add queueing latency that makes the desktop stall under bulk
+        # writes (the Cloudflare no_{read,write}_workqueue finding).
+        bypassWorkqueues = true;
       };
     };
 
