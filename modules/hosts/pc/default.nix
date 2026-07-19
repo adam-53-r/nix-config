@@ -18,6 +18,7 @@
       self.nixosModules.optionalSecureBoot
       self.nixosModules.optionalSnapshots
       self.nixosModules.optionalSteam
+      self.nixosModules.optionalGamingPerf
       self.nixosModules.optionalLibvirtd
       self.nixosModules.optionalDocker
       self.nixosModules.optionalWireshark
