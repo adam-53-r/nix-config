@@ -66,7 +66,7 @@
             runtimeInputs = with pkgs; [
               bash
               coreutils
-              util-linux # flock
+              util-linux # flock, setarch
               unzip
             ];
 

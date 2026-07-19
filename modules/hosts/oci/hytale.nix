@@ -6,10 +6,11 @@
 # hytale-downloader-linux-amd64 exists) - the live server itself is plain
 # Java and runs natively on aarch64, but the update-check/download step needs
 # to run the amd64 downloader under emulation. boot.binfmt.emulatedSystems
-# below registers qemu-user for that; combined with nix-ld (already enabled
-# globally via globalDefaults) supplying the missing FHS dynamic linker, this
-# is the same workaround the wider Hytale-on-ARM community (Raspberry Pi,
-# Ampere hosts) uses.
+# below registers qemu-user for that; the binary is statically linked, so no
+# dynamic-linker (nix-ld) shim is involved. One extra quirk: under qemu the
+# amd64 Go runtime crashes ("taggedPointerPack") when the host kernel maps
+# above 2^47 - hytale-update.sh works around it by running the downloader
+# via setarch --addr-compat-layout.
 #
 # services.hytale-server does NOT bootstrap credentials itself: before the
 # nightly update timer can do anything, hytale-downloader-linux-amd64 and a

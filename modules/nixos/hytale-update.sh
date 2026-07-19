@@ -84,9 +84,19 @@ main() {
   require_executable "$DOWNLOADER_BIN"
   require_file "$CREDS_FILE"
 
+  # The downloader is an amd64 Go binary. On aarch64 hosts it runs under
+  # qemu-user (binfmt), where the Go runtime crashes with "fatal error:
+  # taggedPointerPack" whenever the kernel hands out mmap addresses at or
+  # above 2^47 (amd64 Go assumes 47-bit user pointers; the aarch64 host's
+  # 48-bit VA space with top-down mmap exceeds that, and qemu-user passes
+  # host addresses straight through). setarch's --addr-compat-layout flips
+  # the process to the legacy bottom-up mmap layout, which allocates from
+  # low addresses and stays under the limit. Harmless on native x86_64.
+  RUN_DOWNLOADER=(setarch --addr-compat-layout "$DOWNLOADER_BIN")
+
   log "Checking for update..."
 
-  LATEST_VERSION="$("$DOWNLOADER_BIN" \
+  LATEST_VERSION="$("${RUN_DOWNLOADER[@]}" \
     -credentials-path "$CREDS_FILE" \
     -print-version \
     | tr -d '\r' \
@@ -113,7 +123,7 @@ main() {
   tmp_zip="${tmp_base}.zip"
   trap 'rm -f -- "$tmp_base" "$tmp_zip"' EXIT
 
-  "$DOWNLOADER_BIN" \
+  "${RUN_DOWNLOADER[@]}" \
     -credentials-path "$CREDS_FILE" \
     -download-path "$tmp_base"
 
