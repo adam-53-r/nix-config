@@ -1,4 +1,4 @@
-# Local LLM stack: ollama (rocm) behind open-webui, plus claude tooling.
+# Local LLM stack: ollama (rocm) behind open-webui.
 {pkgs, ...}: {
   services.ollama = {
     enable = true;
@@ -15,9 +15,4 @@
     "/var/lib/private/open-webui"
   ];
 
-  environment.systemPackages = with pkgs; [
-    claude-code
-    claude-mergetool
-    claude-monitor
-  ];
 }

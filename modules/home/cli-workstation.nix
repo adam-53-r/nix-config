@@ -121,14 +121,20 @@
 
       home.sessionVariables.PF_INFO = "ascii title os kernel uptime shell de palette";
 
-      home.persistence."/persist".directories =
-        [
-          ".aws"
-          ".config/.jira"
-          ".nb"
-          ".local/share/flatpak"
-        ]
-        ++ lib.optionals config.myWine.enable [".wine"];
+      home.persistence."/persist" = {
+        directories =
+          [
+            ".aws"
+            ".config/.jira"
+            ".nb"
+            ".local/share/flatpak"
+            ".claude"
+          ]
+          ++ lib.optionals config.myWine.enable [".wine"];
+          files = [
+            ".claude.json"
+          ];
+      };
 
       home.packages = with pkgs;
         [
@@ -162,6 +168,11 @@
           python3
           hugo
           apacheHttpd
+
+          # ai
+          claude-code
+          claude-mergetool
+          claude-monitor
 
           # misc extras main carried that cliBase doesn't cover
           cheat
