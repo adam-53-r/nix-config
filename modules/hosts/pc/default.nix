@@ -53,7 +53,7 @@
 
     services.displayManager.defaultSession = "hyprland-uwsm";
 
-    environment.systemPackages = with pkgs; [hostctl android-tools];
+    environment.systemPackages = with pkgs; [hostctl android-tools moonlight-qt];
     environment.etc.hosts.mode = "0644";
 
     system.stateVersion = "25.05";
