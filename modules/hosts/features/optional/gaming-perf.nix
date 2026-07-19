@@ -22,5 +22,14 @@
     # gamemoderun already raises the cpufreq governor to performance; also
     # renice the game so background load can't steal its timeslices.
     programs.gamemode.settings.general.renice = 10;
+
+    # With 60GiB RAM the default dirty_ratio lets ~12GiB of dirty pages pile
+    # up, then writeback dam-bursts through LUKS+btrfs transaction commits and
+    # stalls the whole desktop (felt during Steam/CKAN installs). Cap dirty
+    # data so bulk writes flush continuously in small increments instead.
+    boot.kernel.sysctl = {
+      "vm.dirty_background_bytes" = 536870912; # 512MiB
+      "vm.dirty_bytes" = 2147483648; # 2GiB
+    };
   };
 }
