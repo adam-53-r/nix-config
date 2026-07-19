@@ -31,7 +31,7 @@
         width = 1920;
         height = 1080;
         workspace = "1";
-        position = "0x0";
+        position = "auto-left";
         refreshRate = 120;
       }
       {
@@ -39,7 +39,7 @@
         width = 2560;
         height = 1440;
         workspace = "2";
-        position = "auto-right";
+        position = "0x0";
         primary = true;
         refreshRate = 180;
       }
