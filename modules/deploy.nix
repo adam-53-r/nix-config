@@ -50,6 +50,12 @@ in {
           system = "x86_64-linux";
         }
         self.nixosConfigurations.pc;
+      msi-server =
+        mkNode {
+          hostname = "msi-server";
+          system = "x86_64-linux";
+        }
+        self.nixosConfigurations.msi-server;
     };
   };
 }
