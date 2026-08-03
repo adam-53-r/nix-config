@@ -63,7 +63,12 @@
   # pc's root is ephemeral (wiped every boot) - without this, the initrd ssh
   # host key above would vanish on reboot and the next rebuild would silently
   # embed nothing. Mirrors desktopNetworking's NetworkManager persistence.
-  environment.persistence."/persist".directories = ["/etc/secrets/initrd"];
+  environment.persistence."/persist".directories = [
+    "/etc/secrets/initrd"
+    # LACT's runtime GPU profiles (clocks, voltage curve, power/fan limits) —
+    # see services.lact below.
+    "/etc/lact"
+  ];
 
   # WARNING: nvme enumeration has drifted since install — the live /boot is on
   # nvme0n1 today. This device is only used when disko FORMATS the disk;

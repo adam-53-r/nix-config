@@ -9,6 +9,20 @@
 
   hardware.bluetooth.powerOnBoot = false;
 
+  # bluez keeps pairing keys under /var/lib/bluetooth (StateDirectory=bluetooth,
+  # mode 0700) — without persistence every device has to be re-paired after a
+  # reboot.
+  environment.persistence = {
+    "/persist".directories = [
+      {
+        directory = "/var/lib/bluetooth";
+        user = "root";
+        group = "root";
+        mode = "0700";
+      }
+    ];
+  };
+
   # QMK/vial keyboard flashing without root.
   hardware.keyboard.qmk.enable = true;
   services.udev.packages = [
