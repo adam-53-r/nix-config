@@ -26,7 +26,7 @@
   ];
 
   services.hytale-server = {
-    enable = true;
+    enable = false;
     dataDir = "/DATA/msi-server/hytale";
     openFirewall = true;
   };
