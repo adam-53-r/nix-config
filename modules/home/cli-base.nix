@@ -99,7 +99,7 @@
         awssw = aws-switch;
       };
       shellAliases = {
-        ls = "eza -alg --color=always --group-directories-first --icons";
+        ls = "eza -alg --color=always --group-directories-first --icons=auto ";
         # Clear screen and scrollback buffer.
         clear = "printf '\\033[2J\\033[3J\\033[1;1H'";
         # Route deletions through trash-cli instead of unrecoverable rm.
