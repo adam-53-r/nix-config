@@ -29,6 +29,7 @@
       self.nixosModules.userAdamr
 
       ./_hardware.nix
+      ./_fans.nix
       ./_peripherals.nix
       ./_wireguard.nix
       ./_backup.nix
