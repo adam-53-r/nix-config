@@ -25,7 +25,7 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 
 - 🌿 **Dendritic layout** — every file *is* a flake-parts module; no central
   module registry
-- 🖥️ **Six NixOS configurations** spanning desktop, laptop, headless server,
+- 🖥️ **Seven NixOS configurations** spanning desktop, laptop, headless server,
   cloud VM, and disposable test/WSL VMs
 - 🧩 **Feature-flagged home-manager** — composable profiles (`cliBase`,
   `desktopBase`, `adamrHome`, ...) shared across hosts via `self.homeModules.*`
@@ -47,6 +47,7 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 | `msi-server` | repurposed MSI Nightblade MI2 | headless, full self-hosted service stack, servers VLAN bridge |
 | `oci` | Oracle Cloud free-tier VM | aarch64, disko cross-arch image build, serial console, Minecraft server |
 | `vm` | throwaway test VM | minimal, for fast `nix eval` / sanity checks |
+| `blacksite` | cybersecurity practice lab | guest on `pc`, XFCE, Kali-style toolbox + vulnerable targets ([docs](docs/blacksite-lab.md)) |
 | `wsl` | NixOS on WSL2 | no disk/persistence concerns, work identity |
 
 ## Structure
@@ -78,12 +79,13 @@ modules/
                            networking, yubikey, tpm, ...
       optional/            opt-in host features: docker, libvirtd, nginx,
                            disko-btrfs, steam, snapshots, ...
-    pc/, msi-nixos/, msi-server/, oci/, vm/, wsl/
+    pc/, msi-nixos/, msi-server/, oci/, vm/, blacksite/, wsl/
                            one directory per host
 overlays/                nixpkgs overlays (flake-inputs alias, stable
                          channel, custom package patches)
 pkgs/                    custom package derivations
-docs/                    dendritic-overview.md, pc-migration.md, disk-resize.md
+docs/                    dendritic-overview.md, disk-resize.md, remote-unlock.md,
+                         blacksite-lab.md
 ```
 
 Composition is always via `self.nixosModules.<name>` / `self.homeModules.<name>`

@@ -98,7 +98,7 @@ modules/
                               cinnamon, networking, yubikey, tpm, ...)
       optional/               opt-in host features (docker, libvirtd, nginx,
                               disko-btrfs, steam, snapshots, ...)
-    pc/, msi-nixos/, msi-server/, oci/, vm/, wsl/
+    pc/, msi-nixos/, msi-server/, oci/, vm/, blacksite/, wsl/
                               one dir per host; default.nix is the flake
                               module, "_"-prefixed files (_hardware.nix,
                               _services/, _ai.nix, _ups.nix) are plain NixOS
@@ -109,7 +109,8 @@ modules/
 overlays/                     nixpkgs overlays (flake-inputs alias, stable
                               channel, custom package patches)
 pkgs/                         custom package derivations
-docs/                         dendritic-overview.md (this file), disk-resize.md
+docs/                         dendritic-overview.md (this file), disk-resize.md,
+                              remote-unlock.md, blacksite-lab.md
 ```
 
 ### Why the `_`-prefix convention
@@ -131,6 +132,7 @@ relative path instead (`./_hardware.nix`, `./_services`).
 | `msi-server` | home server | headless, full self-hosted service stack, servers-vlan bridge |
 | `oci` | Oracle free-tier VM | aarch64, disko image build, serial console |
 | `vm` | test VM | minimal, for `nix eval`/quick checks |
+| `blacksite` | security practice lab | qemu guest on pc, XFCE, ephemeral+unencrypted, `build-vm` **and** disko image ([docs](blacksite-lab.md)) |
 | `wsl` | WSL2 NixOS | no disk/persistence concerns, work identity |
 
 Only `pc` has actually been switched to on real hardware. The rest evaluate

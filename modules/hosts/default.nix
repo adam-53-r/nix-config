@@ -14,6 +14,11 @@
         self.nixosModules.vmConfiguration
       ];
     };
+    blacksite = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.blacksiteConfiguration
+      ];
+    };
     oci = inputs.nixpkgs.lib.nixosSystem {
       modules = [
         self.nixosModules.ociConfiguration
