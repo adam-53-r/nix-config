@@ -148,7 +148,7 @@
           nb
           ansible
           yaml-language-server
-          devenv
+          pkgs.inputs.nixpkgs-latest.devenv
           deploy-rs
           nixos-anywhere
           stable.localstack
