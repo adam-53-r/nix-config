@@ -154,6 +154,7 @@
           steamBigPicture = "match:title Steam Big Picture Mode";
           calculator = "match:class org.gnome.Calculator";
           nemo = "match:class nemo";
+          steamSecondary = "match:class ^steam$, match:title negative:^Steam";
         in [
           "immediate on, ${steamGame}"
           "size 100% 100%, ${kdeconnect-pointer}"
@@ -171,6 +172,7 @@
           "move (monitor_w-window_w-10) (monitor_h-window_h-10), ${calculator}"
           "float on, ${nemo}"
           "size (monitor_w*0.5) (monitor_h*0.5), ${nemo}"
+          "float on, ${steamSecondary}"
         ];
 
         layerrule = [
