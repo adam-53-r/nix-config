@@ -53,7 +53,7 @@ in {
       self.nixosModules.ociMinecraft
 
       # Hytale dedicated server.
-      self.nixosModules.ociHytale
+      # self.nixosModules.ociHytale
 
       ./_hardware.nix
     ];
