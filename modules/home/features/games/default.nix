@@ -7,7 +7,7 @@
       self.homeModules.homeMangohud
     ];
 
-    home.packages = [pkgs.gamescope];
+    home.packages = with pkgs; [gamescope satisfactorymodmanager];
     home.persistence."/persist".directories = ["Games"];
   };
 }
