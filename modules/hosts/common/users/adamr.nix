@@ -54,6 +54,7 @@
             "deluge"
             "git"
             "lxd"
+            "incus-admin"
             "vboxusers"
             "mysql"
             "minecraft"

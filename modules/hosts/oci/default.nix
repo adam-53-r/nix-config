@@ -49,8 +49,17 @@ in {
       self.nixosModules.optionalNginx
       self.nixosModules.optionalFail2ban
 
-      # Minecraft Extremo 2 modpack server.
-      self.nixosModules.ociMinecraft
+      # Incus: hosts a Debian container for CubeCoders AMP, which only ships
+      # .deb packages and needs its own systemd (see the module for why).
+      self.nixosModules.optionalIncus
+
+      # Tailnet access to the AMP panel running in that container.
+      self.nixosModules.ociAmp
+
+      # Minecraft Extremo 2 modpack server. Superseded by AMP running in the
+      # incus container (optionalIncus) - left importable rather than deleted
+      # so the hand-built Forge FOD in minecraft.nix stays available.
+      # self.nixosModules.ociMinecraft
 
       # Hytale dedicated server.
       # self.nixosModules.ociHytale
