@@ -29,9 +29,9 @@
         self.nixosModules.msiServerConfiguration
       ];
     };
-    msi-nixos = inputs.nixpkgs.lib.nixosSystem {
+    avalon = inputs.nixpkgs.lib.nixosSystem {
       modules = [
-        self.nixosModules.msiNixosConfiguration
+        self.nixosModules.avalonConfiguration
       ];
     };
     wsl = inputs.nixpkgs.lib.nixosSystem {

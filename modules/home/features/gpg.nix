@@ -22,11 +22,20 @@
       enable = true;
       enableSshSupport = true;
       enableExtraSocket = true;
-      # GUI hosts (gtk.enable, e.g. pc) get a proper graphical prompt; headless
-      # hosts fall back to a curses prompt that still works over an ssh session.
+      # GUI hosts (gtk.enable) get a graphical prompt; headless hosts fall back
+      # to a curses prompt that still works over an ssh session.
+      #
+      # Not pinentry-gnome3: it does not draw its own window, it asks gcr's
+      # org.gnome.keyring.SystemPrompter to. Without gnome-keyring running that
+      # name is only activatable, and pinentry silently falls back to curses on
+      # its controlling tty — which for a non-interactive caller is a terminal
+      # nobody is watching, so signing appears to hang and then fails with
+      # "Timeout" while the PIN retry counter stays untouched. pinentry-qt
+      # opens its own window and needs no session daemon (Qt is already here
+      # for sddm).
       pinentry.package =
         if config.gtk.enable
-        then pkgs.pinentry-gnome3
+        then pkgs.pinentry-qt
         else pkgs.pinentry-curses;
       noAllowExternalCache = true;
       defaultCacheTtl = 10800;

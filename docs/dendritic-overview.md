@@ -98,7 +98,7 @@ modules/
                               cinnamon, networking, yubikey, tpm, ...)
       optional/               opt-in host features (docker, libvirtd, nginx,
                               disko-btrfs, steam, snapshots, ...)
-    pc/, msi-nixos/, msi-server/, oci/, vm/, blacksite/, wsl/
+    pc/, avalon/, msi-server/, oci/, vm/, blacksite/, wsl/
                               one dir per host; default.nix is the flake
                               module, "_"-prefixed files (_hardware.nix,
                               _services/, _ai.nix, _ups.nix) are plain NixOS
@@ -128,7 +128,7 @@ relative path instead (`./_hardware.nix`, `./_services`).
 | Host | Purpose | Notes |
 |---|---|---|
 | `pc` | desktop, **live/deployed** | AMD, Hyprland+uwsm, LUKS+fido2, ephemeral btrfs, secure boot |
-| `msi-nixos` | laptop | Intel+Nvidia PRIME (sync/offload specialisation), GRUB cryptodisk, TLP |
+| `avalon` | laptop | Intel+Nvidia PRIME offload, no RTD3 (battery-saver specialisation is the dGPU off switch), limine secure boot, TLP + thermald + msi-ec, hibernation |
 | `msi-server` | home server | headless, full self-hosted service stack, servers-vlan bridge |
 | `oci` | Oracle free-tier VM | aarch64, disko image build, serial console |
 | `vm` | test VM | minimal, for `nix eval`/quick checks |
@@ -150,7 +150,7 @@ these first when tracing what a host actually gets:
 - `desktopBase` (`modules/hosts/features/desktop/default.nix`) — globalDefaults
   + the whole desktop stack (sddm, hyprland, cinnamon fallback, pipewire,
   printing, networking, keyd, yubikey, tpm, kdeconnect, pass). Used by `pc`
-  and `msi-nixos`.
+  and `avalon`.
 - `diskoBtrfs` (`modules/hosts/features/optional/disko-btrfs.nix`) — btrfs +
   ephemeral-root rollback + optional LUKS, parameterized by hostname.
 - `adamrHome` (`modules/home/adamr/default.nix`) — cliBase + gpg/ssh/gh +
@@ -188,7 +188,7 @@ committing.
 ## Where to look for "why", not just "what"
 
 The phase-by-phase migration log that used to live at `docs/pc-migration.md`
-has been retired now that every host (`pc`, `msi-nixos`, `msi-server`, `oci`,
+has been retired now that every host (`pc`, `avalon`, `msi-server`, `oci`,
 `vm`, `wsl`) is ported and evaluates clean — its "non-goals: later" section
 was written when only `pc` was in scope and no longer reflects reality. For
 the "why" behind a specific decision or bug fixed during the port (waypipe's

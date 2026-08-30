@@ -425,7 +425,12 @@
               then "${toString m.width}x${toString m.height}@${toString m.refreshRate},${m.position},1"
               else "disable"
             }"
-          ) (config.monitors));
+          ) (config.monitors))
+          # Catch-all for anything not named above: an empty output field is
+          # hyprland's fallback rule, used only when no other rule matches, so
+          # it belongs last. Without it, an unrecognised display stays dark
+          # until it is added to the config.
+          ++ [",preferred,auto,1"];
 
         workspace = map (m: "${m.workspace},monitor:${m.name}") (
           lib.filter (m: m.enabled && m.workspace != null) config.monitors

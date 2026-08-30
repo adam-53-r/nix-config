@@ -43,7 +43,7 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 | Host | Purpose | Notes |
 |---|---|---|
 | `pc` | AMD desktop workstation | Hyprland (uwsm) + Cinnamon fallback, LUKS + fido2/TPM, secure boot, ephemeral btrfs |
-| `msi-nixos` | MSI GS65 Stealth 8SF laptop | Intel + Nvidia PRIME (sync/offload), GRUB cryptodisk, TLP |
+| `avalon` | MSI GS65 Stealth 8SF laptop | travel/dev machine: Intel + Nvidia PRIME offload (no RTD3 — the firmware has no _PR3), limine secure boot, TLP + msi-ec, hibernation |
 | `msi-server` | repurposed MSI Nightblade MI2 | headless, full self-hosted service stack, servers VLAN bridge |
 | `oci` | Oracle Cloud free-tier VM | aarch64, disko cross-arch image build, serial console, Minecraft server |
 | `vm` | throwaway test VM | minimal, for fast `nix eval` / sanity checks |
@@ -79,12 +79,13 @@ modules/
                            networking, yubikey, tpm, ...
       optional/            opt-in host features: docker, libvirtd, nginx,
                            disko-btrfs, steam, snapshots, ...
-    pc/, msi-nixos/, msi-server/, oci/, vm/, blacksite/, wsl/
+    pc/, avalon/, msi-server/, oci/, vm/, blacksite/, wsl/
                            one directory per host
 overlays/                nixpkgs overlays (flake-inputs alias, stable
                          channel, custom package patches)
 pkgs/                    custom package derivations
-docs/                    dendritic-overview.md, disk-resize.md, remote-unlock.md,
+docs/                    dendritic-overview.md, avalon-install.md,
+                         disk-resize.md, remote-unlock.md,
                          blacksite-lab.md
 ```
 

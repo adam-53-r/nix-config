@@ -56,6 +56,12 @@ in {
           system = "x86_64-linux";
         }
         self.nixosConfigurations.msi-server;
+      avalon =
+        mkNode {
+          hostname = "avalon";
+          system = "x86_64-linux";
+        }
+        self.nixosConfigurations.avalon;
     };
   };
 }

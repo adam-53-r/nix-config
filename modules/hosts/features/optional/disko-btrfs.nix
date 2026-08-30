@@ -24,10 +24,18 @@
           mountpoint = "/persist";
           mountOptions = ["compress=zstd" "noatime"] ++ cfg.extraMountOptions;
         };
-        "/swap" = {
-          mountpoint = "/swap";
-          mountOptions = ["noatime"] ++ cfg.extraMountOptions;
-        };
+        "/swap" =
+          {
+            mountpoint = "/swap";
+            mountOptions = ["noatime"] ++ cfg.extraMountOptions;
+          }
+          # Its own subvolume with no compression and no snapshots, which is
+          # what btrfs requires of a swapfile; `btrfs filesystem mkswapfile`
+          # (which disko calls) also sets NOCOW. disko derives the swapDevices
+          # entry from this, so nothing else needs to declare it.
+          // lib.optionalAttrs (cfg.swapFileSize != null) {
+            swap.swapfile.size = cfg.swapFileSize;
+          };
 
         "/root-blank" = {};
         "/snapshots" = {};
@@ -110,6 +118,12 @@
         default = 5;
         description = "How many pre-wipe root snapshots (taken in the initrd just before the ephemeral-root rollback) to keep in /snapshots/pre-wipe.";
       };
+      swapFileSize = lib.mkOption {
+        type = lib.types.nullOr (lib.types.strMatching "^([0-9]+[KMGTP])?$");
+        default = null;
+        example = "36G";
+        description = "Size of a swapfile to create on the /swap subvolume (e.g. \"36G\"), or null for no swapfile. Size it at or above RAM if the host should be able to hibernate.";
+      };
       extraMountOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = [];
@@ -157,6 +171,15 @@
           after = [
             deviceUnit
             "systemd-cryptsetup@${escapedPartName}.service"
+            # Required on any host that hibernates. A successful resume never
+            # returns from systemd-hibernate-resume.service, since the
+            # restored kernel takes over, so ordering after it is what keeps
+            # the rollback from discarding the root subvolume the hibernation
+            # image expects to wake up onto. Without it the two race, and
+            # losing that race means resuming into a freshly blanked /.
+            # Ordering against a unit that does not exist is a no-op, so this
+            # costs nothing on hosts that never hibernate.
+            "systemd-hibernate-resume.service"
           ];
           before = ["sysroot.mount"];
           unitConfig.DefaultDependencies = "no";

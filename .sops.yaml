@@ -6,7 +6,7 @@ keys:
       - &yubikey2 AAD31CF640D3F9F1BE668BBCC57EE34ED704637F!
   # Hosts
   - &hosts:
-    - &msi-nixos age1ny9nuyaxyakpfj3ee3229au4caugv9205leu9vlrfwx4h24fq33qs7jht5
+    - &avalon age1hwpskrn0lasm9ljzve87q780ahpngyuxaxatk9ja2lemdv0kygcqen744t
     - &pc age1h5f37l0l9mn24s76mj703y20s65kr7a4ym7xkh55js4gf476fy3sj3hlex
     - &msi-server age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
 
@@ -16,7 +16,7 @@ creation_rules:
   - path_regex: modules/hosts/common/users/secrets.(yaml|json|env|ini)$
     key_groups:
       - age:
-          - *msi-nixos
+          - *avalon
           - *pc
           - *msi-server
         pgp:
@@ -31,10 +31,10 @@ creation_rules:
           - *yubikey1
           - *yubikey2
 
-  - path_regex: modules/hosts/msi-nixos/secrets.(yaml|json|env|ini)$
+  - path_regex: modules/hosts/avalon/secrets.(yaml|json|env|ini)$
     key_groups:
       - age:
-          - *msi-nixos
+          - *avalon
         pgp:
           - *yubikey1
           - *yubikey2
