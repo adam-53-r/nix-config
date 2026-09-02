@@ -1,5 +1,8 @@
 # The pc host: AMD desktop workstation running Hyprland (uwsm) with Cinnamon
 # as fallback, on an encrypted ephemeral btrfs root with limine secure boot.
+#
+# Memory and sleep policy (zram, and hibernation onto the swapfile declared in
+# _hardware.nix) lives in _power.nix, following avalon.
 {
   self,
   inputs,
@@ -15,6 +18,7 @@
       self.nixosModules.desktopBase
       self.nixosModules.diskoBtrfs
       self.nixosModules.optionalQuietboot
+      self.nixosModules.optionalPlymouthHibernate
       self.nixosModules.optionalSecureBoot
       self.nixosModules.optionalSnapshots
       self.nixosModules.optionalSteam
@@ -29,6 +33,7 @@
       self.nixosModules.userAdamr
 
       ./_hardware.nix
+      ./_power.nix
       ./_fans.nix
       ./_peripherals.nix
       ./_wireguard.nix
@@ -48,10 +53,7 @@
 
     boot = {
       kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
-      binfmt.emulatedSystems = [
-        "aarch64-linux"
-        "i686-linux"
-      ];
+      binfmt.emulatedSystems = ["aarch64-linux"];
     };
 
     services.displayManager.defaultSession = "hyprland-uwsm";

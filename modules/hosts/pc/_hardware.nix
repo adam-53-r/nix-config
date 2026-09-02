@@ -10,7 +10,9 @@
   boot = {
     initrd = {
       # r8169 drives the RTL8126 nic (enp16s0) - needed in initrd for network.ssh below.
-      availableKernelModules = ["ahci" "xhci_pci" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" "r8169"];
+      # Bare metal, so no virtio_* entries (they were inherited from the
+      # generated config and never matched anything here).
+      availableKernelModules = ["ahci" "xhci_pci" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" "r8169"];
       kernelModules = ["amdgpu"];
       # Unlock the luks root with a FIDO2 key, falling back to the passphrase.
       luks.devices."pc" = {
@@ -78,12 +80,13 @@
   swapDevices = [
     {
       device = "/swap/swapfile";
-      size = 32768;
-      randomEncryption.enable = true;
+      size = 69632; # MiB = 68 GiB
     }
   ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  services.fwupd.enable = true;
   nixpkgs.hostPlatform.system = "x86_64-linux";
 
   # Requires BIOS "Resume By PCI-E Device" enabled + ErP disabled. enp16s0's
