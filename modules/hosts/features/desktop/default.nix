@@ -29,11 +29,5 @@
     # from it (main enabled this globally via locale.nix; only desktops
     # actually consume it).
     location.provider = "geoclue2";
-
-    # bitwarden-desktop on unstable still bundles an EOL electron; accept it
-    # until upstream bumps (revisit whenever this list grows).
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10"
-    ];
   };
 }
