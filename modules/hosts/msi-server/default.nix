@@ -63,7 +63,7 @@
     programs.dconf.enable = true;
 
     boot.kernel.sysctl = {
-      "net.ipv6.conf.br-servers-vlan.accept_ra" = 2;
+      "net.ipv6.conf.br-servers-vlan.accept_ra" = 0;
     };
 
     # Static bridge over the servers VLAN instead of NetworkManager.
@@ -101,10 +101,10 @@
                 address = "fd16:a5f8:258:2::10";
                 prefixLength = 64;
               }
-              {
-                address = "2001:470:c98d:2::10";
-                prefixLength = 64;
-              }
+              # {
+              #   address = "2001:470:c98d:2::10";
+              #   prefixLength = 64;
+              # }
             ];
           };
         };
