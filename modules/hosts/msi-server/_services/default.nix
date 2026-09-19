@@ -19,6 +19,7 @@
     ./restic-server.nix
     ./zammad.nix
     ./obsidian-livesync
+    ./gitea.nix
     # TODO: fix hydra, does not compile
     # ./hydra
     # ./minecraft-server.nix
