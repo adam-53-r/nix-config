@@ -148,7 +148,7 @@
           nb
           ansible
           yaml-language-server
-          pkgs.inputs.nixpkgs-latest.devenv
+          pkgs.latest.devenv
           deploy-rs
           nixos-anywhere
           stable.localstack
@@ -170,7 +170,7 @@
           apacheHttpd
 
           # ai
-          claude-code
+          pkgs.latest.claude-code
           claude-mergetool
           claude-monitor
 
