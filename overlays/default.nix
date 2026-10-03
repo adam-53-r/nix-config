@@ -29,6 +29,14 @@ in {
     };
   };
 
+  # Adds pkgs.latest == the nixpkgs-latest channel for the same system
+  latest = final: _: {
+    latest = import inputs.nixpkgs-latest {
+      config.allowUnfree = true;
+      system = final.stdenv.hostPlatform.system;
+    };
+  };
+
   # Adds my custom packages
   additions = final: _prev: import ../pkgs {pkgs = final;};
 
