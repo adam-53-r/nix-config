@@ -14,6 +14,7 @@
       self.homeModules.homeProductivity
       self.homeModules.homePass
       self.homeModules.homeHelix
+      self.homeModules.homePasswordTrain
     ];
 
     # Ephemeral root → keep the colocated stateful dirs across reboots.
