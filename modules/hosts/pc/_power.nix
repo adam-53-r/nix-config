@@ -1,5 +1,4 @@
 # pc memory and sleep policy, ported from avalon's _power.nix.
-
 {lib, ...}: {
   ###### Memory / swap ######################################################
 
@@ -32,4 +31,20 @@
   };
 
   systemd.sleep.settings.Sleep.HibernateDelaySec = "45min";
+
+  ###### amdgpu S4 GTT swapout ##############################################
+
+  # Since 6.17 amdgpu swaps all GTT buffers out on hibernate
+  # (ttm_device_prepare_hibernation). That leaves TTM's LRU bulk-move cursors
+  # pointing at freed memory, and the first GPU client to touch its buffers
+  # after resume oopses holding the LRU lock -> every GPU client hangs, black
+  # screen, hard reset. It's only an optimisation (smaller image), so drop it.
+  # No upstream fix yet as of 7.1.11; recheck on kernel bumps.
+  # Builds the kernel from source.
+  boot.kernelPatches = [
+    {
+      name = "amdgpu-no-s4-gtt-swapout";
+      patch = ./amdgpu-no-s4-gtt-swapout.patch;
+    }
+  ];
 }

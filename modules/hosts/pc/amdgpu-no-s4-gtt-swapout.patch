@@ -1,0 +1,14 @@
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4390,11 +4390,6 @@
+ 		return ret;
+ 	}
+ 
+-	if (adev->in_s4) {
+-		ret = ttm_device_prepare_hibernation(&adev->mman.bdev);
+-		if (ret)
+-			dev_err(adev->dev, "prepare hibernation failed, %d\n", ret);
+-	}
+ 	return ret;
+ }
+ 
