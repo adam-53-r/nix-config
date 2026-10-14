@@ -20,6 +20,7 @@
     ./zammad.nix
     ./obsidian-livesync
     ./gitea.nix
+    ./now-and-next.nix
     # TODO: fix hydra, does not compile
     # ./hydra
     # ./minecraft-server.nix

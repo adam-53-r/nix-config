@@ -371,6 +371,26 @@
         "type": "github"
       }
     },
+    "now-and-next": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792002009,
+        "narHash": "sha256-ATpxVOMjTvJYbUTv2eBPpylG6WBXr71SGH2yV3uKZZw=",
+        "ref": "refs/heads/main",
+        "rev": "4e4d4e22cd5a3626abf5b5220a96169634bbaab2",
+        "revCount": 2,
+        "type": "git",
+        "url": "file:///home/adamr/Adam/schedule"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/adamr/Adam/schedule"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
@@ -385,6 +405,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-latest": "nixpkgs-latest",
         "nixpkgs-stable": "nixpkgs-stable",
+        "now-and-next": "now-and-next",
         "sops-nix": "sops-nix",
         "systems": "systems_3",
         "themes": "themes",

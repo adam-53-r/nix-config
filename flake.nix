@@ -54,6 +54,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Daily schedule PWA served on msi-server (see _services/now-and-next.nix).
+    now-and-next = {
+      url = "git+file:///home/adamr/Adam/schedule";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # NixOS inside Windows WSL2 (used by the wsl host).
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";

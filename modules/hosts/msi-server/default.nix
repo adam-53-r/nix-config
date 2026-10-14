@@ -44,6 +44,7 @@
     # The prometheus service scrapes every host in the flake; plain modules in
     # ./_services can't see `self`, so hand them the host list as a module arg.
     _module.args.mynixHostNames = builtins.attrNames self.nixosConfigurations;
+    _module.args.nowAndNext = inputs.now-and-next.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     networking.hostName = "msi-server";
 
