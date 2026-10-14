@@ -8,15 +8,20 @@
   ...
 }: {
   boot = {
+    # Without a UKI, systemd skips tpm2-measure-pcr unless told to measure.
+    kernelParams = ["systemd.tpm2_measured_os=yes"];
+
     initrd = {
       # r8169 drives the RTL8126 nic (enp16s0) - needed in initrd for network.ssh below.
       # Bare metal, so no virtio_* entries (they were inherited from the
       # generated config and never matched anything here).
       availableKernelModules = ["ahci" "xhci_pci" "sd_mod" "sr_mod" "nvme" "usbhid" "usb_storage" "r8169"];
       kernelModules = ["amdgpu"];
-      # Unlock the luks root with a FIDO2 key, falling back to the passphrase.
+      # TPM2, then FIDO2 key, then passphrase. PCR binding and enrollment are
+      # in docs/remote-unlock.md. tpm2-measure-pcr also turns off the token
+      # plugins, whose FIDO2 path loops on a PIN prompt with no key present.
       luks.devices."pc" = {
-        crypttabExtraOpts = ["fido2-device=auto"];
+        crypttabExtraOpts = ["tpm2-device=auto" "tpm2-measure-pcr=yes" "fido2-device=auto"];
         allowDiscards = true;
         # Don't bounce IO through dm-crypt's kernel workqueues: on NVMe they
         # add queueing latency that makes the desktop stall under bulk
@@ -26,10 +31,9 @@
 
       # LAN-reachable sshd in stage-1, so the passphrase can be typed in
       # remotely (e.g. after a Wake-on-LAN power-on) instead of at the
-      # console. Deliberately kept interactive/knowledge-based rather than
-      # TPM2 auto-unlock, which would decrypt for anyone with the powered-on
-      # box in hand. Host key lives only at /etc/secrets/initrd on this
-      # machine (never in git) - see docs/remote-unlock.md for setup.
+      # console, for when the TPM2 token refuses. Host key lives only at
+      # /etc/secrets/initrd on this machine (never in git) - see
+      # docs/remote-unlock.md for setup.
       network = {
         enable = true;
         ssh = {

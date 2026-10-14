@@ -5,18 +5,13 @@ Two pieces, wired up in `modules/hosts/pc/_hardware.nix`:
 1. **Wake-on-LAN** on `enp16s0` (RTL8126, MAC `34:5a:60:c8:ef:1f`) - lets you
    power the box on remotely.
 2. **Initrd SSH** (`boot.initrd.network.ssh`) - lets you type the LUKS
-   passphrase remotely once it's booting, instead of at the console.
-   Deliberately kept interactive (knowledge-based) rather than TPM2
-   auto-unlock: TPM2 would decrypt for anyone with the powered-on box in
-   hand, which is a worse tradeoff for a home desktop than typing a
-   passphrase over SSH. LAN-only for now - not reachable from outside the
-   home network without a router port-forward or WireGuard-in-initrd (not
-   set up yet).
-
-Neither of these touches the LUKS header or keyslots - the existing
-FIDO2/passphrase unlock at the console is untouched. **No LUKS backup is
-required for this change.** If TPM2 enrollment happens later, do the header
-backup then (see bottom of this doc for the command).
+   passphrase remotely when the TPM2 token refuses to unlock. LAN-only for
+   now - not reachable from outside the home network without a router
+   port-forward or WireGuard-in-initrd (not set up yet).
+3. **TPM2 auto-unlock** (crypttab `tpm2-device=auto`) - the disk normally
+   unlocks itself, so a WoL power-on boots to the login screen. If the TPM2
+   token refuses, the boot falls back to the FIDO2 key, then the passphrase
+   (console or initrd SSH). See "TPM2 enrollment" at the bottom.
 
 ## One-time setup (run these yourself - all need root/BIOS access this
 session can't provide non-interactively)
@@ -101,16 +96,44 @@ ssh root@<pc-dhcp-ip>
 Consider a DHCP reservation for `enp16s0`'s MAC on your router so the initrd
 IP is predictable instead of hunting for a new lease every time.
 
-## Optional: LUKS header backup (good hygiene, not required for this change)
+## LUKS header backup (do before enrolling TPM2)
 
-Only relevant if you later enroll TPM2 or otherwise touch keyslots. Cheap to
-do now anyway:
+Do this before any keyslot operation:
 
 ```fish
-sudo cryptsetup status pc   # find the underlying device, e.g. /dev/nvme1n1p2
-sudo cryptsetup luksHeaderBackup /dev/nvme1n1pN --header-backup-file ~/pc-luks-header-(date +%F).img
+sudo cryptsetup status pc   # underlying device - nvme0n1p4 as of 2026-10
+sudo cryptsetup luksHeaderBackup /dev/nvme0n1p4 --header-backup-file ~/pc-luks-header-(date +%F).img
 chmod 600 ~/pc-luks-header-*.img
 ```
 
 Store that file somewhere off this disk (it's small, a few MB) - it's the
 thing that lets you recover if a keyslot operation ever corrupts the header.
+
+## TPM2 enrollment
+
+The token is bound to:
+
+- PCR 0: firmware code
+- PCR 1: firmware settings, SMBIOS, EFI boot entries and BootOrder
+- PCR 2/3: option ROMs (GPU VBIOS) and their config
+- PCR 5: GPT of the boot disk
+- PCR 7: Secure Boot state and keys
+- PCR 15 = 0: `tpm2-measure-pcr=yes` extends it on unlock, so the key can't
+  be unsealed a second time in the same boot. Without a UKI this needs the
+  `systemd.tpm2_measured_os=yes` kernel param.
+
+PCR 4 is not bound because limine rewrites `BOOTX64.EFI` (config hash
+enrollment) on every rebuild. That leaves BIOS "Image Execution Policy =
+Deny Execute" as the guard against unsigned EFI binaries; sbctl flags this
+board as allowing them by default (FQ0001).
+
+Re-enroll after a BIOS update, BIOS setting change, boot entry change or
+GPT change, once the boot has fallen back to FIDO2:
+
+```fish
+sudo systemd-cryptenroll /dev/nvme0n1p4 --wipe-slot=tpm2 --tpm2-device=auto \
+  --unlock-fido2-device=auto \
+  --tpm2-pcrs=0+1+2+3+5+7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
+```
+
+PCR 15 is passed as zero because the running system has already extended it.
