@@ -32,6 +32,10 @@
 
   systemd.sleep.settings.Sleep.HibernateDelaySec = "45min";
 
+  # Resuming via the HibernateLocation EFI variable gives the device inside
+  # LUKS a hardcoded 2min timeout, so a slower unlock silently drops the image.
+  boot.kernelParams = ["resumeflags=x-systemd.device-timeout=infinity"];
+
   ###### amdgpu S4 GTT swapout ##############################################
 
   # Since 6.17 amdgpu swaps all GTT buffers out on hibernate
