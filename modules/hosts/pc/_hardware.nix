@@ -93,13 +93,10 @@
   services.fwupd.enable = true;
   nixpkgs.hostPlatform.system = "x86_64-linux";
 
-  # Requires BIOS "Resume By PCI-E Device" enabled + ErP disabled. enp16s0's
-  # connection is an imperative NetworkManager profile (not nix-declared), so
-  # this declarative setting may get overridden on connection activation -
-  # verify with `ethtool enp16s0 | grep Wake-on` after a reboot, and fall
-  # back to `nmcli connection modify "Wired connection" 802-3-ethernet.wake-on-lan magic`
-  # if it doesn't stick. See docs/remote-unlock.md.
+  # Requires BIOS "Resume By PCI-E Device" enabled + ErP disabled.
   networking.interfaces.enp16s0.wakeOnLan.enable = true;
+  # 64 = magic. enp16s0's NM profile is imperative and would otherwise follow NM's default.
+  networking.networkmanager.settings.connection."ethernet.wake-on-lan" = 64;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
