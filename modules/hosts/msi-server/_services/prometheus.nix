@@ -11,6 +11,7 @@
   services = {
     prometheus = {
       enable = true;
+      listenAddress = "127.0.0.1";
       globalConfig = {
         # Scrape a bit more frequently
         scrape_interval = "30s";
@@ -71,7 +72,7 @@
       "metrics.arm53.xyz" = {
         forceSSL = true;
         useACMEHost = "metrics.arm53.xyz";
-        locations."/".proxyPass = "http://localhost:${toString config.services.prometheus.port}";
+        locations."/".proxyPass = "http://127.0.0.1:${toString config.services.prometheus.port}";
         # Prometheus has no auth of its own; grafana reaches it via localhost.
         extraConfig = ''
           allow 127.0.0.1;

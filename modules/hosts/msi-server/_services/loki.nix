@@ -6,10 +6,15 @@
       auth_enabled = false;
       server.log_level = "error";
 
+      server.http_listen_address = "127.0.0.1";
       server.http_listen_port = 3100;
+      server.grpc_listen_address = "127.0.0.1";
       server.grpc_listen_port = 9096;
 
       common = {
+        # Otherwise loki advertises the first interface it finds (wg0) and
+        # can't reach its own gRPC listener.
+        instance_addr = "127.0.0.1";
         ring = {
           kvstore.store = "inmemory";
         };
