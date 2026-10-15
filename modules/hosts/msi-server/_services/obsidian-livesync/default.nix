@@ -93,8 +93,13 @@ in {
     # and the admin hash in local.ini to every local user.
     preStart = lib.mkBefore "chmod 0700 ${dataDir}";
 
-    # epmd is spawned by couchdb itself and would otherwise listen everywhere.
-    environment.ERL_EPMD_ADDRESS = "127.0.0.1";
+    environment = {
+      # epmd is spawned by couchdb itself and would otherwise listen everywhere.
+      ERL_EPMD_ADDRESS = "127.0.0.1";
+      # Stop the schedulers spinning while idle (upstream vm.args ships these
+      # commented out). ERL_FLAGS is already taken by the module.
+      ERL_ZFLAGS = "+sbwt none +sbwtdcpu none +sbwtdio none";
+    };
 
     # No MemoryDenyWriteExecute: the BEAM JIT needs W+X pages.
     serviceConfig = {
