@@ -24,6 +24,24 @@ in {
       dbtype = "sqlite";
       adminpassFile = config.sops.secrets.nextcloud-admin-passwd.path;
     };
+    settings = {
+      "mysql.utf8mb4" = true;
+      overwriteprotocol = "https";
+      # Heavy background jobs run 01:00-05:00 UTC.
+      maintenance_window_start = 1;
+    };
+  };
+
+  # Target for `occ db:convert-type`, matching what database.createLocally
+  # sets up once dbtype is switched to mysql.
+  services.mysql = {
+    ensureDatabases = ["nextcloud"];
+    ensureUsers = [
+      {
+        name = "nextcloud";
+        ensurePermissions."nextcloud.*" = "ALL PRIVILEGES";
+      }
+    ];
   };
 
   services.nginx.virtualHosts.${hostname} = {
