@@ -65,6 +65,22 @@
 
     boot.kernel.sysctl = {
       "net.ipv6.conf.br-servers-vlan.accept_ra" = 0;
+      # The ratio defaults let ~9G of dirty pages build up in 46G of RAM, which
+      # the HDDs then flush in one long stall.
+      "vm.dirty_bytes" = 1073741824;
+      "vm.dirty_background_bytes" = 268435456;
+    };
+
+    # /nix lives on the HDDs: keep build trees on the (ephemeral) SSD root and
+    # let the daemon, GC and optimise yield to everything else.
+    nix.settings.build-dir = "/var/cache/nix-build";
+    systemd.tmpfiles.rules = ["d /var/cache/nix-build 0755 root root -"];
+    nix.daemonIOSchedClass = "idle";
+    nix.daemonCPUSchedPolicy = "batch";
+    nix.settings.auto-optimise-store = false;
+    nix.optimise = {
+      automatic = true;
+      dates = ["Sun 04:00"];
     };
 
     # Static bridge over the servers VLAN instead of NetworkManager.
