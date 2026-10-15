@@ -1,7 +1,7 @@
-# GNS3 server daemon listening on the LAN, with the console/UDP port ranges
-# it allocates to emulated devices opened in the firewall.
+# GNS3 server daemon reachable over the tailnet, with the console/UDP port
+# ranges it allocates to emulated devices opened on the tailscale interface.
 {self, ...}: {
-  flake.nixosModules.optionalGns3Server = let
+  flake.nixosModules.optionalGns3Server = {config, ...}: let
     # First port of the range allocated to devices telnet console
     console_start_port_range = 2000;
     # Last port of the range allocated to devices telnet console
@@ -30,7 +30,7 @@
       };
     };
 
-    networking.firewall = {
+    networking.firewall.interfaces.${config.services.tailscale.interfaceName} = {
       allowedTCPPorts = [
         3080
       ];
@@ -39,6 +39,8 @@
           from = console_start_port_range;
           to = console_end_port_range;
         }
+      ];
+      allowedUDPPortRanges = [
         {
           from = udp_start_port_range;
           to = udp_end_port_range;
