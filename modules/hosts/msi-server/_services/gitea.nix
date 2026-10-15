@@ -21,6 +21,7 @@ in {
       HTTP_PORT = port;
       DOMAIN = domain;
       SSH_PORT = 2222;
+      ROOT_URL = "https://${domain}";
     };
   };
 
