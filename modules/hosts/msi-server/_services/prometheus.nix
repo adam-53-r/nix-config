@@ -72,6 +72,14 @@
         forceSSL = true;
         useACMEHost = "metrics.arm53.xyz";
         locations."/".proxyPass = "http://localhost:${toString config.services.prometheus.port}";
+        # Prometheus has no auth of its own; grafana reaches it via localhost.
+        extraConfig = ''
+          allow 127.0.0.1;
+          allow ::1;
+          allow 100.64.0.0/10;
+          allow fd7a:115c:a1e0::/48;
+          deny all;
+        '';
       };
     };
   };

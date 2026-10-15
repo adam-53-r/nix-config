@@ -31,6 +31,13 @@ in {
     useACMEHost = "${config.services.nextcloud.hostName}";
     locations."/metrics" = {
       proxyPass = "http://localhost:${toString config.services.prometheus.exporters.nextcloud.port}";
+      extraConfig = ''
+        allow 127.0.0.1;
+        allow ::1;
+        allow 100.64.0.0/10;
+        allow fd7a:115c:a1e0::/48;
+        deny all;
+      '';
     };
   };
 
