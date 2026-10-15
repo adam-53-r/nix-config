@@ -17,12 +17,11 @@
     ./alloy.nix
     ./exporters.nix
     ./restic-server.nix
-    ./zammad.nix
     ./obsidian-livesync
     ./gitea.nix
     ./now-and-next.nix
-    # TODO: fix hydra, does not compile
-    # ./hydra
+    # ./zammad.nix
+    # ./hydra TODO: fix hydra, does not compile
     # ./minecraft-server.nix
     # ./plex.nix
     # ./satisfactory.nix
