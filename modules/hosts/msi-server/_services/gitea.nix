@@ -20,7 +20,6 @@ in {
       HTTP_ADDR = "127.0.0.1";
       HTTP_PORT = port;
       DOMAIN = domain;
-      SSH_PORT = 2222;
       ROOT_URL = "https://${domain}";
     };
   };
