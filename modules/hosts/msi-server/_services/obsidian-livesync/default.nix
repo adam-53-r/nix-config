@@ -5,6 +5,7 @@
 # (utils/couchdb/provision.ts) rather than a stock CouchDB install.
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -87,6 +88,44 @@ in {
   systemd.services.couchdb = {
     after = ["DATA.mount"];
     requires = ["DATA.mount"];
+
+    # The module creates the data dir world-readable, which exposed the vault
+    # and the admin hash in local.ini to every local user.
+    preStart = lib.mkBefore "chmod 0700 ${dataDir}";
+
+    # epmd is spawned by couchdb itself and would otherwise listen everywhere.
+    environment.ERL_EPMD_ADDRESS = "127.0.0.1";
+
+    # No MemoryDenyWriteExecute: the BEAM JIT needs W+X pages.
+    serviceConfig = {
+      UMask = "0077";
+      ProtectSystem = "strict";
+      ReadWritePaths = [
+        dataDir
+        (dirOf config.services.couchdb.uriFile)
+        config.services.couchdb.logFile
+      ];
+      PrivateTmp = true;
+      PrivateDevices = true;
+      ProtectHome = true;
+      NoNewPrivileges = true;
+      CapabilityBoundingSet = "";
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectKernelLogs = true;
+      ProtectControlGroups = true;
+      ProtectClock = true;
+      ProtectHostname = true;
+      ProtectProc = "invisible";
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      LockPersonality = true;
+      RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK"];
+      SystemCallArchitectures = "native";
+      # couch_file chowns the files it creates (to its own uid).
+      SystemCallFilter = ["@system-service" "~@privileged" "@chown"];
+    };
   };
 
   # `single_node` bootstraps the system databases but not the vault one.
