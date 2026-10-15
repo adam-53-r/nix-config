@@ -30,7 +30,7 @@
           secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
         };
         "auth.anonymous" = {
-          enabled = true;
+          enabled = false;
         };
         # smtp = rec {
         #   enabled = true;
