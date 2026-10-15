@@ -141,7 +141,14 @@
       };
     };
 
+    services.gns3-server.auth = {
+      enable = true;
+      user = "adamr";
+      passwordFile = config.sops.secrets.gns3-password.path;
+    };
+
     sops.secrets = {
+      gns3-password.sopsFile = ./secrets.json;
       wg-priv-key.sopsFile = ./secrets.json;
       "restic/rest/msi-server".sopsFile = ./secrets.json;
       "restic/repo-passwd".sopsFile = ./secrets.json;
