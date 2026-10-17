@@ -112,7 +112,17 @@
             natural_scroll = true;
           };
         };
-        device = [
+        device = let
+          # Caps / Shift+Caps select US / ES, so the Corne's language key can't drift out of sync.
+          # Check the names with `hyprctl devices` once the board is plugged in.
+          corne = name: {
+            inherit name;
+            kb_layout = "us,es";
+            kb_options = "grp:win_space_toggle,grp:caps_select";
+          };
+        in [
+          (corne "keebart-corne-choc-pro")
+          (corne "keebart-corne-choc-pro-keyboard")
           # {
           #   name = "keychron-keychron-v3";
           #   kb_layout = "us_intl";
