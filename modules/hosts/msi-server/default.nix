@@ -123,6 +123,13 @@
               #   prefixLength = 64;
               # }
             ];
+            routes = [
+              {
+                address = "fd16:a5f8:258::";
+                prefixLength = 48;
+                via = "fd16:a5f8:258:2::1";
+              }
+            ];
           };
         };
       };
