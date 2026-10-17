@@ -7,7 +7,8 @@
     services.keyd = {
       enable = true;
       keyboards.default = {
-        ids = ["*"];
+        # Not the Corne (QMK's default feed:0000): it has its own layout, and its Caps key selects US/ES
+        ids = ["*" "-feed:0000"];
         settings.main = {
           capslock = "esc";
           esc = "capslock";
