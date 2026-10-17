@@ -26,6 +26,7 @@
         GatewayPorts = "clientspecified";
         AcceptEnv = ["WAYLAND_DISPLAY"];
         X11Forwarding = true;
+        KbdInteractiveAuthentication = false;
       };
 
       hostKeys = [
@@ -37,9 +38,12 @@
     };
 
     # Passwordless sudo when SSH'ing with keys.
-    security.pam.sshAgentAuth = {
-      enable = true;
-      authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
+    security.pam = {
+      services.sshd.u2fAuth = false;
+      sshAgentAuth = {
+        enable = true;
+        authorizedKeysFiles = ["/etc/ssh/authorized_keys.d/%u"];
+      };
     };
   };
 }
