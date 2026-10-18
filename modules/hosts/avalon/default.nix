@@ -33,6 +33,7 @@
       self.nixosModules.diskoBtrfs
       self.nixosModules.optionalQuietboot
       self.nixosModules.optionalPlymouthHibernate
+      self.nixosModules.optionalHibernateDropCaches
       self.nixosModules.optionalSecureBoot
       self.nixosModules.optionalSnapshots
       self.nixosModules.optionalAtop
