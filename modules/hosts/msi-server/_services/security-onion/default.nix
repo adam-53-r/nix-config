@@ -57,8 +57,16 @@ in {
     };
   };
 
-  # Room for tzsp-span's socket buffer to absorb bursts.
-  boot.kernel.sysctl."net.core.rmem_max" = 16 * 1024 * 1024;
+  boot.kernel.sysctl = {
+    # Room for tzsp-span's socket buffer to absorb bursts.
+    "net.core.rmem_max" = 16 * 1024 * 1024;
+    # Copies of merged packets arrive in up to ~45 fragments, all from R1,
+    # interleaved with each other. ipfrag_max_dist would read that as
+    # reordering and throw half-assembled copies away.
+    "net.ipv4.ipfrag_max_dist" = 0;
+    "net.ipv4.ipfrag_high_thresh" = 64 * 1024 * 1024;
+    "net.ipv4.ipfrag_low_thresh" = 48 * 1024 * 1024;
+  };
 
   networking.firewall.extraInputRules = ''
     iifname "br-servers-vlan" ip saddr ${routerAddress} udp dport ${toString port} accept
