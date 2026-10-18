@@ -122,6 +122,9 @@ in {
 
   systemd.sleep.settings.Sleep.HibernateDelaySec = "45min";
 
+  # The image is compressed with 3 threads by default, which bounds the write.
+  boot.kernelParams = ["hibernate_compression_threads=6"];
+
   # Running out of battery should preserve the session rather than drop it.
   # Hibernate is the non-risky critical action, unlike Suspend, which upstream
   # gates behind allowRiskyCriticalPowerAction.

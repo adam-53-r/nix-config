@@ -34,7 +34,11 @@
 
   # Resuming via the HibernateLocation EFI variable gives the device inside
   # LUKS a hardcoded 2min timeout, so a slower unlock silently drops the image.
-  boot.kernelParams = ["resumeflags=x-systemd.device-timeout=infinity"];
+  boot.kernelParams = [
+    "resumeflags=x-systemd.device-timeout=infinity"
+    # The image is compressed with 3 threads by default, which bounds the write.
+    "hibernate_compression_threads=12"
+  ];
 
   ###### amdgpu S4 GTT swapout ##############################################
 
