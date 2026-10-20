@@ -1,4 +1,4 @@
-# "Minecraft Extremo 2" modpack server (Forge 1.18.2-40.3.0) on the oci host.
+# "Minecraft Extremo 2" modpack server (Forge 1.18.2-40.3.0) on the bebop host.
 #
 # nix-minecraft only packages vanilla/fabric/quilt/paper/purpur/velocity/
 # neoforge - classic Forge is not covered, so the dedicated-server jar is
@@ -14,7 +14,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.ociMinecraft = {
+  flake.nixosModules.bebopMinecraft = {
     pkgs,
     lib,
     ...
@@ -129,7 +129,7 @@
       '';
     };
   in {
-    key = "mynix#nixosModules.ociMinecraft";
+    key = "mynix#nixosModules.bebopMinecraft";
     imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
     nixpkgs.overlays = [inputs.nix-minecraft.overlays.default];
 
@@ -152,7 +152,7 @@
           motd = "Minecraft Extremo 2";
           difficulty = "normal";
           max-players = 10;
-          # No secrets infra on oci yet (disable-user-sops); keep RCON off so
+          # No secrets infra on bebop yet (disable-user-sops); keep RCON off so
           # nix-minecraft doesn't open an unauthenticated management port.
           enable-rcon = false;
         };

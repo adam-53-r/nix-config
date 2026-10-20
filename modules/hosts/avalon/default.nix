@@ -64,7 +64,7 @@
 
     boot = {
       kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
-      # Cross-building for the aarch64 oci host. No i686 entry: 32-bit
+      # Cross-building for the aarch64 bebop host. No i686 entry: 32-bit
       # userland comes from multilib rather than qemu-user, so registering a
       # handler for it achieves nothing.
       binfmt.emulatedSystems = ["aarch64-linux"];

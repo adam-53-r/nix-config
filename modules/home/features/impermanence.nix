@@ -4,7 +4,7 @@
 # impermanence NixOS module (pulled in via globalPersistence), so `home.persistence`
 # is already available; this feature just adds the `myPersistence.enable` toggle
 # that gates whether the colocated dirs (declared by other features) are actually
-# bind-mounted. A per-host profile flips it on for ephemeral hosts (oci) and
+# bind-mounted. A per-host profile flips it on for ephemeral hosts (bebop) and
 # leaves it off elsewhere — matching how the main-branch config toggles it.
 #
 # Per the current impermanence API the storage path is just "/persist"; the

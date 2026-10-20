@@ -57,8 +57,8 @@
   # `kernel.target`, which a buildEnv output does not carry, so the image build
   # throws instead. The merged output *does* still contain the real kernel image
   # at its root, so naming the file explicitly is all that's needed. Same
-  # workaround as the oci host's cross-arch image build — the long version of
-  # this note is in modules/hosts/oci/default.nix.
+  # workaround as the bebop host's cross-arch image build — the long version of
+  # this note is in modules/hosts/bebop/default.nix.
   disko.imageBuilder.pkgs = pkgs.extend (_final: prev: {
     vmTools = prev.vmTools.override {
       kernelImage = config.boot.kernelPackages.kernel.target;

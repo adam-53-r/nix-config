@@ -17,7 +17,7 @@
 
     networking.hostName = "vm";
     # Throwaway host: not enrolled in .sops.yaml, so it can't decrypt the
-    # shared user-password secret (mirrors oci/wsl).
+    # shared user-password secret (mirrors bebop/wsl).
     disable-user-sops = true;
 
     environment.systemPackages = with pkgs; [

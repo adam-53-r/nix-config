@@ -1,7 +1,7 @@
-# oci hardware: aarch64 Oracle Cloud free-tier VM, built as a disko image via
+# bebop hardware: aarch64 Oracle Cloud free-tier VM, built as a disko image via
 # imageBuilder cross-compiled from an x86_64 host.
 # Plain NixOS module (underscore file: skipped by import-tree), imported by
-# ociConfiguration in ./default.nix. `ociX86Pkgs` is handed in via
+# bebopConfiguration in ./default.nix. `ociX86Pkgs` is handed in via
 # `_module.args` from ./default.nix, since this plain module has no `inputs`
 # closure of its own to build it from.
 {
@@ -28,6 +28,8 @@
   };
 
   hardware.disko-btrfs = {
+    # Installed as "oci", so the root partlabel is still disk-main-oci.
+    name = "oci";
     encrypted = false;
     ephemeral = true;
   };

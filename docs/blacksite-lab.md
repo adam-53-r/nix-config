@@ -185,6 +185,6 @@ NetworkManager's applet can import the same file if a tray toggle is preferable.
   is the quick correctness check, as with every host here.
 - The first build is large: ghidra, burpsuite, the JVM targets, seclists and the
   python env dominate the closure.
-- The image build needs the same vmTools workaround as the `oci` host (disko
+- The image build needs the same vmTools workaround as the `bebop` host (disko
   hands vmTools a module-tree symlink merge with no `.target` attribute); see the
   comment in `modules/hosts/blacksite/_hardware.nix`.

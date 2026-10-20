@@ -1,7 +1,7 @@
 # Incus (the LXD fork) for full OS containers - a real init + userspace, as
 # opposed to podman's single-process containers.
 #
-# On oci this exists to host a Debian userspace for software that only ships
+# On bebop this exists to host a Debian userspace for software that only ships
 # .deb packages and insists on owning systemd: CubeCoders AMP's `ampinstmgr`
 # writes one systemd unit per game-server instance, so it needs systemd as PID
 # 1 and a writable /etc/systemd/system. That rules out running it on NixOS
@@ -9,7 +9,7 @@
 # out Docker/Podman, which don't provide a real init.
 #
 # Incus asserts hard against the iptables firewall backend upstream, so any
-# host importing this must be on nftables. oci already sets
+# host importing this must be on nftables. bebop already sets
 # `networking.firewall.backend = "nftables"`; the assertion fires loudly rather
 # than misbehaving quietly if that ever changes, so it is not forced here -
 # flipping a host's whole firewall backend from a feature module would be a
@@ -46,7 +46,7 @@
               # tailscale's 100.64/10.
               "ipv4.address" = "10.108.0.1/24";
               "ipv4.nat" = "true";
-              # oci's upstream is IPv4-only NAT; a ULA on the bridge would just
+              # bebop's upstream is IPv4-only NAT; a ULA on the bridge would just
               # add route noise and give containers unreachable AAAA records.
               "ipv6.address" = "none";
             };

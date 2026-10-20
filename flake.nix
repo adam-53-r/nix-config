@@ -48,7 +48,7 @@
     };
 
     # Minecraft server management (systemd hardening, dataDir, symlinks/files
-    # for mods+configs, ...). Used by the oci host's Minecraft module.
+    # for mods+configs, ...). Used by the bebop host's Minecraft module.
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";

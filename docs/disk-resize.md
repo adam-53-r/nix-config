@@ -1,13 +1,14 @@
 # OCI disk live-resize
 
-The `oci` host image is built at ~8GB (the disko image-builder size), but the
+The `bebop` host image is built at ~8GB (the disko image-builder size), but the
 OCI block/boot volume is provisioned larger (e.g. 50GB). The `100%` partition
 size in `disko-btrfs.nix` only applies at **image-build time**, so a running
 instance does not auto-fill the volume. Grow it online — no reboot needed.
 
 Layout: plain btrfs (`encrypted = false`), GPT partition **1** = 1G ESP,
-partition **2** = main btrfs (`disk-main-oci`). The btrfs root is mounted, so
-the whole operation is online.
+partition **2** = main btrfs (`disk-main-oci`, the pre-rename name pinned via
+`hardware.disko-btrfs.name`). The btrfs root is mounted, so the whole operation
+is online.
 
 ```sh
 # 1. confirm the device + partition number

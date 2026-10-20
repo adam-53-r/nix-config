@@ -1,5 +1,5 @@
-# Hytale dedicated server on the oci host, alongside the existing Minecraft
-# modpack server (oci is VM.Standard.A1.Flex: 4 OCPUs / 24GB RAM, comfortable
+# Hytale dedicated server on the bebop host, alongside the existing Minecraft
+# modpack server (bebop is VM.Standard.A1.Flex: 4 OCPUs / 24GB RAM, comfortable
 # headroom for both).
 #
 # The Hytale downloader CLI has no arm64 build (only
@@ -17,8 +17,8 @@
 # .hytale-downloader-credentials.json (from its OAuth device-flow login) must
 # be placed by hand under ${dataDir}/downloader/.
 {self, ...}: {
-  flake.nixosModules.ociHytale = {...}: {
-    key = "mynix#nixosModules.ociHytale";
+  flake.nixosModules.bebopHytale = {...}: {
+    key = "mynix#nixosModules.bebopHytale";
     imports = [
       self.nixosModules.hytaleServer
     ];

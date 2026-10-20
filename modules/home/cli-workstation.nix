@@ -1,5 +1,5 @@
 # Dev-workstation CLI layer on top of cliBase: everything main's
-# home/adamr/features/cli/ carried that a headless server (oci, and root on
+# home/adamr/features/cli/ carried that a headless server (bebop, and root on
 # any host) has no use for — embedded/infra tooling, profilers, a few extra
 # shells/program configs, and xpo. Imported by adamr@pc only.
 #

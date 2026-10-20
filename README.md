@@ -45,7 +45,7 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 | `pc` | AMD desktop workstation | Hyprland (uwsm) + Cinnamon fallback, LUKS + fido2/TPM, secure boot, ephemeral btrfs |
 | `avalon` | MSI GS65 Stealth 8SF laptop | travel/dev machine: Intel + Nvidia PRIME offload (no RTD3 — the firmware has no _PR3), limine secure boot, TLP + msi-ec, hibernation |
 | `msi-server` | repurposed MSI Nightblade MI2 | headless, full self-hosted service stack, servers VLAN bridge |
-| `oci` | Oracle Cloud free-tier VM | aarch64, disko cross-arch image build, serial console, Minecraft server |
+| `bebop` | Oracle Cloud free-tier VM | aarch64, disko cross-arch image build, serial console, Minecraft server |
 | `vm` | throwaway test VM | minimal, for fast `nix eval` / sanity checks |
 | `blacksite` | cybersecurity practice lab | guest on `pc`, XFCE, Kali-style toolbox + vulnerable targets ([docs](docs/blacksite-lab.md)) |
 | `wsl` | NixOS on WSL2 | no disk/persistence concerns, work identity |
@@ -79,7 +79,7 @@ modules/
                            networking, yubikey, tpm, ...
       optional/            opt-in host features: docker, libvirtd, nginx,
                            disko-btrfs, steam, snapshots, ...
-    pc/, avalon/, msi-server/, oci/, vm/, blacksite/, wsl/
+    pc/, avalon/, msi-server/, bebop/, vm/, blacksite/, wsl/
                            one directory per host
 overlays/                nixpkgs overlays (flake-inputs alias, stable
                          channel, custom package patches)
@@ -135,7 +135,7 @@ remote system from scratch.
 
 ### Validating without hardware
 
-Can't build the aarch64 `oci` host locally, and building the desktop hosts
+Can't build the aarch64 `bebop` host locally, and building the desktop hosts
 fully is slow. For a quick correctness check, evaluate the toplevel
 derivation path for any host — this catches option-type errors, missing
 `self.nixosModules.*` references, and infinite recursion without building
@@ -172,7 +172,7 @@ Daily drivers:
 
 Some of the things I self-host:
 
-- Minecraft (a modded Forge server on the `oci` host)
+- Minecraft (a modded Forge server on the `bebop` host)
 - a nix binary cache
 
 Nixy stuff:

@@ -38,12 +38,12 @@ in {
   flake.deploy = {
     sshOpts = ["-A"];
     nodes = {
-      oci =
+      bebop =
         mkNode {
-          hostname = "oci";
+          hostname = "bebop";
           system = "aarch64-linux";
         }
-        self.nixosConfigurations.oci;
+        self.nixosConfigurations.bebop;
       pc =
         mkNode {
           hostname = "pc";

@@ -27,12 +27,12 @@
     ];
   };
 in {
-  flake.nixosModules.ociConfiguration = {
+  flake.nixosModules.bebopConfiguration = {
     pkgs,
     lib,
     ...
   }: {
-    key = "mynix#nixosModules.ociConfiguration";
+    key = "mynix#nixosModules.bebopConfiguration";
     imports = [
       self.nixosModules.diskoBtrfs
       self.nixosModules.ociRuntime
@@ -54,22 +54,22 @@ in {
       self.nixosModules.optionalIncus
 
       # Tailnet access to the AMP panel running in that container.
-      self.nixosModules.ociAmp
+      self.nixosModules.bebopAmp
 
       # Minecraft Extremo 2 modpack server. Superseded by AMP running in the
       # incus container (optionalIncus) - left importable rather than deleted
       # so the hand-built Forge FOD in minecraft.nix stays available.
-      # self.nixosModules.ociMinecraft
+      # self.nixosModules.bebopMinecraft
 
       # Hytale dedicated server.
-      # self.nixosModules.ociHytale
+      # self.nixosModules.bebopHytale
 
       ./_hardware.nix
     ];
 
     _module.args.ociX86Pkgs = x86Pkgs;
 
-    networking.hostName = "oci";
+    networking.hostName = "bebop";
 
     # No sops-encrypted user password secret on this host yet; rely on ssh-key
     # login + passwordless wheel sudo. Flip this off once a secrets file exists.

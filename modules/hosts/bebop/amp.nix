@@ -7,7 +7,7 @@
 # meaningful way to declare that from nix. What IS declared here is the only
 # part the host is responsible for: letting the tailnet reach it.
 #
-# AMP is reachable via incus `proxy` devices bound to oci's tailscale address
+# AMP is reachable via incus `proxy` devices bound to bebop's tailscale address
 # rather than 0.0.0.0, so nothing is exposed publicly and no Oracle security
 # list rule is needed:
 #   incus config device add amp panel proxy \
@@ -18,8 +18,8 @@
 # Those devices only get the packets to the host - the host firewall still has
 # to admit them on the tailscale interface, which is what this module does.
 {
-  flake.nixosModules.ociAmp = {config, ...}: {
-    key = "mynix#nixosModules.ociAmp";
+  flake.nixosModules.bebopAmp = {config, ...}: {
+    key = "mynix#nixosModules.bebopAmp";
 
     networking.firewall.interfaces."${config.services.tailscale.interfaceName}" = {
       allowedTCPPorts = [

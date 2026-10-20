@@ -42,7 +42,7 @@
     networking.hostName = "blacksite";
 
     # Not enrolled in .sops.yaml (it has no host key until it's installed), so
-    # it can't decrypt the shared adamr-password secret — same as vm/oci/wsl.
+    # it can't decrypt the shared adamr-password secret — same as vm/bebop/wsl.
     disable-user-sops = true;
 
     # ...which leaves the account with no password at all, and none is set here

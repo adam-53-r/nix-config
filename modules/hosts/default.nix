@@ -19,9 +19,9 @@
         self.nixosModules.blacksiteConfiguration
       ];
     };
-    oci = inputs.nixpkgs.lib.nixosSystem {
+    bebop = inputs.nixpkgs.lib.nixosSystem {
       modules = [
-        self.nixosModules.ociConfiguration
+        self.nixosModules.bebopConfiguration
       ];
     };
     msi-server = inputs.nixpkgs.lib.nixosSystem {
