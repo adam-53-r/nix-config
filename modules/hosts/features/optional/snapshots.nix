@@ -59,12 +59,12 @@
     };
 
     systemd.services.mount-snapshots = let
-      hostname = config.networking.hostName;
-      encrypted = config.disko.devices.disk.main.content.partitions."${hostname}".content.type == "luks";
-      partName = "disk-main-${hostname}";
+      inherit (config.hardware.disko-btrfs) name;
+      encrypted = config.disko.devices.disk.main.content.partitions."${name}".content.type == "luks";
+      partName = "disk-main-${name}";
       partition =
         if encrypted
-        then "/dev/mapper/${hostname}"
+        then "/dev/mapper/${name}"
         else "/dev/disk/by-partlabel/${partName}";
     in {
       description = "Ensure .snapshots subvolumes exist and are mounted before snapper runs";

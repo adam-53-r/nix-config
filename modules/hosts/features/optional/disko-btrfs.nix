@@ -6,7 +6,7 @@
     ...
   }: let
     cfg = config.hardware.disko-btrfs;
-    hostname = config.networking.hostName;
+    inherit (cfg) name;
 
     btrfsContent = {
       type = "btrfs";
@@ -49,15 +49,15 @@
       if cfg.encrypted
       then {
         type = "luks";
-        name = "${hostname}";
+        inherit name;
         content = btrfsContent;
       }
       else btrfsContent;
 
     devicePath =
       if cfg.encrypted
-      then "/dev/mapper/${hostname}"
-      else "/dev/disk/by-partlabel/disk-main-${hostname}";
+      then "/dev/mapper/${name}"
+      else "/dev/disk/by-partlabel/disk-main-${name}";
 
     wipeScript = ''
       mkdir /tmp -p
@@ -97,12 +97,12 @@
     '';
 
     useSystemdInitrd = config.boot.initrd.systemd.enable;
-    escapedHostname = lib.strings.escapeC ["-"] hostname;
-    escapedPartName = lib.strings.escapeC ["-"] "disk-main-${hostname}";
+    escapedName = lib.strings.escapeC ["-"] name;
+    escapedPartName = lib.strings.escapeC ["-"] "disk-main-${name}";
 
     deviceUnit =
       if cfg.encrypted
-      then "dev-mapper-${escapedHostname}.device"
+      then "dev-mapper-${escapedName}.device"
       else "dev-disk-by\\x2dpartlabel-${escapedPartName}.device";
   in {
     key = "mynix#nixosModules.diskoBtrfs";
@@ -111,6 +111,13 @@
     ];
 
     options.hardware.disko-btrfs = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = config.networking.hostName;
+        defaultText = lib.literalExpression "config.networking.hostName";
+        example = "oci";
+        description = "Name of the main partition, which sets its partlabel (disk-main-<name>) and LUKS mapper name. Pin it to the old hostname when renaming an installed host, or it will no longer find its root device.";
+      };
       encrypted = lib.mkEnableOption "LUKS encryption for the main partition";
       ephemeral = lib.mkEnableOption "ephemeral root via btrfs snapshot rollback (impermanence)";
       preWipeSnapshotCount = lib.mkOption {
@@ -150,7 +157,7 @@
               };
             };
 
-            "${hostname}" = {
+            "${name}" = {
               size = "100%";
               content = mainPartitionContent;
             };
