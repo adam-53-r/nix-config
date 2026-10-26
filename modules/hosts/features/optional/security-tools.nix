@@ -185,7 +185,8 @@
       ghidra
       radare2
       rizin
-      cutter
+      # Qt 6.12 uic rejects cutter 2.5.0's templated .ui class names.
+      stable.cutter
       # debuggers
       gdb
       gef
