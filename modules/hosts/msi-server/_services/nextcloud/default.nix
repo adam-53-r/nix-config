@@ -23,7 +23,6 @@ in {
     database.createLocally = true;
     config = {
       dbtype = "mysql";
-      adminpassFile = config.sops.secrets.nextcloud-admin-passwd.path;
     };
     settings = {
       "mysql.utf8mb4" = true;

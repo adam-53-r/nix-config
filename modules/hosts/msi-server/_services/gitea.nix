@@ -19,7 +19,6 @@ in {
     settings.server = {
       HTTP_ADDR = "127.0.0.1";
       HTTP_PORT = port;
-      DOMAIN = domain;
       ROOT_URL = "https://${domain}";
     };
   };

@@ -5,7 +5,11 @@
     package = pkgs.ollama-rocm;
   };
 
-  services.open-webui.enable = true;
+  services.open-webui = {
+    enable = true;
+    # Unstable's python3Packages.posthog is marked broken against mcp 2.x.
+    package = pkgs.stable.open-webui;
+  };
 
   environment.persistence."/persist".directories = [
     "/var/lib/private/ollama"
@@ -14,5 +18,4 @@
     # silently wiped on every reboot.
     "/var/lib/private/open-webui"
   ];
-
 }

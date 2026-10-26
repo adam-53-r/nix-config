@@ -15,7 +15,6 @@
       self.nixosModules.globalPersistence
       self.nixosModules.globalNodeExporter
       self.nixosModules.globalSwappiness
-      self.nixosModules.globalSystemdInitrd
       self.nixosModules.globalNixLd
       self.nixosModules.globalMtr
       self.nixosModules.globalAcme

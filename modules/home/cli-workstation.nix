@@ -31,6 +31,7 @@
 
       programs.nushell = {
         enable = true;
+        loadSessionVariables = false;
         extraConfig =
           /*
           nu
@@ -131,9 +132,9 @@
             ".claude"
           ]
           ++ lib.optionals config.myWine.enable [".wine"];
-          files = [
-            ".claude.json"
-          ];
+        files = [
+          ".claude.json"
+        ];
       };
 
       home.packages = with pkgs;

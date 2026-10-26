@@ -65,10 +65,6 @@
           "vt.global_cursor_default=0"
         ];
         consoleLogLevel = 0;
-        initrd.verbose = false;
-        # Needed so plymouth covers the initrd stage too, not just after
-        # switch-root, otherwise the video only starts partway through boot.
-        initrd.systemd.enable = true;
       };
     };
   };

@@ -157,7 +157,7 @@
       # active directory
       kerbrute
       certipy
-      bloodhound
+      bloodhound-ce
       bloodhound-py
       # pivoting / tunnelling
       chisel

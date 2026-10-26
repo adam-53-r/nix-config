@@ -59,7 +59,7 @@
       gparted
       libreoffice
       pavucontrol
-      pokemmo-installer
+      pokemmo
       postman
       qbittorrent
       restic

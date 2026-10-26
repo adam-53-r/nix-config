@@ -96,7 +96,6 @@
       )
     '';
 
-    useSystemdInitrd = config.boot.initrd.systemd.enable;
     escapedName = lib.strings.escapeC ["-"] name;
     escapedPartName = lib.strings.escapeC ["-"] "disk-main-${name}";
 
@@ -170,8 +169,7 @@
 
       boot.initrd = lib.mkIf cfg.ephemeral {
         supportedFilesystems = ["btrfs"];
-        postDeviceCommands = lib.mkIf (!useSystemdInitrd) (lib.mkBefore wipeScript);
-        systemd.services.restore-root = lib.mkIf useSystemdInitrd {
+        systemd.services.restore-root = {
           description = "Rollback btrfs rootfs";
           wantedBy = ["initrd.target"];
           requires = [deviceUnit];
