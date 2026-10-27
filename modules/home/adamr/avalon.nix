@@ -86,11 +86,11 @@
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [
           "qemu:///system"
-          "qemu+ssh://adamr@msi-server/system"
+          "qemu+ssh://adamr@nostromo/system"
         ];
         uris = [
           "qemu:///system"
-          "qemu+ssh://adamr@msi-server/system"
+          "qemu+ssh://adamr@nostromo/system"
         ];
       };
     };

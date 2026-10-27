@@ -1,4 +1,4 @@
-# msi-server hardware: Intel laptop-turned-server booting systemd-boot from
+# nostromo hardware: Intel laptop-turned-server booting systemd-boot from
 # /dev/sda (diskoBtrfs layout, ephemeral, unencrypted), with the bulk storage
 # on a separate btrfs disk labelled DATA — which also hosts /nix (mkForce
 # overriding diskoBtrfs's nix subvolume mount).

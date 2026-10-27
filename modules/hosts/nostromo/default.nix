@@ -1,4 +1,4 @@
-# The msi-server host: headless home server on the servers VLAN, running the
+# The nostromo host: headless home server on the servers VLAN, running the
 # self-hosted stack (nginx-fronted services, monitoring, game servers) with an
 # ephemeral btrfs root and the heavy state on the DATA disk.
 {
@@ -6,13 +6,13 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.msiServerConfiguration = {
+  flake.nixosModules.nostromoConfiguration = {
     config,
     pkgs,
     lib,
     ...
   }: {
-    key = "mynix#nixosModules.msiServerConfiguration";
+    key = "mynix#nixosModules.nostromoConfiguration";
 
     imports = [
       inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -46,9 +46,13 @@
     _module.args.mynixHostNames = builtins.attrNames self.nixosConfigurations;
     _module.args.nowAndNext = inputs.now-and-next.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-    networking.hostName = "msi-server";
+    networking.hostName = "nostromo";
 
-    hardware.disko-btrfs.ephemeral = true;
+    hardware.disko-btrfs = {
+      # Keeps the disk-main-msi-server partlabel from before the rename.
+      name = "msi-server";
+      ephemeral = true;
+    };
 
     networking.hosts = {
       "127.0.0.1" = lib.attrNames config.services.nginx.virtualHosts;
@@ -256,6 +260,8 @@
     '';
 
     services.restic.backups.persist = {
+      # The rest-server repo and user still carry the pre-rename name.
+      repository = "rest:https://restic.arm53.xyz/msi-server/persist";
       exclude = [];
       passwordFile = config.sops.secrets."restic/repo-passwd".path;
       environmentFile = config.sops.templates."restic-server-auth".path;

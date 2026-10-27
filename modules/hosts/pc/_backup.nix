@@ -1,4 +1,4 @@
-# Restic backups of /persist to msi-server's rest-server.
+# Restic backups of /persist to nostromo's rest-server.
 {config, ...}: {
   services.restic.backups.persist = {
     exclude = [

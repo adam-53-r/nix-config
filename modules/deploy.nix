@@ -50,12 +50,12 @@ in {
           system = "x86_64-linux";
         }
         self.nixosConfigurations.pc;
-      msi-server =
+      nostromo =
         mkNode {
-          hostname = "msi-server";
+          hostname = "nostromo";
           system = "x86_64-linux";
         }
-        self.nixosConfigurations.msi-server;
+        self.nixosConfigurations.nostromo;
       avalon =
         mkNode {
           hostname = "avalon";

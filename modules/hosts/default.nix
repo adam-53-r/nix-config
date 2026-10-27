@@ -24,9 +24,9 @@
         self.nixosModules.bebopConfiguration
       ];
     };
-    msi-server = inputs.nixpkgs.lib.nixosSystem {
+    nostromo = inputs.nixpkgs.lib.nixosSystem {
       modules = [
-        self.nixosModules.msiServerConfiguration
+        self.nixosModules.nostromoConfiguration
       ];
     };
     avalon = inputs.nixpkgs.lib.nixosSystem {

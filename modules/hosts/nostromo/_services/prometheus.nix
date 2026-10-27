@@ -33,7 +33,7 @@
         {
           job_name = "nginx";
           scheme = "https";
-          static_configs = [{targets = ["msi-server.arm53.xyz"];}];
+          static_configs = [{targets = ["nostromo.arm53.xyz"];}];
         }
         {
           job_name = "nextcloud";

@@ -1,6 +1,6 @@
 # WireGuard server end of the adamr road-warrior tunnel (the pc host is the
 # client peer). The private key is generated on-host unless the host overrides
-# privateKeyFile (msi-server pins it to a sops secret).
+# privateKeyFile (nostromo pins it to a sops secret).
 {
   flake.nixosModules.optionalWireguardServer = {
     lib,

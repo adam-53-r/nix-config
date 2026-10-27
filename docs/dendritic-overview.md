@@ -98,14 +98,14 @@ modules/
                               cinnamon, networking, yubikey, tpm, ...)
       optional/               opt-in host features (docker, libvirtd, nginx,
                               disko-btrfs, steam, snapshots, ...)
-    pc/, avalon/, msi-server/, bebop/, vm/, blacksite/, wsl/
+    pc/, avalon/, nostromo/, bebop/, vm/, blacksite/, wsl/
                               one dir per host; default.nix is the flake
                               module, "_"-prefixed files (_hardware.nix,
                               _services/, _ai.nix, _ups.nix) are plain NixOS
                               modules import-tree skips, imported by that
                               host's default.nix directly.
   deploy.nix                 deploy-rs targets (`flake.deploy.nodes.<host>`),
-                              currently `pc`, `msi-server`, `avalon` and `bebop`
+                              currently `pc`, `nostromo`, `avalon` and `bebop`
 overlays/                     nixpkgs overlays (flake-inputs alias, stable
                               channel, custom package patches)
 pkgs/                         custom package derivations
@@ -129,7 +129,7 @@ relative path instead (`./_hardware.nix`, `./_services`).
 |---|---|---|
 | `pc` | desktop, **live/deployed** | AMD, Hyprland+uwsm, LUKS+fido2, ephemeral btrfs, secure boot |
 | `avalon` | laptop | Intel+Nvidia PRIME offload, no RTD3 (battery-saver specialisation is the dGPU off switch), limine secure boot, TLP + thermald + msi-ec, hibernation |
-| `msi-server` | home server | headless, full self-hosted service stack, servers-vlan bridge |
+| `nostromo` | home server | headless, full self-hosted service stack, servers-vlan bridge |
 | `bebop` | Oracle free-tier VM | aarch64, disko image build, serial console |
 | `vm` | test VM | minimal, for `nix eval`/quick checks |
 | `blacksite` | security practice lab | qemu guest on pc, XFCE, ephemeral+unencrypted, `build-vm` **and** disko image ([docs](blacksite-lab.md)) |
@@ -188,7 +188,7 @@ committing.
 ## Where to look for "why", not just "what"
 
 The phase-by-phase migration log that used to live at `docs/pc-migration.md`
-has been retired now that every host (`pc`, `avalon`, `msi-server`, `bebop`,
+has been retired now that every host (`pc`, `avalon`, `nostromo`, `bebop`,
 `vm`, `wsl`) is ported and evaluates clean — its "non-goals: later" section
 was written when only `pc` was in scope and no longer reflects reality. For
 the "why" behind a specific decision or bug fixed during the port (waypipe's

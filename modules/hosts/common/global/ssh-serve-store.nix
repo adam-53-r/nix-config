@@ -1,5 +1,5 @@
 # Serve this host's nix store over SSH (nix-serve style, via nix.sshServe),
-# so other hosts (e.g. msi-server) can substitute/remote-build against it.
+# so other hosts (e.g. nostromo) can substitute/remote-build against it.
 # Shared by every host; keys are pulled straight from the host's own openssh
 # server config (userAdamr's authorized_keys) so the two never drift apart.
 {...}: {

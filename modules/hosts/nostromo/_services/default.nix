@@ -1,4 +1,4 @@
-# msi-server's service stack. Plain NixOS modules (the _services dir is
+# nostromo's service stack. Plain NixOS modules (the _services dir is
 # skipped by import-tree); the optional feature modules they build on
 # (nginx, mysql, fail2ban, gns3-server, tailscale-exit-node) are imported in
 # the host's default.nix where `self` is in scope.

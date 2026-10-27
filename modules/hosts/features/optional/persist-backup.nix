@@ -9,7 +9,7 @@
     key = "mynix#nixosModules.optionalPersistBackup";
 
     services.restic.backups.persist = {
-      repository = "rest:https://restic.arm53.xyz/${config.networking.hostName}/persist";
+      repository = lib.mkDefault "rest:https://restic.arm53.xyz/${config.networking.hostName}/persist";
       paths = lib.mkDefault [
         "/persist/"
       ];

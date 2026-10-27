@@ -1,7 +1,7 @@
-# Per-host home profile: adamr on the msi-server home server. Headless — the
+# Per-host home profile: adamr on the nostromo home server. Headless — the
 # host-agnostic base plus syncthing; state persists (the host has /persist).
 {self, ...}: {
-  flake.homeModules."adamr@msi-server" = {pkgs, ...}: {
+  flake.homeModules."adamr@nostromo" = {pkgs, ...}: {
     imports = [
       self.homeModules.adamrHome
     ];

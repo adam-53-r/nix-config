@@ -8,7 +8,7 @@ keys:
   - &hosts:
     - &avalon age1hwpskrn0lasm9ljzve87q780ahpngyuxaxatk9ja2lemdv0kygcqen744t
     - &pc age1h5f37l0l9mn24s76mj703y20s65kr7a4ym7xkh55js4gf476fy3sj3hlex
-    - &msi-server age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
+    - &nostromo age1l4pd7yy0qpgvakwec9f8xzcys70q5uf48n7fw6j3p6csryl6lu4qzc6jfh
 
 creation_rules:
   # Shared user secrets (account passwords, wireguard psk) — encrypted to every
@@ -18,7 +18,7 @@ creation_rules:
       - age:
           - *avalon
           - *pc
-          - *msi-server
+          - *nostromo
         pgp:
           - *yubikey1
           - *yubikey2
@@ -39,12 +39,12 @@ creation_rules:
           - *yubikey1
           - *yubikey2
 
-  # Any secrets.<ext> or *.sops file under msi-server (the service stack keeps
+  # Any secrets.<ext> or *.sops file under nostromo (the service stack keeps
   # per-service secrets next to the service module).
-  - path_regex: modules/hosts/msi-server/.*(secrets.(yaml|json|env|ini)|.*.sops)$
+  - path_regex: modules/hosts/nostromo/.*(secrets.(yaml|json|env|ini)|.*.sops)$
     key_groups:
       - age:
-          - *msi-server
+          - *nostromo
         pgp:
           - *yubikey1
           - *yubikey2
