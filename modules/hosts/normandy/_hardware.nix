@@ -1,7 +1,7 @@
-# pc hardware: AMD cpu+gpu desktop, luks+btrfs on nvme (layout owned by
+# normandy hardware: AMD cpu+gpu desktop, luks+btrfs on nvme (layout owned by
 # diskoBtrfs), limine boot with a Windows chainload entry.
 # Plain NixOS module (underscore file: skipped by import-tree), imported by
-# pcConfiguration in ./default.nix.
+# normandyConfiguration in ./default.nix.
 {
   config,
   lib,
@@ -66,7 +66,7 @@
     };
   };
 
-  # pc's root is ephemeral (wiped every boot) - without this, the initrd ssh
+  # normandy's root is ephemeral (wiped every boot) - without this, the initrd ssh
   # host key above would vanish on reboot and the next rebuild would silently
   # embed nothing. Mirrors desktopNetworking's NetworkManager persistence.
   environment.persistence."/persist".directories = [

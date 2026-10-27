@@ -1,6 +1,6 @@
 # Per-host home profile: adamr on the avalon laptop.
 #
-# Diverges from adamr@pc in three ways, all following from this being a
+# Diverges from adamr@normandy in three ways, all following from this being a
 # portable machine: no games layer, a single-panel monitor layout that lets
 # Hyprland auto-configure whatever gets plugged in, and a session pinned to
 # the Intel iGPU to keep work off the dGPU (see _hardware.nix).

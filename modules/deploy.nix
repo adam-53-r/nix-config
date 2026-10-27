@@ -44,12 +44,12 @@ in {
           system = "aarch64-linux";
         }
         self.nixosConfigurations.bebop;
-      pc =
+      normandy =
         mkNode {
-          hostname = "pc";
+          hostname = "normandy";
           system = "x86_64-linux";
         }
-        self.nixosConfigurations.pc;
+        self.nixosConfigurations.normandy;
       nostromo =
         mkNode {
           hostname = "nostromo";

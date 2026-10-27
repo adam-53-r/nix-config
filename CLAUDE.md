@@ -1,6 +1,6 @@
 # Always use a worktree in this repo
 
-`pc` (the machine this repo normally lives on) runs impermanence: `/` and
+`normandy` (the machine this repo normally lives on) runs impermanence: `/` and
 `$HOME` are wiped on every reboot. Only paths under `home.persistence."/persist"`
 survive — that includes `~/mynix` itself (it's a bind mount from `/persist`),
 but **not** arbitrary directories like `/tmp` or a stray `~/some-dir`.

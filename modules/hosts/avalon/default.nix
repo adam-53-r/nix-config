@@ -5,7 +5,7 @@
 # lid over raw throughput. The dGPU is left to PRIME offload (_hardware.nix),
 # power/thermal/battery-health policy lives in _power.nix, and the machine
 # hibernates onto an encrypted swapfile rather than dying flat. The desktop is
-# the same Hyprland (uwsm) session as pc, on an encrypted ephemeral btrfs root
+# the same Hyprland (uwsm) session as normandy, on an encrypted ephemeral btrfs root
 # with limine + secure boot.
 {
   self,
@@ -72,7 +72,7 @@
 
     services.displayManager.defaultSession = "hyprland-uwsm";
 
-    # Distinguish this host's login screen from pc's pixel_sakura.
+    # Distinguish this host's login screen from normandy's pixel_sakura.
     # `cyberpunk.conf` and `post-apocalyptic_hacker.conf` are the other dark
     # variants in the astronaut set.
     services.displayManager.sddm.astronaut-theme.config = lib.mkForce "black_hole.conf";
@@ -86,7 +86,7 @@
     # refuses to coexist with TLP. TLP wins here (see _power.nix).
     services.power-profiles-daemon.enable = lib.mkForce false;
 
-    # gpg-agent as ssh-agent on this host (pc leaves it off).
+    # gpg-agent as ssh-agent on this host (normandy leaves it off).
     programs.gnupg.agent.enableSSHSupport = true;
 
     # Installed fresh on 26.11, so there is no legacy state to stay compatible

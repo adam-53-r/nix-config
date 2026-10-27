@@ -98,14 +98,14 @@ modules/
                               cinnamon, networking, yubikey, tpm, ...)
       optional/               opt-in host features (docker, libvirtd, nginx,
                               disko-btrfs, steam, snapshots, ...)
-    pc/, avalon/, nostromo/, bebop/, vm/, blacksite/, wsl/
+    normandy/, avalon/, nostromo/, bebop/, vm/, blacksite/, wsl/
                               one dir per host; default.nix is the flake
                               module, "_"-prefixed files (_hardware.nix,
                               _services/, _ai.nix, _ups.nix) are plain NixOS
                               modules import-tree skips, imported by that
                               host's default.nix directly.
   deploy.nix                 deploy-rs targets (`flake.deploy.nodes.<host>`),
-                              currently `pc`, `nostromo`, `avalon` and `bebop`
+                              currently `normandy`, `nostromo`, `avalon` and `bebop`
 overlays/                     nixpkgs overlays (flake-inputs alias, stable
                               channel, custom package patches)
 pkgs/                         custom package derivations
@@ -127,15 +127,15 @@ relative path instead (`./_hardware.nix`, `./_services`).
 
 | Host | Purpose | Notes |
 |---|---|---|
-| `pc` | desktop, **live/deployed** | AMD, Hyprland+uwsm, LUKS+fido2, ephemeral btrfs, secure boot |
+| `normandy` | desktop, **live/deployed** | AMD, Hyprland+uwsm, LUKS+fido2, ephemeral btrfs, secure boot |
 | `avalon` | laptop | Intel+Nvidia PRIME offload, no RTD3 (battery-saver specialisation is the dGPU off switch), limine secure boot, TLP + thermald + msi-ec, hibernation |
 | `nostromo` | home server | headless, full self-hosted service stack, servers-vlan bridge |
 | `bebop` | Oracle free-tier VM | aarch64, disko image build, serial console |
 | `vm` | test VM | minimal, for `nix eval`/quick checks |
-| `blacksite` | security practice lab | qemu guest on pc, XFCE, ephemeral+unencrypted, `build-vm` **and** disko image ([docs](blacksite-lab.md)) |
+| `blacksite` | security practice lab | qemu guest on normandy, XFCE, ephemeral+unencrypted, `build-vm` **and** disko image ([docs](blacksite-lab.md)) |
 | `wsl` | WSL2 NixOS | no disk/persistence concerns, work identity |
 
-Only `pc` has actually been switched to on real hardware. The rest evaluate
+Only `normandy` has actually been switched to on real hardware. The rest evaluate
 cleanly (`nix eval .#nixosConfigurations.<host>.config.system.build.toplevel.drvPath`)
 but haven't been built/deployed from this branch yet.
 
@@ -149,7 +149,7 @@ these first when tracing what a host actually gets:
   tailscale, auto-upgrade, overlays applied here.
 - `desktopBase` (`modules/hosts/features/desktop/default.nix`) — globalDefaults
   + the whole desktop stack (sddm, hyprland, cinnamon fallback, pipewire,
-  printing, networking, keyd, yubikey, tpm, kdeconnect, pass). Used by `pc`
+  printing, networking, keyd, yubikey, tpm, kdeconnect, pass). Used by `normandy`
   and `avalon`.
 - `diskoBtrfs` (`modules/hosts/features/optional/disko-btrfs.nix`) — btrfs +
   ephemeral-root rollback + optional LUKS, parameterized by hostname.
@@ -188,7 +188,7 @@ committing.
 ## Where to look for "why", not just "what"
 
 The phase-by-phase migration log that used to live at `docs/pc-migration.md`
-has been retired now that every host (`pc`, `avalon`, `nostromo`, `bebop`,
+has been retired now that every host (`normandy`, `avalon`, `nostromo`, `bebop`,
 `vm`, `wsl`) is ported and evaluates clean — its "non-goals: later" section
 was written when only `pc` was in scope and no longer reflects reality. For
 the "why" behind a specific decision or bug fixed during the port (waypipe's

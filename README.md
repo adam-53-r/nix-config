@@ -42,12 +42,12 @@ central `imports = [...]` list to keep in sync — drop a file anywhere under
 
 | Host | Purpose | Notes |
 |---|---|---|
-| `pc` | AMD desktop workstation | Hyprland (uwsm) + Cinnamon fallback, LUKS + fido2/TPM, secure boot, ephemeral btrfs |
+| `normandy` | AMD desktop workstation | Hyprland (uwsm) + Cinnamon fallback, LUKS + fido2/TPM, secure boot, ephemeral btrfs |
 | `avalon` | MSI GS65 Stealth 8SF laptop | travel/dev machine: Intel + Nvidia PRIME offload (no RTD3 — the firmware has no _PR3), limine secure boot, TLP + msi-ec, hibernation |
 | `nostromo` | repurposed MSI Nightblade MI2 | headless, full self-hosted service stack, servers VLAN bridge |
 | `bebop` | Oracle Cloud free-tier VM | aarch64, disko cross-arch image build, serial console, Minecraft server |
 | `vm` | throwaway test VM | minimal, for fast `nix eval` / sanity checks |
-| `blacksite` | cybersecurity practice lab | guest on `pc`, XFCE, Kali-style toolbox + vulnerable targets ([docs](docs/blacksite-lab.md)) |
+| `blacksite` | cybersecurity practice lab | guest on `normandy`, XFCE, Kali-style toolbox + vulnerable targets ([docs](docs/blacksite-lab.md)) |
 | `wsl` | NixOS on WSL2 | no disk/persistence concerns, work identity |
 
 ## Structure
@@ -79,7 +79,7 @@ modules/
                            networking, yubikey, tpm, ...
       optional/            opt-in host features: docker, libvirtd, nginx,
                            disko-btrfs, steam, snapshots, ...
-    pc/, avalon/, nostromo/, bebop/, vm/, blacksite/, wsl/
+    normandy/, avalon/, nostromo/, bebop/, vm/, blacksite/, wsl/
                            one directory per host
 overlays/                nixpkgs overlays (flake-inputs alias, stable
                          channel, custom package patches)

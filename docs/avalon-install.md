@@ -11,7 +11,7 @@ install cannot yet decrypt the shared user secrets. Steps 5–6 remove them.
 
 ## 1. Boot the installer
 
-Build the repo's own ISO on `pc` and write it to a USB stick:
+Build the repo's own ISO on `normandy` and write it to a USB stick:
 
 ```console
 $ nix build .#install-iso
@@ -56,7 +56,7 @@ $ nmtui
 ## 5. Rotate the sops host key
 
 The install generated a brand-new ssh host key, so the `avalon` age identity in
-`.sops.yaml` is stale. From `pc` (or on the laptop itself, against a clone):
+`.sops.yaml` is stale. From `normandy` (or on the laptop itself, against a clone):
 
 ```console
 $ ssh-keyscan avalon | nix run nixpkgs#ssh-to-age
@@ -87,7 +87,7 @@ $ sudo nixos-rebuild switch --flake .#avalon
 
 ## 7. Secure boot
 
-Same procedure as `pc` (`modules/hosts/features/optional/secure-boot.nix`), in
+Same procedure as `normandy` (`modules/hosts/features/optional/secure-boot.nix`), in
 this order:
 
 ```console

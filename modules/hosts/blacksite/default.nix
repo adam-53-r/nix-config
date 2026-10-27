@@ -1,5 +1,5 @@
 # The blacksite host: a disposable cybersecurity practice lab, meant to run as
-# a guest on pc (which already provides libvirtd/virt-manager).
+# a guest on normandy (which already provides libvirtd/virt-manager).
 #
 # Two ways to run it, both from this one configuration:
 #

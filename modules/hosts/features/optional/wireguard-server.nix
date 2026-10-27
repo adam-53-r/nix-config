@@ -1,4 +1,4 @@
-# WireGuard server end of the adamr road-warrior tunnel (the pc host is the
+# WireGuard server end of the adamr road-warrior tunnel (the normandy host is the
 # client peer). The private key is generated on-host unless the host overrides
 # privateKeyFile (nostromo pins it to a sops secret).
 {

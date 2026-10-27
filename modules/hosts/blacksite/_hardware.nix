@@ -1,4 +1,4 @@
-# blacksite hardware: a QEMU/KVM guest on pc, single virtio disk, ephemeral
+# blacksite hardware: a QEMU/KVM guest on normandy, single virtio disk, ephemeral
 # btrfs root (layout owned by diskoBtrfs).
 # Plain NixOS module (underscore file: skipped by import-tree), imported by
 # blacksiteConfiguration in ./default.nix.

@@ -1,6 +1,8 @@
 # Restic backups of /persist to nostromo's rest-server.
 {config, ...}: {
   services.restic.backups.persist = {
+    # The rest-server repo and user still carry the pre-rename name.
+    repository = "rest:https://restic.arm53.xyz/pc/persist";
     exclude = [
       "/persist/home/adamr/.local/share/Steam/steamapps/common"
       "/persist/home/adamr/.local/share/Steam/steamapps/shadercache"

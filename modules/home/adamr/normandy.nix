@@ -1,7 +1,7 @@
-# Per-host home profile: adamr on the pc desktop (hyprland + cinnamon
+# Per-host home profile: adamr on the normandy desktop (hyprland + cinnamon
 # fallback, games, monitor layout, wallpaper).
 {self, ...}: {
-  flake.homeModules."adamr@pc" = {pkgs, ...}: {
+  flake.homeModules."adamr@normandy" = {pkgs, ...}: {
     imports = [
       self.homeModules.adamrHome
       self.homeModules.cliWorkstation

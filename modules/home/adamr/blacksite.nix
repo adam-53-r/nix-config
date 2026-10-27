@@ -3,7 +3,7 @@
 # adamrHome (cliBase + gpg/ssh/gh + identity), plus persistence for the tool
 # state that is genuinely annoying to lose on a box whose root is wiped every
 # boot: an in-progress Burp project, msf history, cracked hashes.
-# Deliberately NOT cliWorkstation — that layer is pc's dev tooling (wine,
+# Deliberately NOT cliWorkstation — that layer is normandy's dev tooling (wine,
 # embedded toolchains, profilers) and has nothing to do with this box.
 {self, ...}: {
   flake.homeModules."adamr@blacksite" = {...}: {

@@ -1,6 +1,6 @@
 # TLP battery/power heuristics for laptops, with USB autosuspend disabled so
 # peripherals (YubiKey included) don't flake out on idle. Desktops skip TLP
-# and carry only the kernel param (see the pc host).
+# and carry only the kernel param (see the normandy host).
 {
   flake.nixosModules.optionalTlp = {
     key = "mynix#nixosModules.optionalTlp";

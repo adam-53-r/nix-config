@@ -4,9 +4,9 @@
   ...
 }: {
   flake.nixosConfigurations = {
-    pc = inputs.nixpkgs.lib.nixosSystem {
+    normandy = inputs.nixpkgs.lib.nixosSystem {
       modules = [
-        self.nixosModules.pcConfiguration
+        self.nixosModules.normandyConfiguration
       ];
     };
     vm = inputs.nixpkgs.lib.nixosSystem {

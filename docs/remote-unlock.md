@@ -1,6 +1,6 @@
-# Remote power-on + unlock for pc
+# Remote power-on + unlock for normandy
 
-Two pieces, wired up in `modules/hosts/pc/_hardware.nix`:
+Two pieces, wired up in `modules/hosts/normandy/_hardware.nix`:
 
 1. **Wake-on-LAN** on `enp16s0` (RTL8126, MAC `34:5a:60:c8:ef:1f`) - lets you
    power the box on remotely.
@@ -30,7 +30,7 @@ Runs as your normal user, no root needed for generation - only for
 installing it:
 
 ```fish
-ssh-keygen -t ed25519 -N "" -C "pc-initrd" -f /tmp/ssh_host_ed25519_key
+ssh-keygen -t ed25519 -N "" -C "normandy-initrd" -f /tmp/ssh_host_ed25519_key
 sudo install -d -m 0700 /etc/secrets/initrd
 sudo install -m 0600 /tmp/ssh_host_ed25519_key /etc/secrets/initrd/ssh_host_ed25519_key
 sudo install -m 0644 /tmp/ssh_host_ed25519_key.pub /etc/secrets/initrd/ssh_host_ed25519_key.pub
@@ -40,7 +40,7 @@ shred -u /tmp/ssh_host_ed25519_key /tmp/ssh_host_ed25519_key.pub
 This path (`/etc/secrets/initrd/ssh_host_ed25519_key`) matches what's
 referenced in `_hardware.nix`'s `boot.initrd.network.ssh.hostKeys`, and
 `/etc/secrets/initrd` is now in `environment.persistence."/persist".directories`
-in that same file - pc's root is ephemeral (wiped every reboot), so without
+in that same file - normandy's root is ephemeral (wiped every reboot), so without
 that line this key would disappear on the next reboot and rebuilds would
 silently stop embedding a host key. It's **never committed to git** - it's a
 real secret that only lives in `/persist` on this machine.
@@ -48,7 +48,7 @@ real secret that only lives in `/persist` on this machine.
 ### 3. Rebuild and test *with physical access*
 
 ```fish
-sudo nixos-rebuild boot --flake ~/mynix#pc
+sudo nixos-rebuild boot --flake ~/mynix#normandy
 ```
 
 Use `boot`, not `switch`, for the first test - this only makes the new
@@ -85,11 +85,11 @@ ethtool enp16s0 | grep Wake-on   # recheck
 ### 5. Test the full flow from another machine on the LAN
 
 ```fish
-# power off pc first, then from another box on the same LAN:
+# power off normandy first, then from another box on the same LAN:
 wakeonlan 34:5a:60:c8:ef:1f
 # wait a few seconds for POST + initrd, then find its DHCP lease (check your
 # router, or arp -a) and:
-ssh root@<pc-dhcp-ip>
+ssh root@<normandy-dhcp-ip>
 # connecting runs `systemctl default`, which should prompt for the LUKS passphrase
 ```
 

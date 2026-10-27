@@ -23,7 +23,7 @@
         # timer silently trim nothing.
         allowDiscards = true;
         # Don't bounce IO through dm-crypt's kernel workqueues: on NVMe they
-        # add queueing latency under bulk writes (same reasoning as pc).
+        # add queueing latency under bulk writes (same reasoning as normandy).
         bypassWorkqueues = true;
       };
     };

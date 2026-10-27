@@ -1,4 +1,4 @@
-# pc memory and sleep policy, ported from avalon's _power.nix.
+# normandy memory and sleep policy, ported from avalon's _power.nix.
 {lib, ...}: {
   ###### Memory / swap ######################################################
 

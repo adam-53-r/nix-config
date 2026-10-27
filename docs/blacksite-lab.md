@@ -1,6 +1,6 @@
 # blacksite: the cybersecurity practice lab
 
-A disposable NixOS guest, meant to run on `pc`, carrying a Kali-style
+A disposable NixOS guest, meant to run on `normandy`, carrying a Kali-style
 offensive-security toolbox plus a few deliberately-vulnerable targets to point
 it at. Ephemeral btrfs root (wiped every boot), XFCE on X11, unencrypted on
 purpose.
@@ -34,7 +34,7 @@ nixos-rebuild build-vm --flake .#blacksite
 
 ## 2. Persistent guest under libvirt
 
-`pc` already runs libvirtd + virt-manager (`optionalLibvirtd`). Build a disk
+`normandy` already runs libvirtd + virt-manager (`optionalLibvirtd`). Build a disk
 image and import it:
 
 ```sh

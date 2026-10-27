@@ -1,4 +1,4 @@
-# The pc host: AMD desktop workstation running Hyprland (uwsm) with Cinnamon
+# The normandy host: AMD desktop workstation running Hyprland (uwsm) with Cinnamon
 # as fallback, on an encrypted ephemeral btrfs root with limine secure boot.
 #
 # Memory and sleep policy (zram, and hibernation onto the swapfile declared in
@@ -8,8 +8,8 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.pcConfiguration = {pkgs, ...}: {
-    key = "mynix#nixosModules.pcConfiguration";
+  flake.nixosModules.normandyConfiguration = {pkgs, ...}: {
+    key = "mynix#nixosModules.normandyConfiguration";
 
     imports = [
       inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -43,9 +43,12 @@
       ./_ai.nix
     ];
 
-    networking.hostName = "pc";
+    networking.hostName = "normandy";
 
     hardware.disko-btrfs = {
+      # Keeps the disk-main-pc partlabel and the "pc" LUKS mapper from before
+      # the rename.
+      name = "pc";
       encrypted = true;
       ephemeral = true;
       # TRIM is handled by fstrim.timer (common-pc-ssd), not continuous discard.
