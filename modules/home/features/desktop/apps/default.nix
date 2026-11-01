@@ -17,7 +17,7 @@
       self.homeModules.homeQt
       self.homeModules.homeKdeconnect
       self.homeModules.homePlayerctl
-      self.homeModules.homeBitwarden
+      self.homeModules.homeRbw
       self.homeModules.homeDrawio
       self.homeModules.homeGns3
       self.homeModules.homeJetbrains

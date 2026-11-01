@@ -351,14 +351,14 @@
               ]
               ++ (
                 let
-                  pass-wofi = lib.getExe (pkgs.pass-wofi.override {pass = config.programs.password-store.package;});
+                  rofi-rbw = "${lib.getExe pkgs.rofi-rbw-wayland} --selector wofi";
                 in
-                  lib.optionals config.programs.password-store.enable [
-                    ",XF86Calculator,exec,${pass-wofi}"
-                    "SHIFT,XF86Calculator,exec,${pass-wofi} fill"
+                  lib.optionals config.programs.rbw.enable [
+                    ",XF86Calculator,exec,${rofi-rbw} --action copy"
+                    "SHIFT,XF86Calculator,exec,${rofi-rbw} --action type"
 
-                    "SUPER,semicolon,exec,${pass-wofi}"
-                    "SHIFTSUPER,semicolon,exec,${pass-wofi} fill"
+                    "SUPER,semicolon,exec,${rofi-rbw} --action copy"
+                    "SHIFTSUPER,semicolon,exec,${rofi-rbw} --action type"
                   ]
               )
               ++ (
