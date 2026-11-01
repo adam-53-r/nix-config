@@ -3,7 +3,7 @@
     programs.rbw = {
       enable = true;
       settings = {
-        email = "adam-53-r@protonmail.com";
+        email = "adam@arm53.xyz";
         lock_timeout = 900;
         pinentry = pkgs.pinentry-qt;
       };
