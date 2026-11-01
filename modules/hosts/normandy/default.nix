@@ -31,6 +31,7 @@
       self.nixosModules.optionalPersistBackup
       self.nixosModules.optionalFlatpak
       self.nixosModules.optionalAtop
+      self.nixosModules.optionalSshCloudBackups
       self.nixosModules.userAdamr
 
       ./_hardware.nix

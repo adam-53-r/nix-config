@@ -27,6 +27,7 @@
       self.nixosModules.optionalLibvirtd
       self.nixosModules.optionalSnapshots
       self.nixosModules.optionalPersistBackup
+      self.nixosModules.optionalSshCloudBackups
       self.nixosModules.userAdamr
 
       # Service-stack foundations used across ./_services
