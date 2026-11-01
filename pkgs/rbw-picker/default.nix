@@ -3,7 +3,6 @@
   stdenv,
   makeWrapper,
   alacritty,
-  bitwarden-cli,
   coreutils,
   fzf,
   helix,
@@ -30,7 +29,6 @@ stdenv.mkDerivation {
       "${
       lib.makeBinPath [
         alacritty
-        bitwarden-cli
         coreutils
         fzf
         helix
@@ -43,7 +41,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "An fzf picker for rbw, editing through the bitwarden CLI";
+    description = "A read-only fzf picker for rbw";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "rbw-picker";
