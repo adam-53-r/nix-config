@@ -12,6 +12,7 @@ lib=@out@/share/rbw-picker
 runtime=${XDG_RUNTIME_DIR:?}
 bw_session_file=$runtime/rbw-picker-bw-session
 bw_session_ttl=900
+clip_sum_file=$runtime/rbw-picker-clip
 clip_ttl=30
 
 pjq() {
@@ -45,14 +46,20 @@ copy() {
     v=$(cat)
     [ -n "$v" ] || return 1
     printf '%s' "$v" | wl-copy --sensitive
-    sum=$(printf '%s' "$v" | sha256sum | cut -d' ' -f1)
+    # The checksum stays in a 0600 file: argv is world-readable and systemd
+    # keeps the unit's command line.
+    printf '%s' "$v" | sha256sum | cut -d' ' -f1 > "$clip_sum_file"
     systemctl --user stop rbw-picker-clip.timer 2>/dev/null
     systemd-run --user --quiet --collect --unit=rbw-picker-clip --on-active=$clip_ttl \
-        --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" "$self" clip-clear "$sum"
+        --setenv=WAYLAND_DISPLAY="$WAYLAND_DISPLAY" "$self" clip-clear
 }
 
 clip_clear() {
-    [ "$(wl-paste -n 2>/dev/null | sha256sum | cut -d' ' -f1)" = "$1" ] && wl-copy --clear
+    local sum
+    [ -s "$clip_sum_file" ] || return 0
+    sum=$(cat "$clip_sum_file")
+    rm -f "$clip_sum_file"
+    [ "$(wl-paste -n 2>/dev/null | sha256sum | cut -d' ' -f1)" = "$sum" ] && wl-copy --clear
 }
 
 type_value() {
@@ -250,7 +257,7 @@ launch() {
 case ${1:-} in
     ui) ui "$2" "$3" ;;
     preview) raw "$2" | pjq preview ;;
-    clip-clear) clip_clear "$2" ;;
+    clip-clear) clip_clear ;;
     bw-lock) bw_lock ;;
     lock)
         rbw lock 2> /dev/null
