@@ -2,16 +2,19 @@
 # off in case the wayland-wm aggregate pulled it in).
 {
   flake.homeModules.homeHypridle = {
+    config,
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    lockVaults = lib.optionalString config.programs.rbw.enable "${lib.getExe pkgs.rbw-picker} lock; ";
+  in {
     services.swayidle.enable = lib.mkForce false;
     services.hypridle = {
       enable = true;
       settings = {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+          lock_cmd = "${lockVaults}pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
           before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
         };

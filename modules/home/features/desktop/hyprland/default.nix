@@ -165,6 +165,7 @@
           calculator = "match:class org.gnome.Calculator";
           nemo = "match:class nemo";
           steamSecondary = "match:class ^steam$, match:title negative:^Steam";
+          rbwPicker = "match:class rbw-picker";
         in [
           "immediate on, ${steamGame}"
           "size 100% 100%, ${kdeconnect-pointer}"
@@ -183,6 +184,9 @@
           "float on, ${nemo}"
           "size (monitor_w*0.5) (monitor_h*0.5), ${nemo}"
           "float on, ${steamSecondary}"
+          "float on, ${rbwPicker}"
+          "size (monitor_w*0.6) (monitor_h*0.6), ${rbwPicker}"
+          "center on, ${rbwPicker}"
         ];
 
         layerrule = [
@@ -351,14 +355,14 @@
               ]
               ++ (
                 let
-                  rofi-rbw = "${lib.getExe pkgs.rofi-rbw-wayland} --selector wofi";
+                  rbw-picker = lib.getExe pkgs.rbw-picker;
                 in
                   lib.optionals config.programs.rbw.enable [
-                    ",XF86Calculator,exec,${rofi-rbw} --action copy"
-                    "SHIFT,XF86Calculator,exec,${rofi-rbw} --action type"
+                    ",XF86Calculator,exec,${rbw-picker}"
+                    "SHIFT,XF86Calculator,exec,${rbw-picker} --type"
 
-                    "SUPER,semicolon,exec,${rofi-rbw} --action copy"
-                    "SHIFTSUPER,semicolon,exec,${rofi-rbw} --action type"
+                    "SUPER,semicolon,exec,${rbw-picker}"
+                    "SHIFTSUPER,semicolon,exec,${rbw-picker} --type"
                   ]
               )
               ++ (
@@ -395,10 +399,11 @@
           (
             let
               swaylock = lib.getExe config.programs.swaylock.package;
+              lockVaults = lib.optionalString config.programs.rbw.enable "${lib.getExe pkgs.rbw-picker} lock; ";
             in
               lib.optionals config.programs.swaylock.enable [
-                "SUPER,backspace,exec,${swaylock} -S --grace 2 --grace-no-mouse"
-                "SUPER,XF86Calculator,exec,${swaylock} -S --grace 2 --grace-no-mouse"
+                "SUPER,backspace,exec,${lockVaults}${swaylock} -S --grace 2 --grace-no-mouse"
+                "SUPER,XF86Calculator,exec,${lockVaults}${swaylock} -S --grace 2 --grace-no-mouse"
               ]
           );
 

@@ -2,6 +2,7 @@
   # Personal scripts
   minicava = pkgs.callPackage ./minicava {};
   pass-wofi = pkgs.callPackage ./pass-wofi {};
+  rbw-picker = pkgs.callPackage ./rbw-picker {};
   xpo = pkgs.callPackage ./xpo {};
 
   # My slightly customized plymouth theme, just makes the blue outline white
