@@ -67,6 +67,7 @@
       restic-browser
       teamviewer
       vlc
+      cinny-desktop
     ];
 
     # Also sets org.freedesktop.appearance color-scheme
