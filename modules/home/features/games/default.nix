@@ -4,7 +4,7 @@
     imports = [
       self.homeModules.homeSteam
       self.homeModules.homePrismLauncher
-      self.homeModules.homeMangohud
+      # self.homeModules.homeMangohud
     ];
 
     home.packages = with pkgs; [gamescope satisfactorymodmanager];

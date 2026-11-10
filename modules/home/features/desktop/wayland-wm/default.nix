@@ -7,11 +7,11 @@
       self.homeModules.homeAlacritty
       self.homeModules.homeCliphist
       self.homeModules.homeGammastep
-      self.homeModules.homeMako
+      # self.homeModules.homeMako
       self.homeModules.homeQutebrowser
       self.homeModules.homeSwayidle
       self.homeModules.homeSwaylock
-      self.homeModules.homeWaybar
+      # self.homeModules.homeWaybar
       self.homeModules.homeWofi
       self.homeModules.homeImv
       self.homeModules.homeWaypipe
