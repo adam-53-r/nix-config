@@ -48,3 +48,9 @@ creation_rules:
         pgp:
           - *yubikey1
           - *yubikey2
+
+  - path_regex: modules/.*nix.sops$
+    key_groups:
+      - pgp:
+          - *yubikey1
+          - *yubikey2

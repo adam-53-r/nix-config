@@ -42,6 +42,7 @@
       ./_backup.nix
       ./_ups.nix
       ./_ai.nix
+      ((import ../../flake/_extra-builtins.nix builtins).importEncrypted ./_hidden.nix.sops)
     ];
 
     networking.hostName = "normandy";
