@@ -45,7 +45,8 @@ in {
     wantedBy = ["multi-user.target"];
     after = ["ollama.service" "ollama-model-loader.service"];
     bindsTo = ["ollama.service"];
-    environment.OLLAMA_HOST = config.systemd.services.ollama.environment.OLLAMA_HOST;
+    # The CLI panics without $HOME even as a client; same env as ollama-model-loader.
+    environment = config.systemd.services.ollama.environment;
     script = lib.concatStringsSep "\n" (lib.mapAttrsToList (name: file: "${ollama} create ${name} -f ${file}") presets);
     serviceConfig = {
       Type = "oneshot";
