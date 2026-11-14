@@ -41,7 +41,7 @@
       ./_wireguard.nix
       ./_backup.nix
       ./_ups.nix
-      ./_ai.nix
+      ./_ai
       ((import ../../flake/_extra-builtins.nix builtins).importEncrypted ./_hidden.nix.sops)
     ];
 
