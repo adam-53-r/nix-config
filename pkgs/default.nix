@@ -5,6 +5,8 @@
   rbw-picker = pkgs.callPackage ./rbw-picker {};
   xpo = pkgs.callPackage ./xpo {};
 
+  monado-pimax = pkgs.callPackage ./monado-pimax {};
+
   # My slightly customized plymouth theme, just makes the blue outline white
   plymouth-spinner-monochrome = pkgs.callPackage ./plymouth-spinner-monochrome {};
   # Plays a source video as a boot splash (converted to a PNG frame sequence

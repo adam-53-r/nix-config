@@ -11,6 +11,7 @@
       self.homeModules.homeWayvnc
       self.homeModules.homeTheming
       self.homeModules.homeGames
+      self.homeModules.homePimaxVr
       self.homeModules.homeProductivity
       self.homeModules.homePass
       self.homeModules.homeHelix
