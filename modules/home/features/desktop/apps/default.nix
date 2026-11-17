@@ -68,6 +68,7 @@
       teamviewer
       vlc
       cinny-desktop
+      discord
     ];
 
     # Also sets org.freedesktop.appearance color-scheme
