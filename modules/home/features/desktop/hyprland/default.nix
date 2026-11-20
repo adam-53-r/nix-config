@@ -166,7 +166,7 @@
               corne = name: {
                 inherit name;
                 kb_layout = "us,es";
-                kb_options = "grp:win_space_toggle,grp:caps_select";
+                kb_options = "grp:win_space_toggle,compose:menu";
               };
             in
             [
